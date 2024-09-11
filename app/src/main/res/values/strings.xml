@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">RiccoApp</string>
+
+
+    <!-- REGISTRO -->
+
+    <string name="register_title">Registrate</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="password">Contraseña</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="email">E-mail</string>
+    <string name="phone">Teléfono</string>
+    <string name="street">Calle</string>
+    <string name="number">Número</string>
+    <string name="btn_register">Enviar</string>
+    <string name="login_action">¿Ya tenés una cuenta? Inicia sesión</string>
+
+
+
+
+</resources>
+
