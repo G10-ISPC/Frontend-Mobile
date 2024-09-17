@@ -15,9 +15,19 @@
     <string name="number">Número</string>
     <string name="btn_register">Enviar</string>
     <string name="login_action">¿Ya tenés una cuenta? Inicia sesión</string>
+    <!-- Perfil usuario -->
 
 
-
+    <string name="eliminar_cuenta">Eliminar Cuenta</string>
+    <string name="editar">Editar</string>
+    <string name="contrase_a">Contraseña</string>
+    <!--<string name="email">Email</string>-->
+    <string name="n_mero">Número</string>
+    <string name="call">Call</string>
+    <string name="apellido">Apellido</string>
+    <string name="nombre">Nombre</string>
+    <string name="perfil_de_usuario">Perfil de Usuario</string>
+    <string name="volver_a_suscribirse">Volver a Suscribirse</string>
 
 </resources>
 
