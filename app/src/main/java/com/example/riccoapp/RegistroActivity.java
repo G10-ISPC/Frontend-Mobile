@@ -8,7 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class registro extends AppCompatActivity {
+public class RegistroActivity extends AppCompatActivity {
 
 
 
