@@ -13,6 +13,9 @@
         android:theme="@style/Theme.RiccoApp"
         tools:targetApi="31">
         <activity
+            android:name=".ContactoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProductsActivity"
             android:exported="false" />
         <activity

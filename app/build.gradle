@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.example.riccoapp'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.example.riccoapp"
@@ -26,6 +26,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '35.0.0'
 }
 
 dependencies {
