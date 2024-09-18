@@ -83,5 +83,11 @@
     <string name="menu_contact">Contact</string>
     <string name="Copy_ISPC_RICCO_BURGERS">RiccoBurger</string>
 
+    <!-- SPLASH -->
+
+    <string name="welcome_message">Bienvenido a RiccoApp</string>
+    <string name="bienvenido_a_riccoapp">Bienvenido a RiccoApp</string>
+    <string name="todo">TODO</string>
+
 </resources>
 
