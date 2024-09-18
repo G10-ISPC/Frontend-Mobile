@@ -18,9 +18,11 @@ RICCO App está diseñada para ofrecer una experiencia de compra fácil y segura
 
 ## Uso
 ### Cliente
-1. **Navegar por el catálogo**: Explora las diferentes categorías y opciones de hamburguesas.
-2. **Agregar al carrito**: Selecciona las hamburguesas que deseas comprar y agrégala al carrito.
-3. **Realizar el pago**: Procede al pago en línea de tu pedido.
+1. **Registrarse en la aplicación.**
+2. **Iniciar Sesión.**
+3. **Navegar por el catálogo**: Explora las diferentes categorías y opciones de hamburguesas.
+4. **Cerrar Sesión.**
+5. **Eliminar su cuenta.**
 
 
 ### Vendedor
