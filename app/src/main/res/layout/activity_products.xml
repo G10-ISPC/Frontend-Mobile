@@ -221,7 +221,7 @@
                     <!-- Imagen del producto -->
                     <ImageView
                         android:layout_width="120dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="133dp"
                         android:contentDescription="@string/burger4"
                         android:scaleType="centerCrop"
                         android:src="@drawable/bur4" />
@@ -282,7 +282,7 @@
                     <!-- Imagen del producto -->
                     <ImageView
                         android:layout_width="120dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="124dp"
                         android:contentDescription="@string/burger5"
                         android:scaleType="centerCrop"
                         android:src="@drawable/bur5" />
