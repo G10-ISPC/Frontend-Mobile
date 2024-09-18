@@ -35,7 +35,7 @@ Puede actualizar sus datos personales o eliminar su cuenta en cualquier momento.
 
 ## Nuestra App - Vídeo de maqueta
 
-Vea cómo se ve y funciona RiccoApp en esta maqueta en video: [RiccoApp](https://www.youtube.com/watch?v=PWmfgiqc3sI)
+Vea cómo se ve y funciona RiccoApp en esta maqueta en video: [RiccoApp](https://www.youtube.com/watch?v=DL9KUXR6U98)
 
 **Nota**: La ActivitySplash no está configurada para mostrarse al iniciar la aplicación. Esto se implementará en futuras actualizaciones.
 
