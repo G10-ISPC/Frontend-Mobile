@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- estilo personalizado para los botones -->
+    <style name="CustomButtonStyle">
+        <item name="android:background">@color/orange</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+</resources>
