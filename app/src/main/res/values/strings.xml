@@ -63,5 +63,15 @@
     <string name="burger7">TODO</string>
     <string name="burger8">TODO</string>
 
+    <!-- LOGIN-->
+    <string name="titulo_login">Ingrese sesión</string>
+    <string name="lbl_usuario">Usuario</string>
+    <string name="txt_usuario">Ingrese Usuario</string>
+    <string name="lbl_password">Contraseña</string>
+    <string name="txt_password">Ingrese Contraseña</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="lbl_crear_cuenta">No tienes cuenta?, Registrate</string>
+    <string name="image_description">Descripción de la imágen</string>
+
 </resources>
 
