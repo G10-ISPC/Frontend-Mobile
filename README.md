@@ -3,8 +3,6 @@
 Bienvenido a RICCO, aplicación móvil e-commerce.
 
 ## Descripción
-RiccoApp - Aplicación móvil de comercio electrónico para hamburguesas
-Descripción general del proyecto
 RiccoApp es una aplicación móvil diseñada para un negocio de hamburguesas. La aplicación permite a los usuarios navegar por el menú, explorar diferentes secciones de la aplicación y administrar sus cuentas. Si bien los usuarios pueden ver los productos disponibles y navegar por la aplicación, la función para realizar pedidos aún no está disponible.
 
 **Características principales**
