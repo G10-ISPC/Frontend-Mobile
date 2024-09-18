@@ -1,20 +1,14 @@
 # Ricco App
 
-
 Bienvenido a RICCO, una aplicación web de comercio electrónico especializado en la venta de hamburguesas. Este proyecto permite a los clientes comprar hamburguesas y a los vendedores cargar información relacionada con los productos.
-
 
 ## Tabla de Contenidos
 - [Descripción](#descripción)
 - [Uso](#uso)
 - [Desarrolladores](#desarrolladores)
 
-
-
-
 ## Descripción
-RICCO App está diseñada para ofrecer una experiencia de compra fácil y segura para los amantes de las hamburguesas. Los clientes pueden navegar por el catálogo de hamburguesas, realizar pedidos y pagos en línea. Por otro lado, los vendedores tienen la capacidad de cargar información detallada de los productos, gestionar inventarios y procesar pedidos.
-
+RICCO App está diseñada para los amantes de las hamburguesas. Los clientes pueden crear una cuenta, realizando un registro, loguearse usando las credenciales utilizadas en el registro, navegar tanto por el catálogo de hamburguesas, como por las distintas páginas que ofrece la aplicación, cerrar Sesión e incluso eliminar su cuenta.  
 
 ## Uso
 ### Cliente
@@ -24,12 +18,8 @@ RICCO App está diseñada para ofrecer una experiencia de compra fácil y segura
 4. **Cerrar Sesión.**
 5. **Eliminar su cuenta.**
 
-
-### Vendedor
-1. **Cargar productos**: Añade información detallada de los productos, como nombre, descripción, precio y foto.
-2. **Gestionar inventario**: Actualiza el stock de los productos disponibles.
-3. **Procesar pedidos**: Revisa y gestiona los pedidos realizados por los clientes.
-
+## Nuestra App
+https://www.youtube.com/watch?v=PWmfgiqc3sI
 
 ## Desarrolladores
 - Arévalo, Carla Elizabeth
