@@ -15,9 +15,63 @@
     <string name="number">Número</string>
     <string name="btn_register">Enviar</string>
     <string name="login_action">¿Ya tenés una cuenta? Inicia sesión</string>
+    <!-- Perfil usuario -->
 
 
+    <string name="eliminar_cuenta">Eliminar Cuenta</string>
+    <string name="editar">Editar</string>
+    <string name="contrase_a">Contraseña</string>
+    <!--<string name="email">Email</string>-->
+    <string name="n_mero">Número</string>
+    <string name="call">Call</string>
+    <string name="apellido">Apellido</string>
+    <string name="nombre">Nombre</string>
+    <string name="perfil_de_usuario">Perfil de Usuario</string>
+    <string name="volver_a_suscribirse">Volver a Suscribirse</string>
 
+    <!-- PRODUCTS-->
+    <string name="name1">KING KONG BURGER</string>
+    <string name="description1">6/8 porciones. Burger XXL de 1kg, con queso cheddar, lechuga, tomate y panceta crocante.</string>
+    <string name="price1">$4500</string>
+    <string name="name2">TASTY RICCA</string>
+    <string name="description2">Pan casero. Burger de carne 220gr. Queso cheddar fundido, lechuga, tomate huevo planchado, panceta crocante y cebolla asada</string>
+    <string name="price2">$2450</string>
+    <string name="name3">AMERICAN</string>
+    <string name="description3">Pan casero.Burger de carne 200gr. Queso cheddar fundido con panceta crocante y huevo a la plancha</string>
+    <string name="price3">$3900</string>
+    <string name="name4">LOUIS\' HONOR</string>
+    <string name="description4">Pan casero. Doble burger de carne 200gr. Queso azul fundido. Cebolla caramelizada. Panceta crocante. Champignones asados. Rúcula</string>
+    <string name="price4">$4100</string>
+    <string name="name5">RICCA</string>
+    <string name="description5">Pan casero. Burger de carne 200gr. Queso muzzarella fundido. Aros de cebolla fritos. Panceta crocante. Guacamole</string>
+    <string name="price5">$3250</string>
+    <string name="name6">LAMBHAUS</string>
+    <string name="description6">Pan casero. Burger de cordero 190gr. Queso brie fundido con frutos secos. Cebolla al malbec</string>
+    <string name="price6">$2780</string>
+    <string name="name7">DOUBLE CHEESE and BACON</string>
+    <string name="description7">Pan casero. Doble burger de carne 200gr. Doble queso cheddar. Panceta. Cebolla</string>
+    <string name="price7">$4450</string>
+    <string name="name8">LASSEN WURST</string>
+    <string name="description8">Pan ciabatta de aceitunas. Sandwich de chorizo alemán 140gr. Queso dambo fundido. Cebolla caramelizada. Panceta crocante</string>
+    <string name="price8">$3450</string>
+    <string name="burger1">TODO</string>
+    <string name="burger2">TODO</string>
+    <string name="burger3">TODO</string>
+    <string name="burger4">TODO</string>
+    <string name="burger5">TODO</string>
+    <string name="burger6">TODO</string>
+    <string name="burger7">TODO</string>
+    <string name="burger8">TODO</string>
+
+    <!-- LOGIN-->
+    <string name="titulo_login">Ingrese sesión</string>
+    <string name="lbl_usuario">Usuario</string>
+    <string name="txt_usuario">Ingrese Usuario</string>
+    <string name="lbl_password">Contraseña</string>
+    <string name="txt_password">Ingrese Contraseña</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="lbl_crear_cuenta">No tienes cuenta?, Registrate</string>
+    <string name="image_description">Descripción de la imágen</string>
 
 </resources>
 

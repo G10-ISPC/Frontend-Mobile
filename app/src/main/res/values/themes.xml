@@ -2,6 +2,13 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RiccoApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryVariant">@color/orange</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorSecondary">@color/orange</item>
+        <item name="colorSecondaryVariant">@color/orange</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+        <item name="buttonStyle">@style/CustomButtonStyle</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
