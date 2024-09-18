@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Opción Inicio -->
+    <item
+        android:id="@+id/nav_main"
+        android:title="Home"/>
+
+    <!-- Opción Acerca de -->
+     <item
+        android:id="@+id/nav_about"
+        android:title="Nosotros"/>
+
+    <!-- Opción Productos -->
+    <item
+        android:id="@+id/nav_products"
+        android:title="Productos"/>
+
+    <!-- Opción Registro -->
+    <item
+        android:id="@+id/nav_registro"
+        android:title="Registro" />
+
+    <!-- Opción Inicio de sesión -->
+    <item
+        android:id="@+id/nav_login"
+        android:title="Login" />
+
+    <!-- Opción Contacto -->
+    <item
+        android:id="@+id/nav_contacto"
+        android:title="Contacto"/>
+
+    <!-- Perfil Usuario -->
+    <item
+        android:id="@+id/nav_userprofile"
+        android:title="Perfil Usuario"/>
+
+
+</menu>
