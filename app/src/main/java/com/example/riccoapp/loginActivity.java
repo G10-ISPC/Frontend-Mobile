@@ -1,14 +1,25 @@
 package com.example.riccoapp;
+import android.content.SharedPreferences;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
+
+import com.example.riccoapp.api.ApiService;
+import com.example.riccoapp.api.LoginRequest;
+import com.example.riccoapp.api.LoginResponse;
+import com.example.riccoapp.api.RetrofitClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,39 +47,82 @@ public class loginActivity extends AppCompatActivity {
         });
     }
 
-
     private void handleLogin() {
-        String username = usernameEditText.getText().toString();
+        String email = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        if (validateInputs(username, password)) {
-            // Start HomeActivity after successful login
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish(); // Optionally close the login activity
+        if (validateInputs(email, password)) {
+            // Crear el objeto de solicitud
+            LoginRequest request = new LoginRequest(email, password);
+
+            // Log para depurar
+            Log.d("LoginActivity", "Request: " + request.getEmail() + ", " + request.getPassword());
+
+            ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+
+            // Hacer la llamada a la API
+            Call<LoginResponse> call = apiService.login(request);
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful()) {
+                        // Manejar respuesta exitosa
+                        LoginResponse loginResponse = response.body(); // Obtener la respuesta del cuerpo
+                        String token = loginResponse.getToken(); // Obtener el token
+                        String firstName = loginResponse.Getuser().getFirstName(); // Obtener el primer nombre
+                        String lastName = loginResponse.Getuser().getLastName(); // Obtener el apellido
+
+                        Log.d("LoginActivity", "First Name: " + firstName);
+                        Log.d("LoginActivity", "Last Name: " + lastName);
+
+
+                        // Guardar en SharedPreferences
+                        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("user_name", firstName);
+                        editor.putString("user_lastname", lastName);
+                        editor.putString("user_token", token); // Opcional: guardar el token
+                        editor.clear();
+                        editor.apply();
+
+                        Toast.makeText(loginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // Manejar error en la respuesta
+                        Toast.makeText(loginActivity.this, "Error en el login: " + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    // Manejar error de conexión
+                    Toast.makeText(loginActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("LoginActivity", "Error: ", t);
+                }
+            });
         } else {
             Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
-            // Handle failed login
-
         }
     }
 
-    private boolean validateInputs(String username, String password) {
+    private boolean validateInputs(String email, String password) {
         boolean isValid = true;
 
-        if (!isValidEmail(username)) {
+        if (!isValidEmail(email)) {
             usernameEditText.setError("Ingrese de forma correcta el email");
             isValid = false;
         } else {
-            usernameEditText.setError(null); // Clear the error
+            usernameEditText.setError(null); // Limpiar error
         }
 
         if (!isValidPassword(password)) {
-            passwordEditText.setError("\"La contraseña debe tener al menos 8 caracteres, \" +\n" +
-                    "            \"incluir una letra mayúscula, una letra minúscula, un número y un carácter especial.\");");
+            passwordEditText.setError("La contraseña debe tener al menos 8 caracteres, " +
+                    "incluir una letra mayúscula, una letra minúscula, un número y un carácter especial.");
             isValid = false;
         } else {
-            passwordEditText.setError(null); // Clear the error
+            passwordEditText.setError(null); // Limpiar error
         }
 
         return isValid;
