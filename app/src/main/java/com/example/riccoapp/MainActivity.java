@@ -1,5 +1,6 @@
 package com.example.riccoapp;
 
+import android.util.Log;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,17 +19,32 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.TextView;
+import android.content.SharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
 
     private List<CarouselItem> list = new ArrayList<>();
     private List<CarouselItem> list2 = new ArrayList<>();
+    private TextView userNameTextView; // 1. Declarar el TextView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        // 2. Inicializar el TextView
+        userNameTextView = findViewById(R.id.userNameTextView);
+
+        // Recuperar datos del SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String firstName = sharedPreferences.getString("user_name", "Usuario");
+        String lastName = sharedPreferences.getString("user_lastname", "");
+        Log.d("MainActivity", "First Name: " + firstName);
+        Log.d("MainActivity", "Last Name: " + lastName);
+
+        // 3. Mostrar el mensaje de bienvenida
+        userNameTextView.setText("Bienvenido " + firstName + " " + lastName);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
