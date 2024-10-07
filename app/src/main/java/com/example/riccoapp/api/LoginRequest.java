@@ -15,7 +15,7 @@ public class LoginRequest {
         return email;
     }
 
-    public void setEmail(String username) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -27,3 +27,4 @@ public class LoginRequest {
         this.password = password;
     }
 }
+// se puede loguear con este codigo
