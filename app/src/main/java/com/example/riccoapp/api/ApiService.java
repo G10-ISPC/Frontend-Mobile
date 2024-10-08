@@ -12,5 +12,7 @@ public interface ApiService {
     @POST("login/")
     Call<LoginResponse> login(@Body LoginRequest loginRequest); // Asegúrate de tener la clase LoginRequest
 
+    @POST("registro/")
+    Call<User> register(@Body RegisterRequest registerRequest);
 
 }
