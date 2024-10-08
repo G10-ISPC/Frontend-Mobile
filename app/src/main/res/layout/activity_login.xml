@@ -126,6 +126,7 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:clickable="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
