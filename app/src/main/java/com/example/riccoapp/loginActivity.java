@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +27,7 @@ public class loginActivity extends AppCompatActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private TextView textViewCrearCuenta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,20 @@ public class loginActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
         Button loginButton = findViewById(R.id.button);
+        TextView textViewCrearCuenta = findViewById(R.id.textView6);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleLogin();
+            }
+        });
+        // Maneja el clic en el TextView para crear cuenta
+        textViewCrearCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(loginActivity.this, RegistroActivity.class); // Cambia a tu actividad de registro
+                startActivity(intent);
             }
         });
     }
