@@ -38,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Recuperar datos del SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        String firstName = sharedPreferences.getString("user_name", "Usuario");
+        String firstName = sharedPreferences.getString("user_name", "");
         String lastName = sharedPreferences.getString("user_lastname", "");
         Log.d("MainActivity", "First Name: " + firstName);
         Log.d("MainActivity", "Last Name: " + lastName);
 
         // 3. Mostrar el mensaje de bienvenida
-        userNameTextView.setText("Bienvenido " + firstName + " " + lastName);
+        userNameTextView.setText(firstName + " " + lastName);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -111,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, UserProfileActivity.class);
         } else if (itemId == R.id.nav_about) {
             intent = new Intent(this, AboutActivity.class);
+        } else if (itemId == R.id.nav_logout) { // Opción de cierre de sesión
+            logout(); // Llama al método de logout
+            return true; // Indica que se manejó la opción
         }
 
 
@@ -119,5 +122,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void logout() {
+        // Limpiar SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Limpiar todos los datos guardados
+        editor.apply();
+        // Limpiar el TextView
+        userNameTextView.setText(" ");
+
+        // En caso de querer Redirigir a otra pantalla q no sea la home descomentar y modificar:
+        // Intent intent = new Intent(MainActivity.this, loginActivity.class);
+        // startActivity(intent);
+        // finish(); // Terminar la actividad actual
     }
 }
