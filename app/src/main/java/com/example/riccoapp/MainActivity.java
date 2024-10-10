@@ -114,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.nav_logout) { // Opción de cierre de sesión
             logout(); // Llama al método de logout
             return true; // Indica que se manejó la opción
+        } else if (itemId == R.id.nav_admin_productos) { // Aquí manejamos la nueva opción
+            intent = new Intent(this, AdminActivity.class); // Cambia AdminActivity.class al nombre de tu actividad de administración
         }
 
 
