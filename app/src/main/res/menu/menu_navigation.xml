@@ -40,6 +40,12 @@
         android:id="@+id/nav_logout"
         android:title="Cerrar Sesión"/>
 
+    <!-- Opción Administrador de Productos -->
+    <item
+        android:id="@+id/nav_admin_productos"
+        android:title="Administrador de Productos"/>
+
+
 
 
 </menu>
