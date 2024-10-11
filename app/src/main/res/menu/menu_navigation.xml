@@ -37,4 +37,17 @@
         android:title="Perfil Usuario"/>
 
 
+    <!-- Opción Administrador de Productos -->
+    <item
+        android:id="@+id/nav_admin_productos"
+        android:title="Administrador de Productos" android:visible="false"/>
+
+    <!-- Opción Cerrar Sesión -->
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Cerrar Sesión"/>
+
+
+
+
 </menu>
