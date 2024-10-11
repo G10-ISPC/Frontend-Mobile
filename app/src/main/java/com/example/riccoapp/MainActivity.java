@@ -40,11 +40,17 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String firstName = sharedPreferences.getString("user_name", "");
         String lastName = sharedPreferences.getString("user_lastname", "");
+        String rol = sharedPreferences.getString("user_rol", "");
         Log.d("MainActivity", "First Name: " + firstName);
         Log.d("MainActivity", "Last Name: " + lastName);
+        Log.d("MainActivity", "Rol: " + rol); // log para verificar el rol
 
         // 3. Mostrar el mensaje de bienvenida
-        userNameTextView.setText(firstName + " " + lastName);
+        if ("admin".equals(rol)) {
+            userNameTextView.setText(firstName + " " + lastName + " - Admin"); // Mostrar nombre y rol
+        } else {
+            userNameTextView.setText(firstName + " " + lastName); // Solo mostrar nombre para clientes
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -85,13 +91,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Inflar el menú de navegación
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_navigation, menu);
+
+        // Obtener el rol del usuario
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String rol = sharedPreferences.getString("user_rol", "");
+        Log.d("Menu", "Rol del usuario: " + rol); // Verifica que imprima el rol correcto
+
+        // Mostrar/ocultar elementos del menú según el rol
+        if ("cliente".equals(rol)) {
+            // Ocultar las opciones que no deberían ver los clientes
+            menu.findItem(R.id.nav_registro).setVisible(false);
+            menu.findItem(R.id.nav_login).setVisible(false);
+            menu.findItem(R.id.nav_admin_productos).setVisible(false);
+
+        } else if ("admin".equals(rol)) {
+            // Mostrar todas las opciones para admin
+            menu.findItem(R.id.nav_registro).setVisible(false);
+            menu.findItem(R.id.nav_login).setVisible(false);
+            menu.findItem(R.id.nav_userprofile).setVisible(true);
+            menu.findItem(R.id.nav_admin_productos).setVisible(true);
+            menu.findItem(R.id.nav_main).setVisible(true);
+            menu.findItem(R.id.nav_contacto).setVisible(true);
+            menu.findItem(R.id.nav_about).setVisible(true);
+            menu.findItem(R.id.nav_logout).setVisible(true);
+        }
+        // Siempre mostrar Login y Registro si no hay rol
+        if (rol.isEmpty()) {
+            menu.findItem(R.id.nav_registro).setVisible(true);
+            menu.findItem(R.id.nav_login).setVisible(true);
+            menu.findItem(R.id.nav_userprofile).setVisible(false); // Oculta perfil de usuario
+            menu.findItem(R.id.nav_admin_productos).setVisible(false);
+            menu.findItem(R.id.nav_logout).setVisible(false);
+        }
+
         return true;
     }
-
-    // Manejar la selección de los ítems del menú
+    //-----------------
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = null;
@@ -111,13 +148,12 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, UserProfileActivity.class);
         } else if (itemId == R.id.nav_about) {
             intent = new Intent(this, AboutActivity.class);
-        } else if (itemId == R.id.nav_logout) { // Opción de cierre de sesión
+        } else if (itemId == R.id.nav_admin_productos) {
+            intent = new Intent(this, AdminActivity.class);
+        } else if (itemId == R.id.nav_logout) {
             logout(); // Llama al método de logout
             return true; // Indica que se manejó la opción
-        } else if (itemId == R.id.nav_admin_productos) { // Aquí manejamos la nueva opción
-            intent = new Intent(this, AdminActivity.class); // Cambia AdminActivity.class al nombre de tu actividad de administración
         }
-
 
         if (intent != null) {
             startActivity(intent);
@@ -125,14 +161,17 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    //-------------------
     private void logout() {
         // Limpiar SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Limpiar todos los datos guardados
+        editor.clear(); // Limpia todos los datos guardados
         editor.apply();
         // Limpiar el TextView
         userNameTextView.setText(" ");
+        // Actualizar el menú
+        invalidateOptionsMenu();
 
         // En caso de querer Redirigir a otra pantalla q no sea la home descomentar y modificar:
         // Intent intent = new Intent(MainActivity.this, loginActivity.class);

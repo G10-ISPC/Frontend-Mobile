@@ -1,17 +1,18 @@
 package com.example.riccoapp.api;
 
 public class LoginResponse {
-    private String token; // Puedes agregar más campos según tu API
+    private String token;
     private String username;
     private User user;
-    //private String first_name; // El primer nombre
-    //private String last_name; // El apellido
+    private String rol;
+
 
     // Constructor
-    public LoginResponse(String token, String username, User user) {
+    public LoginResponse(String token, String username, User user, String rol) {
         this.token = token;
         this.username = username;
         this.user = user;
+        this.rol= rol;
 
     }
 
@@ -28,5 +29,8 @@ public class LoginResponse {
 
     public User Getuser() {
         return user;
+    }
+    public String getRol() {
+        return rol;
     }
 }

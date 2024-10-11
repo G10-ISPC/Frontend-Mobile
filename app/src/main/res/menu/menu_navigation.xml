@@ -35,15 +35,17 @@
     <item
         android:id="@+id/nav_userprofile"
         android:title="Perfil Usuario"/>
-    <!-- Opción Cerrar Sesión -->
-    <item
-        android:id="@+id/nav_logout"
-        android:title="Cerrar Sesión"/>
+
 
     <!-- Opción Administrador de Productos -->
     <item
         android:id="@+id/nav_admin_productos"
-        android:title="Administrador de Productos"/>
+        android:title="Administrador de Productos" android:visible="false"/>
+
+    <!-- Opción Cerrar Sesión -->
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Cerrar Sesión"/>
 
 
 

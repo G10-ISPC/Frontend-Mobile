@@ -75,6 +75,8 @@ public class loginActivity extends AppCompatActivity {
                             String token = loginResponse.getToken();
                             String firstName = loginResponse.Getuser().getFirstName();
                             String lastName = loginResponse.Getuser().getLastName();
+                            String rol = loginResponse.Getuser().getRol(); //
+                            Log.d("LoginActivity", "Rol obtenido: " + rol);
 
                             Log.d("LoginActivity", "First Name: " + firstName);
                             Log.d("LoginActivity", "Last Name: " + lastName);
@@ -85,6 +87,8 @@ public class loginActivity extends AppCompatActivity {
                             editor.putString("user_name", firstName);
                             editor.putString("user_lastname", lastName);
                             editor.putString("user_token", token); // Guardar el token
+                            editor.putString("user_rol", rol); // Guardar el rol
+                            Log.d("Menu", "Rol del usuario: " + rol);
                             editor.apply(); // Aplicar los cambios
 
                             Toast.makeText(loginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
@@ -144,3 +148,4 @@ public class loginActivity extends AppCompatActivity {
         return password.length() >= 8;
     }
 }
+
