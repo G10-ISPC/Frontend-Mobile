@@ -72,23 +72,28 @@ public class loginActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         LoginResponse loginResponse = response.body();
                         if (loginResponse != null) {
-                            String token = loginResponse.getToken();
-                            String firstName = loginResponse.Getuser().getFirstName();
-                            String lastName = loginResponse.Getuser().getLastName();
-                            String rol = loginResponse.Getuser().getRol(); //
-                            Log.d("LoginActivity", "Rol obtenido: " + rol);
+                            String accessToken = loginResponse.getAccess(); // Obtener el token de acceso
+                            String refreshToken = loginResponse.getRefresh(); // Obtener el token de refresco
+                            String firstName = loginResponse.getUser().getFirstName();
+                            String lastName = loginResponse.getUser().getLastName();
+                            String rol = loginResponse.getRol();
 
+                            Log.d("LoginActivity", "Rol obtenido: " + rol);
                             Log.d("LoginActivity", "First Name: " + firstName);
                             Log.d("LoginActivity", "Last Name: " + lastName);
+                            Log.d("LoginActivity", "Token de acceso recibido: " + accessToken); // Asegúrate de registrar el token
+                            Log.d("LoginActivity", "Token de refresco recibido: " + refreshToken); // Registro adicional
 
-                            // Guardar datos en SharedPreferences sin borrar los anteriores
+                            // Guardar datos en SharedPreferences
                             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
+
                             editor.putString("user_name", firstName);
                             editor.putString("user_lastname", lastName);
-                            editor.putString("user_token", token); // Guardar el token
+                            editor.putString("user_token", accessToken); // Guardar el token de acceso
+                            editor.putString("refresh_token", refreshToken); // Guardar el token de refresco
                             editor.putString("user_rol", rol); // Guardar el rol
-                            Log.d("Menu", "Rol del usuario: " + rol);
+
                             editor.apply(); // Aplicar los cambios
 
                             Toast.makeText(loginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
@@ -97,25 +102,16 @@ public class loginActivity extends AppCompatActivity {
                             finish();
                         }
                     } else {
-                        try {
-                            // Mostrar el error completo de la respuesta
-                            String errorBody = response.errorBody().string();
-                            Log.e("LoginActivity", "Error Body: " + errorBody);
-                            Toast.makeText(loginActivity.this, "Error en el login: " + errorBody, Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            Log.e("LoginActivity", "Exception: " + e.getMessage());
-                        }
+                        // Manejo de errores, por ejemplo:
+                        Toast.makeText(loginActivity.this, "Login fallido: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Toast.makeText(loginActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e("LoginActivity", "Error: ", t);
+                    Log.e("LoginActivity", "Error: " + t.getMessage());
                 }
             });
-        } else {
-            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
         }
     }
 
