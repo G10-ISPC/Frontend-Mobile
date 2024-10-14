@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "Last Name: " + lastName);
         Log.d("MainActivity", "Rol: " + rol); // log para verificar el rol
 
+        // Al recuperar el token en la MainActivity
+        Log.d("SharedPreferences", "Token recuperado: " + sharedPreferences.getString("user_token", "No encontrado"));
+
+
         // 3. Mostrar el mensaje de bienvenida
         if ("admin".equals(rol)) {
             userNameTextView.setText(firstName + " " + lastName + " - Admin"); // Mostrar nombre y rol

@@ -1,36 +1,25 @@
 package com.example.riccoapp.api;
 
 public class LoginResponse {
-    private String token;
-    private String username;
-    private User user;
-    private String rol;
-
-
-    // Constructor
-    public LoginResponse(String token, String username, User user, String rol) {
-        this.token = token;
-        this.username = username;
-        this.user = user;
-        this.rol= rol;
-
-    }
-
+    private String access; // Token de acceso
+    private String refresh; // Token de refresco
+    private String rol; // Rol del usuario
+    private User user; // Objeto User
 
     // Getters
-    public String getToken() {
-        return token;
+    public String getAccess() {
+        return access;
     }
 
-    public String getUsername() {
-        return username;
+    public String getRefresh() {
+        return refresh;
     }
 
-
-    public User Getuser() {
-        return user;
-    }
     public String getRol() {
         return rol;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
