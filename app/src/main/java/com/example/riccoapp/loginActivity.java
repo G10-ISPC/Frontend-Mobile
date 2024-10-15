@@ -84,7 +84,7 @@ public class loginActivity extends AppCompatActivity {
                             Log.d("LoginActivity", "Token de acceso recibido: " + accessToken); // Asegúrate de registrar el token
                             Log.d("LoginActivity", "Token de refresco recibido: " + refreshToken); // Registro adicional
 
-                            // Guardar datos en SharedPreferences
+                            // Guarda datos en SharedPreferences para AUTENTICAR al usuario logueado
                             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
