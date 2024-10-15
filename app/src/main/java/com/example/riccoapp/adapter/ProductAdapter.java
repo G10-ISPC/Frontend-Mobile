@@ -43,7 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
         Product producto = listaProductos.get(position);
 
         // Configura los campos con los valores del producto
-        holder.nombreProducto.setText(producto.getNombre());
+        holder.nombreProducto.setText(producto.getNombre_producto());
         holder.descripcionProducto.setText(producto.getDescripcion());
         holder.etPrecioProducto.setText(String.valueOf(producto.getPrecio()));
 

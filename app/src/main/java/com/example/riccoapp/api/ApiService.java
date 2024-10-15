@@ -34,5 +34,14 @@ public interface ApiService {
     @GET("productos/")  // Asegúrate de que este sea el endpoint correcto
     Call<List<Product>> getProducts(); // Retorna una lista de objetos Product
 
+    @POST("productos/")
+    Call<Product> createProduct(@Body Product product);
 
+
+    @DELETE("productos/{id}/")
+    Call<Void> deleteProduct(@Path("id") int id);
+
+
+    @PUT("productos/{id}/")
+    Call<Product> updateProduct(@Path("id") int id, @Body Product product);
 }
