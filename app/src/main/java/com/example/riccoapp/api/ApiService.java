@@ -30,4 +30,9 @@ public interface ApiService {
     @DELETE("api/profile/")  // Asegúrate de que esta sea la ruta correcta
     Call<Void> deleteUserProfile(@Header("Authorization") String token);
 
+    //Mostrar Productos
+    @GET("productos/")  // Asegúrate de que este sea el endpoint correcto
+    Call<List<Product>> getProducts(); // Retorna una lista de objetos Product
+
+
 }
