@@ -1,18 +1,25 @@
-package com.example.riccoapp;
+package com.example.riccoapp.adapter;
+
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.example.riccoapp.R;
+import com.example.riccoapp.api.Product;
+
+
 import java.util.List;
 
-public class ProductoAdapterActivity extends RecyclerView.Adapter<ProductoAdapterActivity.ProductoViewHolder> {
 
-    private List<ProductoActivity> listaProductos;
+public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmin.ViewHolder> {
+    private List<Product> products;
     private OnProductoClickListener listener;
 
     public interface OnProductoClickListener {
@@ -21,41 +28,49 @@ public class ProductoAdapterActivity extends RecyclerView.Adapter<ProductoAdapte
         void onBorrarClick(int position);
     }
 
-    public ProductoAdapterActivity(List<ProductoActivity> listaProductos, OnProductoClickListener listener) {
-        this.listaProductos = listaProductos;
-        this.listener = listener;
+    public ProductAdapterAdmin(List<Product> products) {
+        this.products = products;
     }
 
     @NonNull
     @Override
-    public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_producto, parent, false);
-        return new ProductoViewHolder(view, listener);
+        return new ViewHolder(view);
     }
+
 
     @Override
-    public void onBindViewHolder(@NonNull ProductoViewHolder holder, int position) {
-        ProductoActivity producto = listaProductos.get(position);
-        holder.nombreProducto.setText(producto.getNombre());
-        holder.descripcionProducto.setText(producto.getDescripcion());
-        holder.etPrecioProducto.setText(String.valueOf(producto.getPrecio()));
-
-        if (producto.isEditando()) {
-            holder.etPrecioProducto.setEnabled(true);
-            holder.nombreProducto.setEnabled(true); // Habilita el campo de nombre
-            holder.descripcionProducto.setEnabled(true); // Habilita el campo de descripción
-            holder.btnGuardar.setVisibility(View.VISIBLE);
-        } else {
-            holder.etPrecioProducto.setEnabled(false);
-            holder.nombreProducto.setEnabled(false); // Deshabilita el campo de nombre
-            holder.descripcionProducto.setEnabled(false); // Deshabilita el campo de descripción
-            holder.btnGuardar.setVisibility(View.GONE);
-        }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Product product = products.get(position);
+        holder.nombre.setText(product.getNombre_producto());
+        holder.descripcion.setText(product.getDescripcion());
+        holder.precio.setText(String.valueOf(product.getPrecio()));
     }
+
 
     @Override
     public int getItemCount() {
-        return listaProductos.size();
+        return products.size();
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nombre, descripcion, precio;
+
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nombre = itemView.findViewById(R.id.etNombreProducto);
+            descripcion = itemView.findViewById(R.id.etDescripcionProducto);
+            precio = itemView.findViewById(R.id.etPrecioProducto);
+        }
+    }
+
+
+    public void updateList(List<Product> newList) {
+        products = newList;
+        notifyDataSetChanged();
     }
 
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
@@ -108,3 +123,4 @@ public class ProductoAdapterActivity extends RecyclerView.Adapter<ProductoAdapte
         }
     }
 }
+

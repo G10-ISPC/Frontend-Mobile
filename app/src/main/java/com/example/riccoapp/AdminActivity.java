@@ -3,86 +3,62 @@ package com.example.riccoapp;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.riccoapp.adapter.ProductAdapterAdmin;
+import com.example.riccoapp.api.Product;
 import java.util.ArrayList;
 
-public class AdminActivity extends AppCompatActivity implements ProductoAdapterActivity.OnProductoClickListener {
+public class AdminActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private ProductoAdapterActivity productoAdapter;
-    private ArrayList<ProductoActivity> listaProductos;
-    private EditText editNombre, editDescripcion, editPrecio;
+    private ProductoViewModel productoViewModel;
+    private ProductAdapterAdmin productoAdapter;
+    private EditText edtNombre, edtDescripcion, edtPrecio;
+    private Button btnAgregar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        listaProductos = new ArrayList<>();
-        listaProductos.add(new ProductoActivity("Producto 1", "Descripción 1", 10.0));
-        listaProductos.add(new ProductoActivity("Producto 2", "Descripción 2", 15.0));
+        edtNombre = findViewById(R.id.nombre_producto);
+        edtDescripcion = findViewById(R.id.descripcion_producto);
+        edtPrecio = findViewById(R.id.precio_producto);
+        btnAgregar = findViewById(R.id.btnAddProduct);
 
-        recyclerView = findViewById(R.id.recyclerViewProductos);
+        //Se configura el Recycler
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewProductos);
+        productoAdapter = new ProductAdapterAdmin(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        productoAdapter = new ProductoAdapterActivity(listaProductos, this);
         recyclerView.setAdapter(productoAdapter);
 
-        editNombre = findViewById(R.id.nombre_producto);
-        editDescripcion = findViewById(R.id.descripcion_producto);
-        editPrecio = findViewById(R.id.precio_producto);
+        // Se configura el Viewmodel
+        productoViewModel = new ViewModelProvider(this).get(ProductoViewModel.class);
+        productoViewModel.getProductos().observe(this, products -> {
+            productoAdapter.updateList(products);
+        });
 
-        Button btnAddProduct = findViewById(R.id.btnAddProduct);
-        btnAddProduct.setOnClickListener(v -> agregarProducto());
-    }
+        // Evento del boton
 
-    private void agregarProducto() {
-        String nombre = editNombre.getText().toString().trim();
-        String descripcion = editDescripcion.getText().toString().trim();
-        String precioStr = editPrecio.getText().toString().trim();
+        btnAgregar.setOnClickListener(view -> {
 
-        if (nombre.isEmpty() || descripcion.isEmpty() || precioStr.isEmpty()) {
-            Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
+            String nombre = edtNombre.getText().toString();
+            String descripcion = edtDescripcion.getText().toString();
+            double precio = Double.parseDouble(edtPrecio.getText().toString());
 
-        double precio = Double.parseDouble(precioStr);
-        ProductoActivity nuevoProducto = new ProductoActivity(nombre, descripcion, precio);
-        listaProductos.add(nuevoProducto);
-        productoAdapter.notifyItemInserted(listaProductos.size() - 1);
+            Product product = new Product(nombre, descripcion, precio);
 
-        editNombre.setText("");
-        editDescripcion.setText("");
-        editPrecio.setText("");
+            product.setNombre_producto(edtNombre.getText().toString());
+            product.setDescripcion(edtDescripcion.getText().toString());
+            product.setPrecio(Double.parseDouble(edtPrecio.getText().toString()));
 
-        Toast.makeText(this, "Producto añadido", Toast.LENGTH_SHORT).show();
-    }
+            productoViewModel.addProducto(product);
 
-    @Override
-    public void onEditarClick(int position) {
-        ProductoActivity producto = listaProductos.get(position);
-        producto.setEditando(true);
-        productoAdapter.notifyItemChanged(position);
-    }
-
-    @Override
-    public void onGuardarClick(int position, String nuevoNombre, String nuevaDescripcion, double nuevoPrecio) {
-        ProductoActivity producto = listaProductos.get(position);
-        producto.setNombre(nuevoNombre);
-        producto.setDescripcion(nuevaDescripcion);
-        producto.setPrecio(nuevoPrecio);
-        producto.setEditando(false);
-
-        productoAdapter.notifyItemChanged(position);
-        Toast.makeText(this, "Producto actualizado", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onBorrarClick(int position) {
-        listaProductos.remove(position);
-        productoAdapter.notifyItemRemoved(position);
-        Toast.makeText(this, "Producto eliminado", Toast.LENGTH_SHORT).show();
+            edtNombre.setText("");
+            edtDescripcion.setText("");
+            edtPrecio.setText("");
+        });
     }
 }
