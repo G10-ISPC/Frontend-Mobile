@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:layout_marginBottom="10dp">
+
+    <!-- Nombre del Producto -->
+    <EditText
+        android:id="@+id/etNombreProducto"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:enabled="false"
+        android:hint="Nombre del Producto"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Descripción del Producto -->
+    <EditText
+        android:id="@+id/etDescripcionProducto"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:enabled="false"
+        android:hint="Descripción del Producto"
+        android:minHeight="48dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp" />
+
+    <!-- Precio del Producto -->
+    <EditText
+        android:id="@+id/etPrecioProducto"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:enabled="false"
+        android:hint="Precio"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textColor="@android:color/black" />
+</LinearLayout>
