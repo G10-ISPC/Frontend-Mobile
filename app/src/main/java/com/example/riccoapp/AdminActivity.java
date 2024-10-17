@@ -3,15 +3,18 @@ package com.example.riccoapp;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.riccoapp.adapter.ProductAdapterAdmin;
 import com.example.riccoapp.api.Product;
+
 import java.util.ArrayList;
 
-public class AdminActivity extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity implements ProductAdapterAdmin.OnProductoClickListener {  // Implementa la interfaz
 
     private ProductoViewModel productoViewModel;
     private ProductAdapterAdmin productoAdapter;
@@ -28,37 +31,52 @@ public class AdminActivity extends AppCompatActivity {
         edtPrecio = findViewById(R.id.precio_producto);
         btnAgregar = findViewById(R.id.btnAddProduct);
 
-        //Se configura el Recycler
+        // Configura el RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerViewProductos);
-        productoAdapter = new ProductAdapterAdmin(new ArrayList<>());
+        productoAdapter = new ProductAdapterAdmin(new ArrayList<>(), this); // Pasa 'this' para la interfaz
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(productoAdapter);
 
-        // Se configura el Viewmodel
+        // Configura el ViewModel
         productoViewModel = new ViewModelProvider(this).get(ProductoViewModel.class);
         productoViewModel.getProductos().observe(this, products -> {
             productoAdapter.updateList(products);
         });
 
-        // Evento del boton
-
+        // Evento del botón agregar
         btnAgregar.setOnClickListener(view -> {
-
             String nombre = edtNombre.getText().toString();
             String descripcion = edtDescripcion.getText().toString();
             double precio = Double.parseDouble(edtPrecio.getText().toString());
-
             Product product = new Product(nombre, descripcion, precio);
-
-            product.setNombre_producto(edtNombre.getText().toString());
-            product.setDescripcion(edtDescripcion.getText().toString());
-            product.setPrecio(Double.parseDouble(edtPrecio.getText().toString()));
-
             productoViewModel.addProducto(product);
-
             edtNombre.setText("");
             edtDescripcion.setText("");
             edtPrecio.setText("");
         });
+    }
+
+    @Override
+    public void onEditarClick(int position) {
+        // Implementado en el adaptador
+    }
+
+    @Override
+    public void onGuardarClick(int position, String nuevoNombre, String nuevaDescripcion, double nuevoPrecio) {
+        Product updatedProduct = productoAdapter.getProductAt(position); // Obtén el producto desde el adaptador
+        if (updatedProduct != null) {
+            updatedProduct.setNombre_producto(nuevoNombre);
+            updatedProduct.setDescripcion(nuevaDescripcion);
+            updatedProduct.setPrecio(nuevoPrecio);
+            productoViewModel.updateProducto(updatedProduct.getId_producto(), updatedProduct); // Usa el ID correcto
+        }
+    }
+
+    @Override
+    public void onBorrarClick(int position) {
+        Product productToDelete = productoAdapter.getProductAt(position); // Obtén el producto desde el adaptador
+        if (productToDelete != null) {
+            productoViewModel.deleteProducto(productToDelete.getId_producto()); // Usa el ID correcto
+        }
     }
 }

@@ -18,7 +18,7 @@ import com.example.riccoapp.api.Product;
 import java.util.List;
 
 
-public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmin.ViewHolder> {
+public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmin.ProductoViewHolder> {
     private List<Product> products;
     private OnProductoClickListener listener;
 
@@ -28,55 +28,68 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
         void onBorrarClick(int position);
     }
 
-    public ProductAdapterAdmin(List<Product> products) {
+    public ProductAdapterAdmin(List<Product> products, OnProductoClickListener listener) {
         this.products = products;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_producto, parent, false);
-        return new ViewHolder(view);
+        return new ProductoViewHolder(view, listener);
     }
-
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductoViewHolder holder, int position) {
         Product product = products.get(position);
-        holder.nombre.setText(product.getNombre_producto());
-        holder.descripcion.setText(product.getDescripcion());
-        holder.precio.setText(String.valueOf(product.getPrecio()));
-    }
+        holder.nombreProducto.setText(product.getNombre_producto());
+        holder.descripcionProducto.setText(product.getDescripcion());
+        holder.etPrecioProducto.setText(String.valueOf(product.getPrecio()));
 
+        // Desactivar campos para edición al inicio
+        holder.nombreProducto.setEnabled(false);
+        holder.descripcionProducto.setEnabled(false);
+        holder.etPrecioProducto.setEnabled(false);
+
+        holder.btnEditar.setOnClickListener(v -> {
+            // Habilitar edición
+            holder.nombreProducto.setEnabled(true);
+            holder.descripcionProducto.setEnabled(true);
+            holder.etPrecioProducto.setEnabled(true);
+            holder.btnGuardar.setVisibility(View.VISIBLE);
+            holder.btnEditar.setVisibility(View.GONE);
+        });
+
+        holder.btnGuardar.setOnClickListener(v -> {
+            // Guardar cambios
+            String nuevoNombre = holder.nombreProducto.getText().toString().trim();
+            String nuevaDescripcion = holder.descripcionProducto.getText().toString().trim();
+            String nuevoPrecioStr = holder.etPrecioProducto.getText().toString().trim();
+            if (!nuevoPrecioStr.isEmpty()) {
+                double nuevoPrecio = Double.parseDouble(nuevoPrecioStr);
+                listener.onGuardarClick(position, nuevoNombre, nuevaDescripcion, nuevoPrecio);
+            }
+
+            // Desactivar edición y mostrar botón de Editar
+            holder.nombreProducto.setEnabled(false);
+            holder.descripcionProducto.setEnabled(false);
+            holder.etPrecioProducto.setEnabled(false);
+            holder.btnGuardar.setVisibility(View.GONE);
+            holder.btnEditar.setVisibility(View.VISIBLE);
+        });
+
+        holder.btnBorrar.setOnClickListener(v -> listener.onBorrarClick(position));
+    }
 
     @Override
     public int getItemCount() {
         return products.size();
     }
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre, descripcion, precio;
-
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nombre = itemView.findViewById(R.id.etNombreProducto);
-            descripcion = itemView.findViewById(R.id.etDescripcionProducto);
-            precio = itemView.findViewById(R.id.etPrecioProducto);
-        }
-    }
-
-
-    public void updateList(List<Product> newList) {
-        products = newList;
-        notifyDataSetChanged();
-    }
-
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
-        EditText nombreProducto, descripcionProducto;
-        EditText etPrecioProducto;
-        ImageButton btnEditar, btnBorrar, btnGuardar;
+        EditText nombreProducto, descripcionProducto, etPrecioProducto;
+        ImageButton btnEditar, btnGuardar, btnBorrar;
 
         public ProductoViewHolder(@NonNull View itemView, OnProductoClickListener listener) {
             super(itemView);
@@ -84,43 +97,18 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
             descripcionProducto = itemView.findViewById(R.id.etDescripcionProducto);
             etPrecioProducto = itemView.findViewById(R.id.etPrecioProducto);
             btnEditar = itemView.findViewById(R.id.btnEditar);
-            btnBorrar = itemView.findViewById(R.id.btnBorrar);
             btnGuardar = itemView.findViewById(R.id.btnGuardar);
-
-            btnEditar.setOnClickListener(v -> {
-                if (listener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.onEditarClick(position);
-                    }
-                }
-            });
-
-            btnGuardar.setOnClickListener(v -> {
-                if (listener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        String nuevoNombre = nombreProducto.getText().toString().trim();
-                        String nuevaDescripcion = descripcionProducto.getText().toString().trim();
-                        String nuevoPrecioStr = etPrecioProducto.getText().toString().trim();
-
-                        if (!nuevoPrecioStr.isEmpty()) {
-                            double nuevoPrecio = Double.parseDouble(nuevoPrecioStr);
-                            listener.onGuardarClick(position, nuevoNombre, nuevaDescripcion, nuevoPrecio);
-                        }
-                    }
-                }
-            });
-
-            btnBorrar.setOnClickListener(v -> {
-                if (listener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.onBorrarClick(position);
-                    }
-                }
-            });
+            btnBorrar = itemView.findViewById(R.id.btnBorrar);
         }
     }
-}
 
+    public void updateList(List<Product> newList) {
+        products = newList;
+        notifyDataSetChanged();
+    }
+
+    public Product getProductAt(int position) {
+        return products.get(position);
+    }
+
+}
