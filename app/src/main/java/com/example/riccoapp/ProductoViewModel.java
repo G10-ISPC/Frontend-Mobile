@@ -82,6 +82,42 @@ public class ProductoViewModel extends AndroidViewModel {
     }
 
 
+    public void deleteProducto(int id) {
+        apiService.deleteProduct(id).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    loadProductos();
+                } else {
+                    Log.e("ProductoViewModel", "Error al eliminar producto: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("ProductoViewModel", "Error al eliminar producto", t);
+            }
+        });
+    }
+
+    public void updateProducto(int id, Product updatedProduct) {
+        apiService.updateProduct(id, updatedProduct).enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                if (response.isSuccessful()) {
+                    loadProductos();
+                } else {
+                    Log.e("ProductoViewModel", "Error al actualizar producto: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+                Log.e("ProductoViewModel", "Error al actualizar producto", t);
+            }
+        });
+
+}
 }
 
 
