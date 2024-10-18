@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +54,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
         holder.nombreProducto.setEnabled(false);
         holder.descripcionProducto.setEnabled(false);
 
+        // Cargar la imagen desde drawable dinámicamente
+        int imagenResourceId = holder.itemView.getContext().getResources().getIdentifier(
+                "bur" + producto.getImagenId(), "drawable", holder.itemView.getContext().getPackageName());
+        holder.ivImagenProducto.setImageResource(imagenResourceId);
+
         // Configurar el clic en el producto
         holder.itemView.setOnClickListener(v -> listener.onProductoClick(producto));
     }
@@ -64,6 +71,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
         EditText nombreProducto, descripcionProducto;
         EditText etPrecioProducto;
+        ImageView ivImagenProducto;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +79,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
             nombreProducto = itemView.findViewById(R.id.etNombreProducto);
             descripcionProducto = itemView.findViewById(R.id.etDescripcionProducto);
             etPrecioProducto = itemView.findViewById(R.id.etPrecioProducto);
+            ivImagenProducto = itemView.findViewById(R.id.ivImagenProducto);
         }
     }
 }
