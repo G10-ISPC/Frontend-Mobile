@@ -2,6 +2,7 @@ package com.example.riccoapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,17 +58,28 @@ public class ProductsActivity extends AppCompatActivity implements ProductAdapte
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    productList.clear();  // Limpiar la lista actual
-                    productList.addAll(response.body());  // Añadir todos los productos a la lista
-                    productAdapter.notifyDataSetChanged();  // Notificar al adaptador que los datos han cambiado
+                    productList.clear();
+                    List<Product> productos = response.body();
+
+                    // Asignar imágenes según la posición o cualquier otra lógica
+                    for (int i = 0; i < productos.size(); i++) {
+                        // Asignar un identificador de imagen basado en el índice (bur1, bur2, etc.)
+                        int imagenId = (i % 10) + 1;  // Si tienes 10 imágenes
+                        productos.get(i).setImagenId(imagenId);
+                    }
+
+                    productList.addAll(productos);  // Añadir productos a la lista
+                    productAdapter.notifyDataSetChanged();
                 } else {
                     Log.e("ProductsActivity", "Response error: " + response.message());
                 }
             }
 
+
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 Log.e("ProductsActivity", "API call failed: " + t.getMessage());
+                Toast.makeText(ProductsActivity.this, "Error al cargar los productos", Toast.LENGTH_SHORT).show();
             }
         });
     }

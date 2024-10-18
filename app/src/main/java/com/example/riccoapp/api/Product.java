@@ -5,12 +5,15 @@ public class Product {
     private String nombre_producto; // Cambia el nombre de la variable
     private String descripcion;
     private double precio;
+    private int imagenId;
 
     // Constructor
     public Product(String nombre_producto, String descripcion, double precio) {
         this.nombre_producto = nombre_producto; // Asignar el nombre del producto
         this.descripcion = descripcion;
         this.precio = precio;
+        this.imagenId = imagenId;
+
     }
 
 
@@ -46,6 +49,12 @@ public class Product {
     public void setNombre_producto(String nombre_producto) {
         this.nombre_producto = nombre_producto;
     }
+    public int getImagenId() {
+        return imagenId;
+    }
 
+    public void setImagenId(int imagenId) {
+        this.imagenId = imagenId;
+    }
 
 }
