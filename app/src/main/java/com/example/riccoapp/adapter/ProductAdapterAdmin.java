@@ -1,25 +1,21 @@
 package com.example.riccoapp.adapter;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.example.riccoapp.R;
 import com.example.riccoapp.api.Product;
-
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 
 public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmin.ProductoViewHolder> {
     private List<Product> products;
+    private List<Boolean> isEditing; // Lista para manejar el estado de edición
     private OnProductoClickListener listener;
 
     public interface OnProductoClickListener {
@@ -31,13 +27,14 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
     public ProductAdapterAdmin(List<Product> products, OnProductoClickListener listener) {
         this.products = products;
         this.listener = listener;
+        this.isEditing = new ArrayList<>(Collections.nCopies(products.size(), false)); // Inicialmente, todos los productos no están en edición
     }
 
     @NonNull
     @Override
     public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_producto, parent, false);
-        return new ProductoViewHolder(view, listener);
+        return new ProductoViewHolder(view);
     }
 
     @Override
@@ -46,40 +43,44 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
         holder.nombreProducto.setText(product.getNombre_producto());
         holder.descripcionProducto.setText(product.getDescripcion());
         holder.etPrecioProducto.setText(String.valueOf(product.getPrecio()));
-
-        // Desactivar campos para edición al inicio
-        holder.nombreProducto.setEnabled(false);
-        holder.descripcionProducto.setEnabled(false);
-        holder.etPrecioProducto.setEnabled(false);
-
-        holder.btnEditar.setOnClickListener(v -> {
-            // Habilitar edición
+        // Si el producto está en modo edición, habilitamos los campos y mostramos el botón de "Guardar"
+        if (isEditing.get(position)) {
             holder.nombreProducto.setEnabled(true);
             holder.descripcionProducto.setEnabled(true);
             holder.etPrecioProducto.setEnabled(true);
             holder.btnGuardar.setVisibility(View.VISIBLE);
-            holder.btnEditar.setVisibility(View.GONE);
+            holder.btnEditar.setVisibility(View.GONE); // Ocultamos el botón de "Editar"
+        } else {
+            // Si no está en modo edición, deshabilitamos los campos y mostramos el botón de "Editar"
+            holder.nombreProducto.setEnabled(false);
+            holder.descripcionProducto.setEnabled(false);
+            holder.etPrecioProducto.setEnabled(false);
+            holder.btnGuardar.setVisibility(View.GONE);
+            holder.btnEditar.setVisibility(View.VISIBLE); // Mostramos el botón de "Editar"
+        }
+        // Maneja el clic en "Editar" desde el adaptador
+        holder.btnEditar.setOnClickListener(v -> {
+            // Cambiar el estado de edición y notificar el cambio
+            setEditing(position, true);
         });
-
+        // Maneja el clic en "Guardar" desde el adaptador
         holder.btnGuardar.setOnClickListener(v -> {
-            // Guardar cambios
             String nuevoNombre = holder.nombreProducto.getText().toString().trim();
             String nuevaDescripcion = holder.descripcionProducto.getText().toString().trim();
             String nuevoPrecioStr = holder.etPrecioProducto.getText().toString().trim();
             if (!nuevoPrecioStr.isEmpty()) {
                 double nuevoPrecio = Double.parseDouble(nuevoPrecioStr);
                 listener.onGuardarClick(position, nuevoNombre, nuevaDescripcion, nuevoPrecio);
+                // Cambiar el estado de edición y notificar el cambio
+                setEditing(position, false);
             }
-
-            // Desactivar edición y mostrar botón de Editar
-            holder.nombreProducto.setEnabled(false);
-            holder.descripcionProducto.setEnabled(false);
-            holder.etPrecioProducto.setEnabled(false);
-            holder.btnGuardar.setVisibility(View.GONE);
-            holder.btnEditar.setVisibility(View.VISIBLE);
         });
-
-        holder.btnBorrar.setOnClickListener(v -> listener.onBorrarClick(position));
+        // Maneja el clic en "Borrar"
+        holder.btnBorrar.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onBorrarClick(position);
+            }
+        });
     }
 
     @Override
@@ -87,11 +88,30 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
         return products.size();
     }
 
+    // Método para actualizar la lista de productos
+    public void updateList(List<Product> newList) {
+        products = newList;
+        isEditing = new ArrayList<>(Collections.nCopies(newList.size(), false)); // Reiniciamos la lista de estados de edición
+        notifyDataSetChanged();
+    }
+
+    // Método para activar o desactivar el estado de edición
+    private void setEditing(int position, boolean editing) {
+        isEditing.set(position, editing);
+        notifyItemChanged(position);
+    }
+
+    // Método para asignar el listener
+    public void setListener(OnProductoClickListener listener) {
+        this.listener = listener;
+    }
+
+    // ViewHolder que maneja la vista de cada producto
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
         EditText nombreProducto, descripcionProducto, etPrecioProducto;
         ImageButton btnEditar, btnGuardar, btnBorrar;
 
-        public ProductoViewHolder(@NonNull View itemView, OnProductoClickListener listener) {
+        public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
             nombreProducto = itemView.findViewById(R.id.etNombreProducto);
             descripcionProducto = itemView.findViewById(R.id.etDescripcionProducto);
@@ -102,13 +122,8 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
         }
     }
 
-    public void updateList(List<Product> newList) {
-        products = newList;
-        notifyDataSetChanged();
-    }
-
+    // Método para obtener un producto en una posición específica
     public Product getProductAt(int position) {
         return products.get(position);
     }
-
 }

@@ -1,17 +1,16 @@
 package com.example.riccoapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.riccoapp.adapter.ProductAdapterAdmin;
 import com.example.riccoapp.api.Product;
-
 import java.util.ArrayList;
 
 public class AdminActivity extends AppCompatActivity implements ProductAdapterAdmin.OnProductoClickListener {  // Implementa la interfaz
@@ -39,6 +38,7 @@ public class AdminActivity extends AppCompatActivity implements ProductAdapterAd
 
         // Configura el ViewModel
         productoViewModel = new ViewModelProvider(this).get(ProductoViewModel.class);
+
         productoViewModel.getProductos().observe(this, products -> {
             productoAdapter.updateList(products);
         });
@@ -47,7 +47,13 @@ public class AdminActivity extends AppCompatActivity implements ProductAdapterAd
         btnAgregar.setOnClickListener(view -> {
             String nombre = edtNombre.getText().toString();
             String descripcion = edtDescripcion.getText().toString();
-            double precio = Double.parseDouble(edtPrecio.getText().toString());
+            double precio;
+            try {
+                precio = Double.parseDouble(edtPrecio.getText().toString());
+            } catch (NumberFormatException e) {
+                Toast.makeText(AdminActivity.this, "Precio inválido", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Product product = new Product(nombre, descripcion, precio);
             productoViewModel.addProducto(product);
             edtNombre.setText("");
@@ -58,7 +64,7 @@ public class AdminActivity extends AppCompatActivity implements ProductAdapterAd
 
     @Override
     public void onEditarClick(int position) {
-        // Implementado en el adaptador
+        // La lógica de editar ya está implementada en el adaptador
     }
 
     @Override
