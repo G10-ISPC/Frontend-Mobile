@@ -31,18 +31,16 @@ public interface ApiService {
     @DELETE("api/profile/")  // Asegúrate de que esta sea la ruta correcta
     Call<Void> deleteUserProfile(@Header("Authorization") String token);
 
-    //Mostrar Productos
-    @GET("productos/")  // Asegúrate de que este sea el endpoint correcto
-    Call<List<Product>> getProducts(); // Retorna una lista de objetos Product
+    @GET("productos/")
+    Call<List<Product>> getProducts();
 
     @POST("productos/")
-    Call<Product> createProduct(@Body Product product);
-
+    Call<Product> createProduct(@Body Product product, @Header("Authorization") String token);
 
     @DELETE("productos/{id}/")
-    Call<Void> deleteProduct(@Path("id") int id);
-
+    Call<Void> deleteProduct(@Path("id") int id, @Header("Authorization") String token);
 
     @PUT("productos/{id}/")
-    Call<Product> updateProduct(@Path("id") int id, @Body Product product);
+    Call<Product> updateProduct(@Path("id") int id, @Body Product product, @Header("Authorization") String token);
+
 }
