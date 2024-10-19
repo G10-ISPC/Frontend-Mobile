@@ -30,7 +30,7 @@ import retrofit2.Response;
 public class UserProfileActivity extends AppCompatActivity {
 
     // Variables de vista
-    private EditText etNombre, etApellido, etCalle, etNumero, etEmail, etTelefono, etPassword;
+    private EditText etNombre, etApellido, etCalle, etNumero, etEmail, etTelefono;
     private Button btnEditar, btnEliminar, btnVolverASuscribirse;
     private TextView userNameTextView;
     private boolean isEditing = false;
@@ -71,7 +71,6 @@ public class UserProfileActivity extends AppCompatActivity {
         etNumero = findViewById(R.id.etNumero);
         etEmail = findViewById(R.id.etEmail);
         etTelefono = findViewById(R.id.etTelefono);
-        etPassword = findViewById(R.id.etPassword); // Contraseña opcional
         btnEditar = findViewById(R.id.btnEditar);
         btnEliminar = findViewById(R.id.btnEliminar);
         btnVolverASuscribirse = findViewById(R.id.btnVolverASuscribirse);
@@ -162,8 +161,10 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void actualizarUsuario() {
-        String token = tokenManager.obtenerToken(); // No necesitamos verificar si es null porque siempre es no nulo.
-        // Validar que todos los campos estén completos
+        String token = tokenManager.obtenerToken();
+        token = "Bearer " + token; // Agregar el prefijo "Bearer" al token
+
+        // Validar que todos los campos estén completos como ya lo haces
         if (etNombre.getText().toString().isEmpty() ||
                 etApellido.getText().toString().isEmpty() ||
                 etEmail.getText().toString().isEmpty() ||
@@ -172,8 +173,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 etNumero.getText().toString().isEmpty()) {
 
             Toast.makeText(UserProfileActivity.this, "Por favor completa todos los campos.", Toast.LENGTH_SHORT).show();
-            return; // Salir del método si hay campos vacíos.
+            return;
         }
+
         // Crear la dirección actualizada
         Direccion updatedDireccion = new Direccion(etCalle.getText().toString(), Integer.parseInt(etNumero.getText().toString()));
 
@@ -193,22 +195,10 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<UserProfileResponse> call, @NonNull Response<UserProfileResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(UserProfileActivity.this, "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show();
-                    UserProfileResponse updatedResponse = response.body();
-                    if (updatedResponse != null) {
-                        // Agrega logs para depuración
-                        Log.d("UserProfileActivity", "Nombre: " + updatedResponse.getFirstName());
-                        Log.d("UserProfileActivity", "Apellido: " + updatedResponse.getLastName());
-                        etNombre.setText(updatedResponse.getFirstName());
-                        etApellido.setText(updatedResponse.getLastName());
-                        etTelefono.setText(updatedResponse.getTelefono());
-                        if (updatedResponse.getDireccion() != null) {
-                            etCalle.setText(updatedResponse.getDireccion().getCalle());
-                            etNumero.setText(String.valueOf(updatedResponse.getDireccion().getNumero()));
-                        }
-                    }
+                    habilitarCampos(false); // Deshabilitar los campos después de actualizar
+                    btnEditar.setText(R.string.editar); // Cambiar el texto del botón a "Editar"
+                    isEditing = false; // Cambiar el estado de edición
                 } else {
-                    Log.e("UserProfileActivity", "Código de estado: " + response.code());
-                    Log.e("UserProfileActivity", "Mensaje de error: " + response.message());
                     Toast.makeText(UserProfileActivity.this, "Error al actualizar el perfil: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -291,6 +281,6 @@ public class UserProfileActivity extends AppCompatActivity {
         etNumero.setEnabled(habilitar);
         etEmail.setEnabled(habilitar);
         etTelefono.setEnabled(habilitar);
-        etPassword.setEnabled(habilitar);
     }
 }
+

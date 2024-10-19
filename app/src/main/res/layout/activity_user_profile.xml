@@ -131,23 +131,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"/>
 
-    <!-- Campo Contraseña (oculto) -->
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        android:hint="@string/contrase_a"
-        android:textColorHint="#757575"
-        android:backgroundTint="#000000"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:inputType="textPassword"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"/>
 
     <!-- Botón Editar -->
     <Button
@@ -157,7 +140,7 @@
         android:text="@string/editar"
         android:backgroundTint="#000000"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"/>
@@ -170,10 +153,12 @@
         android:text="@string/eliminar_cuenta"
         android:backgroundTint="#000000"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail"
+        app:layout_constraintStart_toEndOf="@id/btnEditar"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"/>
 
     <!-- Botón Volver a Suscribirse -->
     <Button
