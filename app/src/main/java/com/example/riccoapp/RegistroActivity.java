@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.riccoapp.api.ApiService;
+import com.example.riccoapp.api.Direccion;
 import com.example.riccoapp.api.RegisterRequest;
 import com.example.riccoapp.api.RetrofitClient;
 import com.example.riccoapp.api.User;
@@ -121,7 +122,7 @@ public class RegistroActivity extends AppCompatActivity {
                 return;
             }
 
-            RegisterRequest.Direccion direccion = new RegisterRequest.Direccion(street, number);
+            Direccion direccion = new Direccion(street, number);
 
             RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, email, password, password2, telefono, direccion);
 
