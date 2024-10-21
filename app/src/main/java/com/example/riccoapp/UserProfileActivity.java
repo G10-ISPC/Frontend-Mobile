@@ -1,6 +1,7 @@
 package com.example.riccoapp;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -73,7 +74,7 @@ public class UserProfileActivity extends AppCompatActivity {
         etTelefono = findViewById(R.id.etTelefono);
         btnEditar = findViewById(R.id.btnEditar);
         btnEliminar = findViewById(R.id.btnEliminar);
-        btnVolverASuscribirse = findViewById(R.id.btnVolverASuscribirse);
+
     }
 
     private void configurarBotones() {
@@ -91,9 +92,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
         btnEliminar.setOnClickListener(v -> mostrarDialogoConfirmacion());
 
-        btnVolverASuscribirse.setOnClickListener(v -> {
-            Toast.makeText(UserProfileActivity.this, "Redirigiendo a la suscripción", Toast.LENGTH_SHORT).show();
-        });
     }
 
     private void cargarUsuario() {
@@ -195,9 +193,9 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<UserProfileResponse> call, @NonNull Response<UserProfileResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(UserProfileActivity.this, "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show();
-                    habilitarCampos(false); // Deshabilitar los campos después de actualizar
-                    btnEditar.setText(R.string.editar); // Cambiar el texto del botón a "Editar"
-                    isEditing = false; // Cambiar el estado de edición
+                    habilitarCampos(false);  // Deshabilitar los campos después de actualizar
+                    btnEditar.setText(R.string.editar);  // Cambiar el texto del botón a "Editar"
+                    isEditing = false;  // Cambiar el estado de edición
                 } else {
                     Toast.makeText(UserProfileActivity.this, "Error al actualizar el perfil: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -212,16 +210,14 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void eliminarCuenta() {
         String token = tokenManager.obtenerToken();
+        token = "Bearer " + token; // Agregar el prefijo "Bearer" al token
         if (token != null) {
             apiService.deleteUserProfile(token).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(UserProfileActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
-                        habilitarCampos(false);
-                        btnEditar.setVisibility(View.GONE);
-                        btnEliminar.setVisibility(View.GONE);
-                        btnVolverASuscribirse.setVisibility(View.VISIBLE);
+                        redirigirAlInicio();  // Llamamos a este nuevo método
                     } else {
                         Toast.makeText(UserProfileActivity.this, "Error al eliminar la cuenta: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
@@ -237,6 +233,17 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void redirigirAlInicio() {
+        // Limpiar las preferencias compartidas para borrar cualquier dato almacenado
+        SharedPreferences.Editor editor = getSharedPreferences("UserPrefs", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+
+        // Redirigir a la pantalla principal o de registro
+        Intent intent = new Intent(UserProfileActivity.this, RegistroActivity.class);  // Cambia a MainActivity si quieres que vaya a la pantalla principal
+        startActivity(intent);
+        finish();  // Finaliza esta actividad para que no pueda volver con el botón "Atrás"
+    }
     private void mostrarDialogoConfirmacion() {
         new AlertDialog.Builder(this)
                 .setTitle("Eliminar Cuenta")
@@ -283,4 +290,5 @@ public class UserProfileActivity extends AppCompatActivity {
         etTelefono.setEnabled(habilitar);
     }
 }
+
 

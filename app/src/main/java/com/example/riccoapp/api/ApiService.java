@@ -28,7 +28,7 @@ public interface ApiService {
     Call<UserProfileResponse> updateUserProfile(@Header("Authorization") String token, @Body UserProfileRequest userProfileRequest);
 
     // Eliminar cuenta de usuario
-    @DELETE("api/profile/")  // Asegúrate de que esta sea la ruta correcta
+    @DELETE("profile/")  // Asegúrate de que esta sea la ruta correcta
     Call<Void> deleteUserProfile(@Header("Authorization") String token);
 
     @GET("productos/")

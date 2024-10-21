@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         // 2. Inicializar el TextView
         userNameTextView = findViewById(R.id.userNameTextView);
 
+
+
         // Recuperar datos del SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String firstName = sharedPreferences.getString("user_name", "");
@@ -172,14 +174,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear(); // Limpia todos los datos guardados
         editor.apply();
+
         // Limpiar el TextView
         userNameTextView.setText(" ");
-        // Actualizar el menú
-        invalidateOptionsMenu();
 
-        // En caso de querer Redirigir a otra pantalla q no sea la home descomentar y modificar:
-        // Intent intent = new Intent(MainActivity.this, loginActivity.class);
-        // startActivity(intent);
-        // finish(); // Terminar la actividad actual
+        // Redirigir a la pantalla de inicio de sesión
+        Intent intent = new Intent(MainActivity.this, loginActivity.class);
+        startActivity(intent);
+
+        // Finalizar la actividad actual para evitar volver atrás
+        finish();
     }
 }
