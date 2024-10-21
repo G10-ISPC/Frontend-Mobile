@@ -19,10 +19,12 @@ import com.example.riccoapp.api.LoginRequest;
 import com.example.riccoapp.api.LoginResponse;
 import com.example.riccoapp.api.RetrofitClient;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 public class loginActivity extends AppCompatActivity {
 
     private EditText usernameEditText;
@@ -37,7 +39,7 @@ public class loginActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
         Button loginButton = findViewById(R.id.button);
-        TextView textViewCrearCuenta = findViewById(R.id.textView6);
+        textViewCrearCuenta = findViewById(R.id.textView6);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,11 +47,11 @@ public class loginActivity extends AppCompatActivity {
                 handleLogin();
             }
         });
-        // Maneja el clic en el TextView para crear cuenta
+
         textViewCrearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(loginActivity.this, RegistroActivity.class); // Cambia a tu actividad de registro
+                Intent intent = new Intent(loginActivity.this, RegistroActivity.class);
                 startActivity(intent);
             }
         });
@@ -72,8 +74,8 @@ public class loginActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         LoginResponse loginResponse = response.body();
                         if (loginResponse != null) {
-                            String accessToken = loginResponse.getAccess(); // Obtener el token de acceso
-                            String refreshToken = loginResponse.getRefresh(); // Obtener el token de refresco
+                            String accessToken = loginResponse.getAccess();
+                            String refreshToken = loginResponse.getRefresh();
                             String firstName = loginResponse.getUser().getFirstName();
                             String lastName = loginResponse.getUser().getLastName();
                             String rol = loginResponse.getRol();
@@ -81,20 +83,19 @@ public class loginActivity extends AppCompatActivity {
                             Log.d("LoginActivity", "Rol obtenido: " + rol);
                             Log.d("LoginActivity", "First Name: " + firstName);
                             Log.d("LoginActivity", "Last Name: " + lastName);
-                            Log.d("LoginActivity", "Token de acceso recibido: " + accessToken); // Asegúrate de registrar el token
-                            Log.d("LoginActivity", "Token de refresco recibido: " + refreshToken); // Registro adicional
+                            Log.d("LoginActivity", "Token de acceso recibido: " + accessToken);
+                            Log.d("LoginActivity", "Token de refresco recibido: " + refreshToken);
 
-                            // Guarda datos en SharedPreferences para AUTENTICAR al usuario logueado
                             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
                             editor.putString("user_name", firstName);
                             editor.putString("user_lastname", lastName);
-                            editor.putString("user_token", accessToken); // Guardar el token de acceso
-                            editor.putString("refresh_token", refreshToken); // Guardar el token de refresco
-                            editor.putString("user_rol", rol); // Guardar el rol
+                            editor.putString("user_token", accessToken);
+                            editor.putString("refresh_token", refreshToken);
+                            editor.putString("user_rol", rol);
 
-                            editor.apply(); // Aplicar los cambios
+                            editor.apply();
 
                             Toast.makeText(loginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -102,14 +103,37 @@ public class loginActivity extends AppCompatActivity {
                             finish();
                         }
                     } else {
-                        // Manejo de errores, por ejemplo:
-                        Toast.makeText(loginActivity.this, "Login fallido: " + response.message(), Toast.LENGTH_SHORT).show();
+                        try {
+                            String errorBody = response.errorBody().string();
+                            Log.e("loginActivity", "Error Body: " + errorBody);
+                            JSONObject jsonObject = new JSONObject(errorBody);
+
+                            //extrae el mensaje del error
+                            JSONObject errorDetails = jsonObject.optJSONObject("error");
+
+
+                            if (errorDetails != null) {
+                                JSONArray nonFieldErrors = errorDetails.optJSONArray("non_field_errors");
+                                if (nonFieldErrors != null && nonFieldErrors.length() > 0) {
+                                    String errorMessage = nonFieldErrors.getString(0);
+                                    Toast.makeText(loginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(loginActivity.this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(loginActivity.this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            Log.e("LoginActivity", "Error al procesar la respuesta: " + e.getMessage());
+                            Toast.makeText(loginActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     Log.e("LoginActivity", "Error: " + t.getMessage());
+                    Toast.makeText(loginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -139,9 +163,7 @@ public class loginActivity extends AppCompatActivity {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    // Simplificación de la validación de contraseña
     private boolean isValidPassword(String password) {
         return password.length() >= 8;
     }
 }
-
