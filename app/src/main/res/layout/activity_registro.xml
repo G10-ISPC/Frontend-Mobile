@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/first_name" />
@@ -55,6 +56,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/last_name" />
@@ -62,21 +64,27 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
                     android:hint="@string/password" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password2EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
                     android:hint="@string/confirm_password" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,6 +94,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email" />
@@ -96,6 +105,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/phone" />
@@ -106,6 +116,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/streetEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/street" />
@@ -116,6 +127,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/numberEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/number" />

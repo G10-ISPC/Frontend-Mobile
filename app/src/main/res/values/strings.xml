@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RiccoApp</string>
+    <string name="app_name">""</string>
 
 
     <!-- REGISTRO -->
@@ -15,44 +15,49 @@
     <string name="number">Número</string>
     <string name="btn_register">Enviar</string>
     <string name="login_action">¿Ya tenés una cuenta? Inicia sesión</string>
-    <!-- Perfil usuario -->
 
+    <!-- Perfil usuario -->
 
     <string name="eliminar_cuenta">Eliminar Cuenta</string>
     <string name="editar">Editar</string>
     <string name="contrase_a">Contraseña</string>
-    <!--<string name="email">Email</string>-->
+    <string name="enviar">Enviar</string>
+    <string name="calle">calle</string>
+    <string name="telefono">telefono</string>
+    <string name="Mi_cuenta">Mi cuenta</string>
     <string name="n_mero">Número</string>
     <string name="call">Call</string>
     <string name="apellido">Apellido</string>
     <string name="nombre">Nombre</string>
     <string name="perfil_de_usuario">Perfil de Usuario</string>
     <string name="volver_a_suscribirse">Volver a Suscribirse</string>
+    <string name="guardar">Guardar</string>
+
 
     <!-- PRODUCTS-->
     <string name="name1">KING KONG BURGER</string>
     <string name="description1">6/8 porciones. Burger XXL de 1kg, con queso cheddar, lechuga, tomate y panceta crocante.</string>
     <string name="price1">$4500</string>
     <string name="name2">TASTY RICCA</string>
-    <string name="description2">Pan casero. Burger de carne 220gr. Queso cheddar fundido, lechuga, tomate huevo planchado, panceta crocante y cebolla asada</string>
+    <string name="description2">Pan casero. Burger de carne 220gr. Queso cheddar fundido, lechuga, tomate huevo planchado.</string>
     <string name="price2">$2450</string>
     <string name="name3">AMERICAN</string>
     <string name="description3">Pan casero.Burger de carne 200gr. Queso cheddar fundido con panceta crocante y huevo a la plancha</string>
     <string name="price3">$3900</string>
     <string name="name4">LOUIS\' HONOR</string>
-    <string name="description4">Pan casero. Doble burger de carne 200gr. Queso azul fundido. Cebolla caramelizada. Panceta crocante. Champignones asados. Rúcula</string>
+    <string name="description4">Pan casero. Doble burger de carne 200gr. Queso azul fundido. Cebolla caramelizada. </string>
     <string name="price4">$4100</string>
     <string name="name5">RICCA</string>
-    <string name="description5">Pan casero. Burger de carne 200gr. Queso muzzarella fundido. Aros de cebolla fritos. Panceta crocante. Guacamole</string>
+    <string name="description5">Pan casero. Burger de carne 200gr. Queso muzzarella fundido. Aros de cebolla fritos. </string>
     <string name="price5">$3250</string>
     <string name="name6">LAMBHAUS</string>
     <string name="description6">Pan casero. Burger de cordero 190gr. Queso brie fundido con frutos secos. Cebolla al malbec</string>
     <string name="price6">$2780</string>
     <string name="name7">DOUBLE CHEESE and BACON</string>
-    <string name="description7">Pan casero. Doble burger de carne 200gr. Doble queso cheddar. Panceta. Cebolla</string>
+    <string name="description7">Pan casero. Doble burger de carne 200gr.</string>
     <string name="price7">$4450</string>
     <string name="name8">LASSEN WURST</string>
-    <string name="description8">Pan ciabatta de aceitunas. Sandwich de chorizo alemán 140gr. Queso dambo fundido. Cebolla caramelizada. Panceta crocante</string>
+    <string name="description8">Pan ciabatta de aceitunas. Sandwich de chorizo alemán 140gr. Queso dambo fundido. </string>
     <string name="price8">$3450</string>
     <string name="burger1">TODO</string>
     <string name="burger2">TODO</string>
@@ -72,6 +77,25 @@
     <string name="btn_ingresar">Ingresar</string>
     <string name="lbl_crear_cuenta">No tienes cuenta?, Registrate</string>
     <string name="image_description">Descripción de la imágen</string>
+
+    <!-- NAV Y FOOTER -->
+
+    <string name="menu_home">Home</string>
+    <string name="menu_about">About</string>
+    <string name="menu_product">Product</string>
+    <string name="menu_register">Register</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_contact">Contact</string>
+    <string name="Copy_ISPC_RICCO_BURGERS">RiccoBurger</string>
+
+    <!-- SPLASH -->
+
+    <string name="welcome_message">Bienvenido a RiccoApp</string>
+    <string name="bienvenido_a_riccoapp">Bienvenido a RiccoApp</string>
+    <string name="todo">TODO</string>
+    <string name="introduzca_aqu_su_mensaje_para_nosotros_nos_comunicaremos_con_usted_en_breve">Introduzca aquí su mensaje para nosotros. Nos comunicaremos con usted en breve.</string>
+    <string name="RiccoAPP">Ricco</string>
+
 
 </resources>
 
