@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
-    android:background="@android:color/white"
+    android:background="#FCF5FD"
     android:gravity="top|center"
     android:orientation="vertical"
     android:visibility="visible"
@@ -117,13 +117,13 @@
             android:background="#FFFFFF"
             android:gravity="start|top"
             android:inputType="textMultiLine"
+            android:maxLines="6"
+            android:minLines="3"
             android:padding="20dp"
+            android:scrollbars="vertical"
             android:textColor="#4E4D4D"
             android:textColorLink="#212020"
-            android:textSize="18sp"
-            android:minLines="3"
-            android:maxLines="6"
-            android:scrollbars="vertical" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
