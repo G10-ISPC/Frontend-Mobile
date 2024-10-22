@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
-    android:background="#DCE1E1"
+    android:background="@android:color/white"
     android:gravity="top|center"
     android:orientation="vertical"
     android:visibility="visible"
@@ -106,7 +106,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="Mensaje">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mensaje"
@@ -114,15 +115,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="#FFFFFF"
-            android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:padding="20dp"
-            android:text="@string/introduzca_aqu_su_mensaje_para_nosotros_nos_comunicaremos_con_usted_en_breve"
             android:textColor="#4E4D4D"
             android:textColorLink="#212020"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:minLines="3"
+            android:maxLines="6"
+            android:scrollbars="vertical" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/contactbutton"
