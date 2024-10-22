@@ -96,6 +96,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MainActivity", "onResume called"); // Verifica si se llama
+
+        // Recupera datos del SharedPreferences al volver a la MainActivity
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String firstName = sharedPreferences.getString("user_name", "");
+        String lastName = sharedPreferences.getString("user_lastname", "");
+        String rol = sharedPreferences.getString("user_rol", "");
+        Log.d("MainActivity", "Nombre: " + firstName + ", Apellido: " + lastName + ", Rol: " + rol);
+
+        // Mostrar el mensaje de bienvenida
+        if ("admin".equals(rol)) {
+            userNameTextView.setText(firstName + " " + lastName + " - Admin");
+        } else {
+            userNameTextView.setText(firstName + " " + lastName);
+        }
+
+        // Limpiar datos si el rol está vacío
+        if (rol.isEmpty()) {
+            userNameTextView.setText(""); // Limpia el TextView si no hay datos
+        }
+
+        // Invalidar el menú para que se vuelva a inflar
+        invalidateOptionsMenu();
+    }
+
     // Inflar el menú de navegación
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_navigation, menu);
