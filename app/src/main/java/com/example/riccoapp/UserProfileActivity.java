@@ -192,6 +192,14 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<UserProfileResponse> call, @NonNull Response<UserProfileResponse> response) {
                 if (response.isSuccessful()) {
+                    // Guardar los nuevos datos en SharedPreferences
+                    SharedPreferences.Editor editor = getSharedPreferences("UserPrefs", MODE_PRIVATE).edit();
+                    editor.putString("user_name", etNombre.getText().toString());
+                    editor.putString("user_lastname", etApellido.getText().toString());
+                    editor.putString("user_rol", ""); // Actualiza el rol si es necesario
+                    editor.apply();
+                    Log.d("UserProfileActivity", "Datos guardados: " + etNombre.getText().toString() + " " + etApellido.getText().toString());
+
                     Toast.makeText(UserProfileActivity.this, "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show();
                     habilitarCampos(false);  // Deshabilitar los campos después de actualizar
                     btnEditar.setText(R.string.editar);  // Cambiar el texto del botón a "Editar"
@@ -200,7 +208,6 @@ public class UserProfileActivity extends AppCompatActivity {
                     Toast.makeText(UserProfileActivity.this, "Error al actualizar el perfil: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<UserProfileResponse> call, @NonNull Throwable t) {
                 Toast.makeText(UserProfileActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
