@@ -34,10 +34,17 @@ public class ContactoActivity extends AppCompatActivity {
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!validateInputs()) {
+                    Toast.makeText(ContactoActivity.this, "Todos los campos son obligatorios.", Toast.LENGTH_SHORT).show();
+
+                }
                 if (validateInputs()) {
-                    Toast.makeText(ContactoActivity.this, "Gracias por su mensaje, le respondemos en breve", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(ContactoActivity.this, "Hemos recibimos su mensaje, le responderemos en breve.", Toast.LENGTH_SHORT).show();
                     clearFields();
                 }
+
+
             }
             private void clearFields() {
                 nombreEditText.setText("");

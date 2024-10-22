@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:background="#FCF5FD"
+    android:layout_margin="0dp"
+    android:background="#D5D4D5"
     android:gravity="top|center"
     android:orientation="vertical"
     android:visibility="visible"
@@ -21,6 +21,7 @@
         android:padding="10dp"
         android:shadowColor="#070707"
         android:text="Contacto"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
@@ -28,8 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.621"
-        tools:ignore="Deprecated,HardcodedText" />
+        app:layout_constraintVertical_bias="0.621" />
 
     <TextView
         android:id="@+id/text"
@@ -38,6 +38,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="No dudes en ponerte en contacto con nosotros si tienes dudas o sugerencias."
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,23 +48,25 @@
         app:layout_constraintVertical_bias="0.094" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@color/white"
             android:hint="Nombre"
             android:inputType="text"
-            android:padding="10dp" />
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/apellido"
@@ -73,12 +76,13 @@
             android:background="@color/white"
             android:hint="Apellido"
             android:inputType="text"
-            android:padding="10dp" />
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/telefono"
@@ -87,12 +91,14 @@
             android:layout_marginTop="20dp"
             android:background="@color/white"
             android:hint="Teléfono"
-            android:padding="10dp" />
+
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
@@ -101,11 +107,12 @@
             android:layout_marginTop="20dp"
             android:background="@color/white"
             android:hint="E-mail"
-            android:padding="10dp" />
+
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:hint="Mensaje">
 
@@ -119,9 +126,9 @@
             android:inputType="textMultiLine"
             android:maxLines="6"
             android:minLines="3"
-            android:padding="20dp"
+            android:padding="12dp"
             android:scrollbars="vertical"
-            android:textColor="#4E4D4D"
+            android:textColor="@color/black"
             android:textColorLink="#212020"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -129,7 +136,7 @@
 
     <Button
         android:id="@+id/contactbutton"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="44dp"
