@@ -29,7 +29,13 @@ public class loginActivity extends AppCompatActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private Button loginButton;
     private TextView textViewCrearCuenta;
+
+    private int loginAttempts = 0;
+    private static final int MAX_ATTEMPTS = 3; // Número máximo de intentos
+    private static final long BLOCK_TIME = 5 * 60 * 1000; // Bloqueo por 5 minutos
+    private long blockStartTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +44,16 @@ public class loginActivity extends AppCompatActivity {
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
-        Button loginButton = findViewById(R.id.button);
+        loginButton = findViewById(R.id.button);
         textViewCrearCuenta = findViewById(R.id.textView6);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isBlocked()) {
+                    Toast.makeText(loginActivity.this, "Cuenta bloqueada. Intente de nuevo después de 5 minutos.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 handleLogin();
             }
         });
@@ -72,6 +82,7 @@ public class loginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
+                        loginAttempts = 0; // Reiniciar intentos tras un login exitoso
                         LoginResponse loginResponse = response.body();
                         if (loginResponse != null) {
                             String accessToken = loginResponse.getAccess();
@@ -103,29 +114,34 @@ public class loginActivity extends AppCompatActivity {
                             finish();
                         }
                     } else {
-                        try {
-                            String errorBody = response.errorBody().string();
-                            Log.e("loginActivity", "Error Body: " + errorBody);
-                            JSONObject jsonObject = new JSONObject(errorBody);
+                        loginAttempts++;
+                        if (loginAttempts >= MAX_ATTEMPTS) {
+                            blockStartTime = System.currentTimeMillis();
+                            Toast.makeText(loginActivity.this, "Demasiados intentos fallidos. Cuenta bloqueada por 5 minutos.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            try {
+                                String errorBody = response.errorBody().string();
+                                Log.e("loginActivity", "Error Body: " + errorBody);
+                                JSONObject jsonObject = new JSONObject(errorBody);
 
-                            //extrae el mensaje del error
-                            JSONObject errorDetails = jsonObject.optJSONObject("error");
+                                // Extrae el mensaje del error
+                                JSONObject errorDetails = jsonObject.optJSONObject("error");
 
-
-                            if (errorDetails != null) {
-                                JSONArray nonFieldErrors = errorDetails.optJSONArray("non_field_errors");
-                                if (nonFieldErrors != null && nonFieldErrors.length() > 0) {
-                                    String errorMessage = nonFieldErrors.getString(0);
-                                    Toast.makeText(loginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                if (errorDetails != null) {
+                                    JSONArray nonFieldErrors = errorDetails.optJSONArray("non_field_errors");
+                                    if (nonFieldErrors != null && nonFieldErrors.length() > 0) {
+                                        String errorMessage = nonFieldErrors.getString(0);
+                                        Toast.makeText(loginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(loginActivity.this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     Toast.makeText(loginActivity.this, "Error desconocido", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                Toast.makeText(loginActivity.this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                Log.e("LoginActivity", "Error al procesar la respuesta: " + e.getMessage());
+                                Toast.makeText(loginActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
                             }
-                        } catch (Exception e) {
-                            Log.e("LoginActivity", "Error al procesar la respuesta: " + e.getMessage());
-                            Toast.makeText(loginActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -137,6 +153,19 @@ public class loginActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private boolean isBlocked() {
+        if (blockStartTime == 0) {
+            return false; // No está bloqueado
+        }
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - blockStartTime >= BLOCK_TIME) {
+            blockStartTime = 0; // Reiniciar bloqueo
+            loginAttempts = 0; // Reiniciar intentos
+            return false; // Ya no está bloqueado
+        }
+        return true; // Aún está bloqueado
     }
 
     private boolean validateInputs(String email, String password) {
