@@ -196,7 +196,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("UserPrefs", MODE_PRIVATE).edit();
                     editor.putString("user_name", etNombre.getText().toString());
                     editor.putString("user_lastname", etApellido.getText().toString());
-                    editor.putString("user_rol", ""); // Actualiza el rol si es necesario
+                    //editor.putString("user_rol", ""); // Actualiza el rol si es necesario
                     editor.apply();
                     Log.d("UserProfileActivity", "Datos guardados: " + etNombre.getText().toString() + " " + etApellido.getText().toString());
 
