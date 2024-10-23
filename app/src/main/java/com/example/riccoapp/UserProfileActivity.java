@@ -293,7 +293,7 @@ public class UserProfileActivity extends AppCompatActivity {
         etApellido.setEnabled(habilitar);
         etCalle.setEnabled(habilitar);
         etNumero.setEnabled(habilitar);
-        etEmail.setEnabled(habilitar);
+        etEmail.setEnabled(false);
         etTelefono.setEnabled(habilitar);
     }
 }
