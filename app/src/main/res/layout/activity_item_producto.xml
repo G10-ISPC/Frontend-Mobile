@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:layout_marginBottom="10dp">
+
+    <!-- Nombre del Producto -->
+    <EditText
+        android:id="@+id/etNombreProducto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del Producto"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:enabled="false"
+        android:background="@android:color/transparent" />
+
+    <!-- Descripción del Producto -->
+    <EditText
+        android:id="@+id/etDescripcionProducto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción del Producto"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@android:color/darker_gray"
+        android:enabled="false"
+        android:background="@android:color/transparent" />
+
+    <!-- Precio del Producto -->
+    <EditText
+        android:id="@+id/etPrecioProducto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Precio"
+        android:inputType="numberDecimal"
+        android:enabled="false"
+        android:textColor="@android:color/black"
+        android:background="@android:color/transparent" />
+
+    <!-- Acciones (Editar, Guardar y Borrar) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="end">
+
+        <!-- Botón Editar -->
+        <ImageButton
+            android:id="@+id/btnEditar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_edit"
+            android:contentDescription="Editar"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:tint="@android:color/black" />
+
+        <!-- Botón Guardar -->
+        <ImageButton
+            android:id="@+id/btnGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_save"
+            android:contentDescription="Guardar"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_marginStart="8dp"
+            app:tint="@android:color/black"
+            android:visibility="gone" />
+
+        <!-- Botón Borrar -->
+        <ImageButton
+            android:id="@+id/btnBorrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_delete"
+            android:contentDescription="Borrar"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_marginStart="8dp"
+            app:tint="@android:color/black" />
+    </LinearLayout>
+</LinearLayout>

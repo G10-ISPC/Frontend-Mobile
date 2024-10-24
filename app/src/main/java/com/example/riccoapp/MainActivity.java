@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         // 2. Inicializar el TextView
         userNameTextView = findViewById(R.id.userNameTextView);
 
+
+
         // Recuperar datos del SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String firstName = sharedPreferences.getString("user_name", "");
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "First Name: " + firstName);
         Log.d("MainActivity", "Last Name: " + lastName);
         Log.d("MainActivity", "Rol: " + rol); // log para verificar el rol
+
+        // Al recuperar el token en la MainActivity
+        Log.d("SharedPreferences", "Token recuperado: " + sharedPreferences.getString("user_token", "No encontrado"));
+
 
         // 3. Mostrar el mensaje de bienvenida
         if ("admin".equals(rol)) {
@@ -88,6 +94,34 @@ public class MainActivity extends AppCompatActivity {
 
             carousel2.setData(list2);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MainActivity", "onResume called"); // Verifica si se llama
+
+        // Recupera datos del SharedPreferences al volver a la MainActivity
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String firstName = sharedPreferences.getString("user_name", "");
+        String lastName = sharedPreferences.getString("user_lastname", "");
+        String rol = sharedPreferences.getString("user_rol", "");
+        Log.d("MainActivity", "Nombre: " + firstName + ", Apellido: " + lastName + ", Rol: " + rol);
+
+        // Mostrar el mensaje de bienvenida
+        if ("admin".equals(rol)) {
+            userNameTextView.setText(firstName + " " + lastName + " - Admin");
+        } else {
+            userNameTextView.setText(firstName + " " + lastName);
+        }
+
+        // Limpiar datos si el rol está vacío
+        if (rol.isEmpty()) {
+            userNameTextView.setText(""); // Limpia el TextView si no hay datos
+        }
+
+        // Invalidar el menú para que se vuelva a inflar
+        invalidateOptionsMenu();
     }
 
     // Inflar el menú de navegación
@@ -168,14 +202,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear(); // Limpia todos los datos guardados
         editor.apply();
+
         // Limpiar el TextView
         userNameTextView.setText(" ");
-        // Actualizar el menú
-        invalidateOptionsMenu();
 
-        // En caso de querer Redirigir a otra pantalla q no sea la home descomentar y modificar:
-        // Intent intent = new Intent(MainActivity.this, loginActivity.class);
-        // startActivity(intent);
-        // finish(); // Terminar la actividad actual
+        // Redirigir a la pantalla de inicio de sesión
+        Intent intent = new Intent(MainActivity.this, loginActivity.class);
+        startActivity(intent);
+
+        // Finalizar la actividad actual para evitar volver atrás
+        finish();
     }
 }

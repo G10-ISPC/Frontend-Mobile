@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Título Administrador de Productos -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -24,7 +23,6 @@
             android:textColor="@android:color/white"
             android:textSize="24sp" />
 
-        <!-- Tabla de Productos -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewProductos"
             android:layout_width="match_parent"
@@ -33,7 +31,6 @@
             android:padding="8dp"
             android:background="#FFFFFF" />
 
-        <!-- Título Crear Productos -->
         <TextView
             android:id="@+id/titleCrearProducto"
             android:layout_width="wrap_content"
@@ -44,7 +41,6 @@
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
-        <!-- Formulario para agregar/editar producto -->
         <LinearLayout
             android:id="@+id/formulario"
             android:layout_width="match_parent"
@@ -54,50 +50,44 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <!-- Nombre del producto -->
             <EditText
                 android:id="@+id/nombre_producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre del Producto"
-                android:minHeight="48dp"
+                android:inputType="text"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/darker_gray" />
+                android:textColorHint="#A7A7A7" />
 
-            <!-- Precio del producto -->
-            <EditText
-                android:id="@+id/precio_producto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Precio del Producto"
-                android:inputType="numberDecimal"
-                android:minHeight="48dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/darker_gray" />
-
-            <!-- Descripción del producto -->
             <EditText
                 android:id="@+id/descripcion_producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Descripción"
-                android:inputType="textMultiLine"
-                android:lines="3"
+                android:hint="Descripción del Producto"
+                android:inputType="text"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/darker_gray" />
+                android:textColorHint="#A7A7A7"
+                android:layout_marginTop="8dp" />
 
-            <!-- Botón para añadir producto -->
+            <EditText
+                android:id="@+id/precio_producto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Precio del Producto"
+                android:inputType="numberDecimal"
+                android:textColor="@android:color/white"
+                android:textColorHint="#A7A7A7"
+                android:layout_marginTop="8dp" />
+
             <Button
                 android:id="@+id/btnAddProduct"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
+                android:text="Agregar Producto"
                 android:backgroundTint="@color/black"
-                android:text="Añadir Producto"
-                android:textColor="#FFFFFF" />
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

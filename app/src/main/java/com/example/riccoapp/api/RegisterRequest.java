@@ -1,5 +1,7 @@
 package com.example.riccoapp.api;
 
+import com.example.riccoapp.api.Direccion;
+
 public class RegisterRequest {
 
     private String first_name;
@@ -9,27 +11,6 @@ public class RegisterRequest {
     private String password2;
     private Direccion direccion;
     private int telefono;
-
-    public static class Direccion {
-
-        private String street;
-        private int number;
-
-        public Direccion(String street, int number) {
-
-            this.street = street;
-            this.number = number;
-        }
-
-        public String getStreet() {
-            return street;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-    }
 
     public RegisterRequest(String first_name, String last_name, String email, String password, String password2, int telefono, Direccion direccion) {
         this.first_name = first_name;
@@ -41,32 +22,31 @@ public class RegisterRequest {
         this.direccion = direccion;
     }
 
-    public String getFirstName() {
-        return first_name;
-    }
+    // Getters y Setters
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getLastName() {
-        return last_name;
-    }
+    public String getPassword() { return password; }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
+    public void setPassword(String password) { this.password = password; }
 
     public String getPassword2() {
         return password2;
     }
 
-    public int getTelefono() {
-        return telefono;
+    public void setPassword2(String password2) {
+        this.password2 = password2;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
-    }
+    public String getFirstName() { return first_name; }
+    public void setFirstName(String first_Name) { this.first_name = first_name; }
 
+    public String getLastName() { return last_name; }
+    public void setLastName(String lastName) { this.last_name = lastName; }
+
+    public int getTelefono() { return telefono; }
+    public void setTelefono(int telefono) { this.telefono = telefono; }
+
+    public Direccion getDireccion() { return direccion; }
+    public void setDireccion(Direccion direccion) { this.direccion = direccion; }
 }

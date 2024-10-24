@@ -19,15 +19,23 @@ import com.example.riccoapp.api.LoginRequest;
 import com.example.riccoapp.api.LoginResponse;
 import com.example.riccoapp.api.RetrofitClient;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 public class loginActivity extends AppCompatActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private Button loginButton;
     private TextView textViewCrearCuenta;
+
+    private int loginAttempts = 0;
+    private static final int MAX_ATTEMPTS = 3; // Número máximo de intentos
+    private static final long BLOCK_TIME = 5 * 60 * 1000; // Bloqueo por 5 minutos
+    private long blockStartTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +44,24 @@ public class loginActivity extends AppCompatActivity {
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
-        Button loginButton = findViewById(R.id.button);
-        TextView textViewCrearCuenta = findViewById(R.id.textView6);
+        loginButton = findViewById(R.id.button);
+        textViewCrearCuenta = findViewById(R.id.textView6);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isBlocked()) {
+                    Toast.makeText(loginActivity.this, "Cuenta bloqueada. Intente de nuevo después de 5 minutos.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 handleLogin();
             }
         });
-        // Maneja el clic en el TextView para crear cuenta
+
         textViewCrearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(loginActivity.this, RegistroActivity.class); // Cambia a tu actividad de registro
+                Intent intent = new Intent(loginActivity.this, RegistroActivity.class);
                 startActivity(intent);
             }
         });
@@ -70,26 +82,31 @@ public class loginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
+                        loginAttempts = 0; // Reiniciar intentos tras un login exitoso
                         LoginResponse loginResponse = response.body();
                         if (loginResponse != null) {
-                            String token = loginResponse.getToken();
-                            String firstName = loginResponse.Getuser().getFirstName();
-                            String lastName = loginResponse.Getuser().getLastName();
-                            String rol = loginResponse.Getuser().getRol(); //
-                            Log.d("LoginActivity", "Rol obtenido: " + rol);
+                            String accessToken = loginResponse.getAccess();
+                            String refreshToken = loginResponse.getRefresh();
+                            String firstName = loginResponse.getUser().getFirstName();
+                            String lastName = loginResponse.getUser().getLastName();
+                            String rol = loginResponse.getRol();
 
+                            Log.d("LoginActivity", "Rol obtenido: " + rol);
                             Log.d("LoginActivity", "First Name: " + firstName);
                             Log.d("LoginActivity", "Last Name: " + lastName);
+                            Log.d("LoginActivity", "Token de acceso recibido: " + accessToken);
+                            Log.d("LoginActivity", "Token de refresco recibido: " + refreshToken);
 
-                            // Guardar datos en SharedPreferences sin borrar los anteriores
                             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
+
                             editor.putString("user_name", firstName);
                             editor.putString("user_lastname", lastName);
-                            editor.putString("user_token", token); // Guardar el token
-                            editor.putString("user_rol", rol); // Guardar el rol
-                            Log.d("Menu", "Rol del usuario: " + rol);
-                            editor.apply(); // Aplicar los cambios
+                            editor.putString("user_token", accessToken);
+                            editor.putString("refresh_token", refreshToken);
+                            editor.putString("user_rol", rol);
+
+                            editor.apply();
 
                             Toast.makeText(loginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -97,26 +114,58 @@ public class loginActivity extends AppCompatActivity {
                             finish();
                         }
                     } else {
-                        try {
-                            // Mostrar el error completo de la respuesta
-                            String errorBody = response.errorBody().string();
-                            Log.e("LoginActivity", "Error Body: " + errorBody);
-                            Toast.makeText(loginActivity.this, "Error en el login: " + errorBody, Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            Log.e("LoginActivity", "Exception: " + e.getMessage());
+                        loginAttempts++;
+                        if (loginAttempts >= MAX_ATTEMPTS) {
+                            blockStartTime = System.currentTimeMillis();
+                            Toast.makeText(loginActivity.this, "Demasiados intentos fallidos. Cuenta bloqueada por 5 minutos.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            try {
+                                String errorBody = response.errorBody().string();
+                                Log.e("loginActivity", "Error Body: " + errorBody);
+                                JSONObject jsonObject = new JSONObject(errorBody);
+
+                                // Extrae el mensaje del error
+                                JSONObject errorDetails = jsonObject.optJSONObject("error");
+
+                                if (errorDetails != null) {
+                                    JSONArray nonFieldErrors = errorDetails.optJSONArray("non_field_errors");
+                                    if (nonFieldErrors != null && nonFieldErrors.length() > 0) {
+                                        String errorMessage = nonFieldErrors.getString(0);
+                                        Toast.makeText(loginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(loginActivity.this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(loginActivity.this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                Log.e("LoginActivity", "Error al procesar la respuesta: " + e.getMessage());
+                                Toast.makeText(loginActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Toast.makeText(loginActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e("LoginActivity", "Error: ", t);
+                    Log.e("LoginActivity", "Error: " + t.getMessage());
+                    Toast.makeText(loginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                 }
             });
-        } else {
-            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isBlocked() {
+        if (blockStartTime == 0) {
+            return false; // No está bloqueado
+        }
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - blockStartTime >= BLOCK_TIME) {
+            blockStartTime = 0; // Reiniciar bloqueo
+            loginAttempts = 0; // Reiniciar intentos
+            return false; // Ya no está bloqueado
+        }
+        return true; // Aún está bloqueado
     }
 
     private boolean validateInputs(String email, String password) {
@@ -143,9 +192,7 @@ public class loginActivity extends AppCompatActivity {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    // Simplificación de la validación de contraseña
     private boolean isValidPassword(String password) {
         return password.length() >= 8;
     }
 }
-

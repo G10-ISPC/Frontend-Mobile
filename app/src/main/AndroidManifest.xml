@@ -9,11 +9,12 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label=" "
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RiccoApp"
         tools:targetApi="31">
+
         <activity
             android:name=".item_hamburger"
             android:exported="false" />
@@ -25,35 +26,49 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AboutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegistroActivity"
-            android:exported="false" />
-        <activity
-            android:name=".loginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ContactoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProductsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UserProfileActivity"
-            android:exported="false" />
-        <activity android:name=".AdminActivity" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RegistroActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".loginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ContactoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ProductsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false" />
+
+
+        <activity android:name=".AdminActivity"></activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <!-- Elimina este intent-filter de MainActivity para evitar conflictos -->
+            <!-- <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+    </application>
 </manifest>

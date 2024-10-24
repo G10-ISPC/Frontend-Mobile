@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.riccoapp.api.ApiService;
+import com.example.riccoapp.api.Direccion;
 import com.example.riccoapp.api.RegisterRequest;
 import com.example.riccoapp.api.RetrofitClient;
 import com.example.riccoapp.api.User;
@@ -49,21 +50,79 @@ public class RegistroActivity extends AppCompatActivity {
         });
 
         registerButton.setOnClickListener(v -> {
-            String firstName = firstNameEditText.getText().toString();
-            String lastName = lastNameEditText.getText().toString();
-            String email = emailEditText.getText().toString();
+            String firstName = firstNameEditText.getText().toString().trim();
+            String lastName = lastNameEditText.getText().toString().trim();
+            String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString();
             String password2 = password2EditText.getText().toString();
-            int telefono = Integer.parseInt(phoneEditText.getText().toString());
-            String street = streetEditText.getText().toString();
-            int number = Integer.parseInt(numberEditText.getText().toString());
+            String telefonoStr = phoneEditText.getText().toString().trim();
+            String street = streetEditText.getText().toString().trim();
+            String numberStr = numberEditText.getText().toString().trim();
+
+            // Validar que ningún campo esté vacío
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() ||
+                    password2.isEmpty() || telefonoStr.isEmpty() || street.isEmpty() || numberStr.isEmpty()) {
+                Toast.makeText(RegistroActivity.this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar formato de email
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(RegistroActivity.this, "Correo electrónico no válido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar longitud de la contraseña (mínimo 8 caracteres)
+            if (password.length() < 8) {
+                Toast.makeText(RegistroActivity.this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (password.matches("\\d+")) {
+                Toast.makeText(RegistroActivity.this, "La contraseña no puede ser completamente numérica.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validación de similitud con nombre, apellido o correo
+            if (password.toLowerCase().contains(firstName.toLowerCase()) ||
+                    password.toLowerCase().contains(lastName.toLowerCase()) ||
+                    password.toLowerCase().contains(email.toLowerCase())) {
+                Toast.makeText(RegistroActivity.this, "La contraseña no debe contener tu nombre, apellido o correo.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if (!password.equals(password2)) {
                 Toast.makeText(RegistroActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            RegisterRequest.Direccion direccion = new RegisterRequest.Direccion(street, number);
+            // Validar que el número de teléfono sea un número entero
+            int telefono;
+            try {
+                telefono = Integer.parseInt(telefonoStr);  // Convertir el String a int
+                if (telefono < 0) {
+                    Toast.makeText(RegistroActivity.this, "Número de teléfono no puede ser negativo", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(RegistroActivity.this, "Número de teléfono no válido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+// Validar que el número de la calle sea un entero positivo
+            int number;
+            try {
+                number = Integer.parseInt(numberStr);  // Convertir el String a int
+                if (number < 0) {
+                    Toast.makeText(RegistroActivity.this, "Número de calle no puede ser negativo", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(RegistroActivity.this, "Número de calle no válido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Direccion direccion = new Direccion(street, number);
 
             RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, email, password, password2, telefono, direccion);
 
@@ -94,12 +153,11 @@ public class RegistroActivity extends AppCompatActivity {
                         finish();
 
                     } else {
-                        if (response.code() == 400) {
-                            Toast.makeText(RegistroActivity.this, "Datos inválidos", Toast.LENGTH_SHORT).show();
-                        } else if (response.code() == 500) {
-                            Toast.makeText(RegistroActivity.this, "Error del servidor", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(RegistroActivity.this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                        try {
+                            String errorResponse = response.errorBody().string();
+                            Toast.makeText(RegistroActivity.this, "Error: " + errorResponse, Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 }

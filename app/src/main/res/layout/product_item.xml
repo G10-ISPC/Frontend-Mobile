@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:padding="10dp"
+android:background="@android:color/white"
+android:elevation="4dp"
+android:layout_marginBottom="10dp">
+
+<!-- Contenedor horizontal para la imagen y los detalles del producto -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- Imagen del Producto -->
+    <ImageView
+        android:id="@+id/ivImagenProducto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/bur1"
+        android:contentDescription="Imagen del Producto"
+        android:scaleType="centerCrop" />
+
+    <!-- Contenedor vertical para los detalles del producto -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp">
+
+        <!-- Nombre del Producto -->
+        <EditText
+            android:id="@+id/etNombreProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:hint="Nombre del Producto"
+            android:minHeight="48dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Descripción del Producto -->
+        <EditText
+            android:id="@+id/etDescripcionProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:hint="Descripción del Producto"
+            android:minHeight="48dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+
+        <!-- Precio del Producto -->
+        <EditText
+            android:id="@+id/etPrecioProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:hint="Precio"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
+
+</LinearLayout>

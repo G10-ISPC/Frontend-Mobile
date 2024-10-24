@@ -18,12 +18,12 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Luego de 3 segundos, abrir la actividad principal
+                // Luego de 7 segundos, abrir la actividad principal
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 // Finalizar SplashActivity para evitar volver a ella
                 finish();
             }
-        }, 3000); // Duración de 3 segundos para la pantalla de precarga
+        }, 5000); // Duración de 7 segundos para la pantalla de precarga
     }
 }
