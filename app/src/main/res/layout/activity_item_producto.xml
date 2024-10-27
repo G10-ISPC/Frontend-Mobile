@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="10dp"
     android:background="@android:color/white"
     android:elevation="4dp"
@@ -19,7 +18,8 @@
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:enabled="false"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true" />
 
     <!-- Descripción del Producto -->
     <EditText
@@ -29,9 +29,10 @@
         android:hint="Descripción del Producto"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/black"
         android:enabled="false"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:layout_below="@id/etNombreProducto" />
 
     <!-- Precio del Producto -->
     <EditText
@@ -42,7 +43,18 @@
         android:inputType="numberDecimal"
         android:enabled="false"
         android:textColor="@android:color/black"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:layout_below="@id/etDescripcionProducto" />
+
+    <!-- Switch para Cambiar Estado de Stock -->
+    <Switch
+        android:id="@+id/switchStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:checked="true"
+        android:text="En stock" />
 
     <!-- Acciones (Editar, Guardar y Borrar) -->
     <LinearLayout
@@ -50,7 +62,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="8dp"
-        android:gravity="end">
+        android:gravity="end"
+        android:layout_below="@id/etPrecioProducto">
 
         <!-- Botón Editar -->
         <ImageButton
@@ -85,4 +98,16 @@
             android:layout_marginStart="8dp"
             app:tint="@android:color/black" />
     </LinearLayout>
-</LinearLayout>
+
+    <!-- Marca de Agua "Sin stock" -->
+    <TextView
+        android:id="@+id/tvSinStock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="SIN STOCK"
+        android:textSize="32sp"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:alpha="0.3"
+        android:visibility="gone" />
+</RelativeLayout>
