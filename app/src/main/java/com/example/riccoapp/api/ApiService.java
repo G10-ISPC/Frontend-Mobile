@@ -43,4 +43,9 @@ public interface ApiService {
     @PUT("productos/{id}/")
     Call<Product> updateProduct(@Path("id") int id, @Body Product product, @Header("Authorization") String token);
 
+    // Se agrega la opcion de stock
+    @PUT("productos/{id}/stock")
+    Call<Product> updateStock(@Path("id") int id, @Body Product product, @Header("Authorization") String token);
+
+
 }
