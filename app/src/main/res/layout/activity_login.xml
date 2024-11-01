@@ -8,6 +8,13 @@
     android:background="@drawable/plato"
     tools:context=".loginActivity">
 
+    <!-- Incluir la Toolbar -->
+    <include
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"

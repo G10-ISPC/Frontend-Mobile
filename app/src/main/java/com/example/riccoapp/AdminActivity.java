@@ -12,7 +12,7 @@ import com.example.riccoapp.adapter.ProductAdapterAdmin;
 import com.example.riccoapp.api.Product;
 import java.util.ArrayList;
 
-public class AdminActivity extends AppCompatActivity implements ProductAdapterAdmin.OnProductoClickListener {
+public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.OnProductoClickListener {
 
     private ProductoViewModel productoViewModel;
     private ProductAdapterAdmin productoAdapter;
@@ -23,6 +23,7 @@ public class AdminActivity extends AppCompatActivity implements ProductAdapterAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        setupToolbar(); // Barra de navegación
 
         edtNombre = findViewById(R.id.nombre_producto);
         edtDescripcion = findViewById(R.id.descripcion_producto);

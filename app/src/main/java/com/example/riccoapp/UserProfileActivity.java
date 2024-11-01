@@ -28,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends BaseActivity {
 
     // Variables de vista
     private EditText etNombre, etApellido, etCalle, etNumero, etEmail, etTelefono;
@@ -46,6 +46,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        setupToolbar(); // Barra de navegación
 
         // Inicializar Retrofit
         apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);

@@ -7,12 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ProductsActivity">
 
+    <!-- Incluir la Toolbar -->
+    <include
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- activity_products.xml -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProductos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:padding="8dp"
         android:background="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"

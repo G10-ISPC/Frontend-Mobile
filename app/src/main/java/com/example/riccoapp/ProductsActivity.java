@@ -16,7 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductsActivity extends AppCompatActivity implements ProductAdapter.OnProductoClickListener {
+public class ProductsActivity extends BaseActivity implements ProductAdapter.OnProductoClickListener {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;  // Adaptador corregido a ProductoAdapter
     private List<Product> productList;  // Lista de productos
@@ -25,6 +25,7 @@ public class ProductsActivity extends AppCompatActivity implements ProductAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);  // Conectar con el XML
+        setupToolbar(); // Barra de navegación
 
         // Inicializar la lista de productos
         productList = new ArrayList<>();

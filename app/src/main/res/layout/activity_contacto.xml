@@ -12,6 +12,12 @@
     android:visibility="visible"
     tools:context=".ContactoActivity">
 
+    <!-- Incluir la Toolbar -->
+    <include
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/contacto_form"
