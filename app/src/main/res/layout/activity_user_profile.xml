@@ -10,6 +10,13 @@
     android:background="#FFFFFF"
     tools:context=".UserProfileActivity">
 
+    <!-- Incluir la Toolbar -->
+    <include
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- Título de la pantalla -->
     <TextView
         android:id="@+id/title"

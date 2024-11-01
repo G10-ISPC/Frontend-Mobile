@@ -95,6 +95,16 @@
     <string name="todo">TODO</string>
     <string name="introduzca_aqu_su_mensaje_para_nosotros_nos_comunicaremos_con_usted_en_breve">Introduzca aquí su mensaje para nosotros. Nos comunicaremos con usted en breve.</string>
     <string name="RiccoAPP">Ricco</string>
+    <string name="bienvenido">Bienvenido</string>
+
+    <string name="agregar_producto">Agregar Producto</string>
+    <string name="precio_del_producto">Precio del Producto</string>
+    <string name="descripci_n_del_producto">Descripción del Producto</string>
+    <string name="nombre_del_producto">Nombre del Producto</string>
+    <string name="crear_productos">Crear Productos</string>
+    <string name="administrador_de_productos">Administrador de Productos</string>
+    <string name="logo_de_hamburgesas">logo de hamburgesas</string>
+    <string name="opciones">Opciones</string>
 
 
 </resources>

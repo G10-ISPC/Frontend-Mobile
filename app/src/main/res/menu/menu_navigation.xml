@@ -7,7 +7,7 @@
         android:title="Home"/>
 
     <!-- Opción Acerca de -->
-     <item
+    <item
         android:id="@+id/nav_about"
         android:title="Nosotros"/>
 

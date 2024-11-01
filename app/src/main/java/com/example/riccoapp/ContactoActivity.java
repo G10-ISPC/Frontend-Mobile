@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-public class ContactoActivity extends AppCompatActivity {
+public class ContactoActivity extends BaseActivity {
 
     private TextInputEditText nombreEditText;
     private TextInputEditText apellidoEditText;
@@ -23,6 +23,7 @@ public class ContactoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacto);
+        setupToolbar(); // Barra de navegación
 
         nombreEditText = findViewById(R.id.nombre);
         apellidoEditText = findViewById(R.id.apellido);
