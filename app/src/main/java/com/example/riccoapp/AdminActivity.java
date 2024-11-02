@@ -24,6 +24,8 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         setupToolbar(); // Barra de navegación
+        userNameTextView = findViewById(R.id.userNameTextView); // Asignación de TextView específico de esta Activity
+        loadUserName(); // Carga y muestra el nombre del usuario
 
         edtNombre = findViewById(R.id.nombre_producto);
         edtDescripcion = findViewById(R.id.descripcion_producto);

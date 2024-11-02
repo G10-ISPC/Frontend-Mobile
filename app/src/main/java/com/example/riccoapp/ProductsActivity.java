@@ -26,6 +26,8 @@ public class ProductsActivity extends BaseActivity implements ProductAdapter.OnP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);  // Conectar con el XML
         setupToolbar(); // Barra de navegación
+        userNameTextView = findViewById(R.id.userNameTextView); // Asignación de TextView específico de esta Activity
+        loadUserName(); // Carga y muestra el nombre del usuario
 
         // Inicializar la lista de productos
         productList = new ArrayList<>();

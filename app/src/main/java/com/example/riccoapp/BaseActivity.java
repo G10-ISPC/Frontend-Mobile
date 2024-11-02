@@ -24,11 +24,8 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.toolbar_layout);
         setupToolbar(); // Configura la Toolbar en cada Activity que hereda de BaseActivity
 
-        // Inicializa el TextView si está en el layout actual
-        if (findViewById(R.id.userNameTextView) != null) {
-            userNameTextView = findViewById(R.id.userNameTextView);
-            loadUserName(); // Carga y muestra el nombre del usuario
-        }
+        userNameTextView = findViewById(R.id.userNameTextView);
+        loadUserName(); // Carga y muestra el nombre del usuario
     }
 
     // Método para cargar y mostrar el nombre del usuario desde SharedPreferences
@@ -38,8 +35,6 @@ public class BaseActivity extends AppCompatActivity {
         String firstName = sharedPreferences.getString("user_name", "");
         String lastName = sharedPreferences.getString("user_lastname", "");
         String rol = sharedPreferences.getString("user_rol", "");
-
-        Log.d("BaseActivity", "Nombre: " + firstName + ", Apellido: " + lastName + ", Rol: " + rol);
 
         // Mostrar el nombre en el TextView si está presente
         if (userNameTextView != null) {

@@ -12,6 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
+    <!-- TextView para el nombre del usuario -->
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"/>
 
     <!-- Contenedor principal con desplazamiento cuando el contenido excede la pantalla -->
     <androidx.core.widget.NestedScrollView

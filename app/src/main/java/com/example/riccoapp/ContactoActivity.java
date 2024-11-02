@@ -24,6 +24,8 @@ public class ContactoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacto);
         setupToolbar(); // Barra de navegación
+        userNameTextView = findViewById(R.id.userNameTextView); // Asignación de TextView específico de esta Activity
+        loadUserName(); // Carga y muestra el nombre del usuario
 
         nombreEditText = findViewById(R.id.nombre);
         apellidoEditText = findViewById(R.id.apellido);
