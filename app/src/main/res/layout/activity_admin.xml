@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:background="#1F1D1D">
 
-    <!-- Toolbar -->
+    <!-- Toolbar, mantenida intacta para la consistencia de la interfaz -->
     <include
         layout="@layout/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Main Content -->
+    <!-- Contenedor principal con desplazamiento cuando el contenido excede la pantalla -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Título de la Sección -->
+            <!-- Título de la sección de administración de productos -->
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
 
-            <!-- RecyclerView para productos -->
+            <!-- RecyclerView para mostrar la lista de productos -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewProductos"
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:padding="8dp"
                 android:background="#FFFFFF" />
 
-            <!-- Título de formulario -->
+            <!-- Título de la sección de creación de productos -->
             <TextView
                 android:id="@+id/titleCrearProducto"
                 android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="22sp" />
 
-            <!-- Formulario de creación de producto -->
+            <!-- Formulario de creación de productos -->
             <LinearLayout
                 android:id="@+id/formulario"
                 android:layout_width="match_parent"
@@ -67,54 +67,51 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <!-- EditText para nombre del producto -->
+                <!-- Campo de entrada para el nombre del producto -->
                 <EditText
                     android:id="@+id/nombre_producto"
-                    android:layout_width="match_parent"
+                    android:layout_width="365dp"
                     android:layout_height="48dp"
+                    android:autofillHints=""
                     android:hint="@string/nombre_del_producto"
                     android:inputType="text"
-                    android:minHeight="48dp"
                     android:textColor="@android:color/white"
-                    android:textColorHint="#A7A7A7"
-                    android:padding="12dp"/>
+                    android:textColorHint="#A7A7A7" />
 
-                <!-- EditText para descripción del producto -->
+                <!-- Campo de entrada para la descripción del producto -->
                 <EditText
                     android:id="@+id/descripcion_producto"
-                    android:layout_width="match_parent"
+                    android:layout_width="365dp"
                     android:layout_height="48dp"
-                    android:hint="@string/descripci_n_del_producto"
+                    android:autofillHints=""
+                    android:hint="@string/descripcion_del_producto"
                     android:inputType="text"
                     android:textColor="@android:color/white"
                     android:textColorHint="#A7A7A7"
-                    android:layout_marginTop="8dp"
-                    android:padding="12dp"/>
+                    android:layout_marginTop="8dp" />
 
-                <!-- EditText para precio del producto -->
+                <!-- Campo de entrada para el precio del producto -->
                 <EditText
                     android:id="@+id/precio_producto"
-                    android:layout_width="match_parent"
+                    android:layout_width="365dp"
                     android:layout_height="48dp"
+                    android:autofillHints=""
                     android:hint="@string/precio_del_producto"
                     android:inputType="numberDecimal"
                     android:textColor="@android:color/white"
                     android:textColorHint="#A7A7A7"
-                    android:layout_marginTop="8dp"
-                    android:padding="12dp"/>
+                    android:layout_marginTop="8dp" />
 
-                <!-- Botón para agregar producto -->
+                <!-- Botón para agregar el producto -->
                 <Button
                     android:id="@+id/btnAddProduct"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
-                    android:minHeight="48dp"
                     android:text="@string/agregar_producto"
                     android:backgroundTint="@color/black"
-                    android:textColor="@android:color/white"
-                    android:padding="12dp"/>
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

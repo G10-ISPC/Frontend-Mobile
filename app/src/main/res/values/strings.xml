@@ -97,15 +97,26 @@
     <string name="RiccoAPP">Ricco</string>
     <string name="bienvenido">Bienvenido</string>
 
+    <!-- ADMINISTRADOR DE PRDUCTOS-->
+
     <string name="agregar_producto">Agregar Producto</string>
     <string name="precio_del_producto">Precio del Producto</string>
-    <string name="descripci_n_del_producto">Descripción del Producto</string>
+    <string name="descripcion_del_producto">Descripción del Producto</string>
     <string name="nombre_del_producto">Nombre del Producto</string>
     <string name="crear_productos">Crear Productos</string>
     <string name="administrador_de_productos">Administrador de Productos</string>
     <string name="logo_de_hamburgesas">logo de hamburgesas</string>
     <string name="opciones">Opciones</string>
 
+    <!-- ITEM PRODUCTO -->
+
+    <string name="nombre_de_producto">Nombre del Producto</string>
+    <string name="descripcion_de_producto">Descripción del Producto</string>
+    <string name="precio">Precio</string>
+    <string name="edit">Editar</string>
+    <string name="guarda">Guardar</string>
+    <string name="borrar">Borrar</string>
+    <string name="sin_stock">SIN STOCK</string>
 
 </resources>
 
