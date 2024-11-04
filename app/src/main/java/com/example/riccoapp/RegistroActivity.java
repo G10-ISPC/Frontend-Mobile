@@ -15,6 +15,8 @@ import com.example.riccoapp.api.RegisterRequest;
 import com.example.riccoapp.api.RetrofitClient;
 import com.example.riccoapp.api.User;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,6 +25,9 @@ public class RegistroActivity extends BaseActivity {
 
     private EditText firstNameEditText, lastNameEditText, emailEditText, passwordEditText, password2EditText, phoneEditText, streetEditText, numberEditText;
     private Button registerButton;
+
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"); // Solo letras y espacios
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,17 @@ public class RegistroActivity extends BaseActivity {
             if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() ||
                     password2.isEmpty() || telefonoStr.isEmpty() || street.isEmpty() || numberStr.isEmpty()) {
                 Toast.makeText(RegistroActivity.this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validación de nombre y apellido
+            if (!NAME_PATTERN.matcher(firstName).matches()) {
+                Toast.makeText(this, "Nombre solo debe contener letras", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!NAME_PATTERN.matcher(lastName).matches()) {
+                Toast.makeText(this, "Apellido solo debe contener letras", Toast.LENGTH_SHORT).show();
                 return;
             }
 
