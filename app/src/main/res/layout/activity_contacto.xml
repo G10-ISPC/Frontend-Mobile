@@ -40,7 +40,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:shadowColor="#070707"
-        android:text="Contacto"
+        android:text="@string/contacto"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="No dudes en ponerte en contacto con nosotros si tienes dudas o sugerencias."
+        android:text="@string/c_texto"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:hint="Nombre"
+            android:hint="@string/c_nombre"
             android:inputType="text"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@color/white"
-            android:hint="Apellido"
+            android:hint="@string/c_apellido"
             android:inputType="text"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@color/white"
-            android:hint="Teléfono"
+            android:hint="@string/telefono"
 
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -126,15 +126,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@color/white"
-            android:hint="E-mail"
-
+            android:hint= "@string/c_email"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:hint="Mensaje">
+        android:hint="@string/mensaje">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mensaje"
@@ -157,7 +156,7 @@
     <Button
         android:id="@+id/contactbutton"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="44dp"
         android:backgroundTint="#403F3F"

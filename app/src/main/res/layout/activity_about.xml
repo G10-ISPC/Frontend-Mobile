@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:id="@+id/main"
+    android:background="#272728"
     tools:context=".MainActivity">
 
     <!-- Incluir la Toolbar -->
@@ -20,26 +20,26 @@
         android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:text=""
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
         app:layout_constraintStart_toStartOf="parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout" />
 
     <!-- Título: Nosotros -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nosotros"
+        android:layout_marginTop="60dp"
+        android:text="@string/nosotros"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!-- Descripción de Nosotros -->
@@ -48,22 +48,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Ricco Burgers nació del fanatismo de las hamburguesas, de un grupo de amigos..."
+        android:padding="16dp"
+        android:text="@string/text_about"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <!-- Imagen de amigos -->
     <ImageView
         android:id="@+id/amigos_img"
         android:layout_width="395dp"
         android:layout_height="109dp"
+        android:contentDescription="@string/imagen_description"
         android:scaleType="centerCrop"
-        android:src="@drawable/amigos"
 
+        android:src="@drawable/amigos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description" />
@@ -76,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Nuestro equipo"
+        android:text="@string/equipo"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,15 +109,17 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/foto_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/mariana" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="Mariana Cos"
+                android:text="@string/m1"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -124,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Team Developer"
+                android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -141,6 +144,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/foto_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/carla" />
 
@@ -149,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="Carla Arévalo"
+                android:text="@string/m2"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -157,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Team Developer"
+                android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -174,15 +178,17 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/foto_description"
                 android:scaleType="centerCrop"
-                android:src="@drawable/laura" />
+                android:src="@drawable/laura"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="Laura Cruz"
+                android:text="@string/m3"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -190,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Team Developer"
+                android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -207,6 +213,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/foto_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/micaela" />
 
@@ -215,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="Micaela Juarez"
+                android:text="@string/m4"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -223,7 +230,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Team Developer"
+                android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -240,15 +247,19 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/foto_description"
                 android:scaleType="centerCrop"
-                android:src="@drawable/delfina" />
+                android:src="@drawable/delfina"
+
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:contentDescription="@string/foto_description"
                 android:gravity="center"
-                android:text="Delfina Aricoma"
+                android:text="@string/m5"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -256,7 +267,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Team Developer"
+                android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -273,6 +284,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/foto_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/dalma" />
 
@@ -281,7 +293,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="Dalma Ponce"
+                android:text="@string/m6"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -289,7 +301,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Team Developer"
+                android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -305,6 +317,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/foto_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/melisa" />
 
@@ -313,7 +326,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="Melisa Gulle"
+                android:text="@string/m7"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -321,7 +334,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Team Developer"
+                android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -337,6 +350,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/foto_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ernesto" />
 
@@ -345,7 +359,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="Ernesto Cevasco"
+                android:text="@string/m8"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -353,7 +367,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Team Developer"
+                android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
