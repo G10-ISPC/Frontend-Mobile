@@ -15,6 +15,8 @@ import com.example.riccoapp.api.RegisterRequest;
 import com.example.riccoapp.api.RetrofitClient;
 import com.example.riccoapp.api.User;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,6 +25,9 @@ public class RegistroActivity extends BaseActivity {
 
     private EditText firstNameEditText, lastNameEditText, emailEditText, passwordEditText, password2EditText, phoneEditText, streetEditText, numberEditText;
     private Button registerButton;
+
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"); // Solo letras y espacios
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,17 @@ public class RegistroActivity extends BaseActivity {
                 return;
             }
 
+            // Validación de nombre y apellido
+            if (!NAME_PATTERN.matcher(firstName).matches()) {
+                Toast.makeText(this, "Nombre solo debe contener letras", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!NAME_PATTERN.matcher(lastName).matches()) {
+                Toast.makeText(this, "Apellido solo debe contener letras", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Validar formato de email
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(RegistroActivity.this, "Correo electrónico no válido", Toast.LENGTH_SHORT).show();
@@ -81,6 +97,12 @@ public class RegistroActivity extends BaseActivity {
 
             if (password.matches("\\d+")) {
                 Toast.makeText(RegistroActivity.this, "La contraseña no puede ser completamente numérica.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar que la contraseña contenga al menos un carácter especial
+            if (!password.matches(".*[!@#$%^&*()\\-_=+{};:,<.>].*")) {
+                Toast.makeText(RegistroActivity.this, "La contraseña debe contener al menos un carácter especial", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -110,7 +132,7 @@ public class RegistroActivity extends BaseActivity {
                 return;
             }
 
-// Validar que el número de la calle sea un entero positivo
+            // Validar que el número de la calle sea un entero positivo
             int number;
             try {
                 number = Integer.parseInt(numberStr);  // Convertir el String a int
