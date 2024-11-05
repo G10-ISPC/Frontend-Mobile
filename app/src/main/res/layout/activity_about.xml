@@ -103,7 +103,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:contentDescription="@string/mariana_full_description">
 
             <ImageView
                 android:layout_width="80dp"
@@ -138,7 +139,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:contentDescription="@string/carla_full_description">
 
             <ImageView
                 android:layout_width="80dp"
@@ -172,7 +174,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:contentDescription="@string/laura_full_description">
 
             <ImageView
                 android:layout_width="80dp"
@@ -207,7 +210,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:contentDescription="@string/micaela_full_description">
 
             <ImageView
                 android:layout_width="80dp"
@@ -241,7 +245,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:contentDescription="@string/delfina_full_description">
 
             <ImageView
                 android:layout_width="80dp"
@@ -278,7 +283,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:contentDescription="@string/dalma_full_description">
 
             <ImageView
                 android:layout_width="80dp"
@@ -311,7 +317,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:contentDescription="@string/melisa_full_description">
 
             <ImageView
                 android:layout_width="80dp"
@@ -344,7 +351,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="6dp"
+            android:contentDescription="@string/ernesto_full_description">
 
             <ImageView
                 android:layout_width="80dp"

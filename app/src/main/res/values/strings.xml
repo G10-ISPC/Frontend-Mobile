@@ -143,6 +143,27 @@
     <string name="imagen_description">Foto de amigos.</string>
     <string name="foto_description">Foto de miembro del equipo.</string>
 
+    <!-- Descripción completa para el lector de pantalla -->
+    <string name="mariana_full_description">Mariana Cos, desarrolladora. Foto de Mariana Cos.</string>
+    <string name="carla_full_description">Carla Arévalo, desarrolladora. Foto de Carla Arévalo.</string>
+    <string name="laura_full_description">Laura Cruz, desarrolladora. Foto de Laura Cruz.</string>
+    <string name="micaela_full_description">Micaela Juarez, desarrolladora. Foto de Micaela Juarez.</string>
+    <string name="delfina_full_description">Delfina Aricoma, desarrolladora. Foto de Delfina Aricoma.</string>
+    <string name="dalma_full_description">Dalma Ponce, desarrolladora. Foto de Dalma Ponce.</string>
+    <string name="melisa_full_description">Melisa Gulle, desarrolladora. Foto de Melisa Gulle.</string>
+    <string name="ernesto_full_description">Ernesto Cevasco, desarrollador. Foto de Ernesto Cevasco.</string>
+
+    <!-- Nombre de cada página para el lector de pantalla -->
+    <string name="splash_screen_title">Bienvenidos a Ricco Burguer</string>
+    <string name="main_activity_title">Página Principal de Ricco Burguer</string>
+    <string name="about_activity_title">Acerca de Ricco Burguer</string>
+    <string name="contacto_activity_title">Contáctanos</string>
+    <string name="user_profile_activity_title">Perfil de Usuario</string>
+    <string name="admin_activity_title">Administrador de Productos</string>
+    <string name="products_activity_title">Productos</string>
+    <string name="registro_activity_title">Registro de Usuario</string>
+    <string name="login_activity_title">Iniciar sesión</string>
+
 
 </resources>
 
