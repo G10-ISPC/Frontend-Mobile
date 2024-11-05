@@ -83,6 +83,18 @@ public class RegistroActivity extends BaseActivity {
                 return;
             }
 
+            // Validar longitud del nombre (mínimo 3 caracteres)
+            if (firstName.length() < 3) {
+                Toast.makeText(RegistroActivity.this, "El nombre debe tener al menos 3 caracteres", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar longitud del apellido (mínimo 3 caracteres)
+            if (lastName.length() < 3) {
+                Toast.makeText(RegistroActivity.this, "El apellido debe tener al menos 3 caracteres", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Validar formato de email
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(RegistroActivity.this, "Correo electrónico no válido", Toast.LENGTH_SHORT).show();
