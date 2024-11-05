@@ -100,6 +100,12 @@ public class RegistroActivity extends BaseActivity {
                 return;
             }
 
+            // Validar que la contraseña contenga al menos un carácter especial
+            if (!password.matches(".*[!@#$%^&*()\\-_=+{};:,<.>].*")) {
+                Toast.makeText(RegistroActivity.this, "La contraseña debe contener al menos un carácter especial", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Validación de similitud con nombre, apellido o correo
             if (password.toLowerCase().contains(firstName.toLowerCase()) ||
                     password.toLowerCase().contains(lastName.toLowerCase()) ||
@@ -126,7 +132,7 @@ public class RegistroActivity extends BaseActivity {
                 return;
             }
 
-// Validar que el número de la calle sea un entero positivo
+            // Validar que el número de la calle sea un entero positivo
             int number;
             try {
                 number = Integer.parseInt(numberStr);  // Convertir el String a int
