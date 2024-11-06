@@ -28,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends BaseActivity {
 
     // Variables de vista
     private EditText etNombre, etApellido, etCalle, etNumero, etEmail, etTelefono;
@@ -46,6 +46,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        setupToolbar(); // Barra de navegación
 
         // Inicializar Retrofit
         apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
@@ -265,28 +266,48 @@ public class UserProfileActivity extends AppCompatActivity {
             etNombre.setError("El nombre es requerido");
             return false;
         }
+        if (!etNombre.getText().toString().matches("[a-zA-Z]+")) {
+            etNombre.setError("El nombre solo debe contener letras");
+            return false;
+        }
+
         if (TextUtils.isEmpty(etApellido.getText().toString())) {
             etApellido.setError("El apellido es requerido");
             return false;
         }
+        if (!etApellido.getText().toString().matches("[a-zA-Z]+")) {
+            etApellido.setError("El apellido solo debe contener letras");
+            return false;
+        }
+
         if (TextUtils.isEmpty(etEmail.getText().toString()) || !Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
             etEmail.setError("Se requiere un correo electrónico válido");
             return false;
         }
+
         if (TextUtils.isEmpty(etTelefono.getText().toString())) {
             etTelefono.setError("El teléfono es requerido");
             return false;
         }
+
         if (TextUtils.isEmpty(etCalle.getText().toString())) {
             etCalle.setError("La calle es requerida");
             return false;
         }
-        if (TextUtils.isEmpty(etNumero.getText().toString())) {
-            etNumero.setError("El número es requerido");
+        if (!etCalle.getText().toString().matches("[a-zA-Z\\s]+")) { // Solo letras y espacios
+            etCalle.setError("La calle solo debe contener letras y espacios");
             return false;
         }
+
+        if (TextUtils.isEmpty(etNumero.getText().toString()) || !etNumero.getText().toString().matches("\\d+")) { // Solo números
+            etNumero.setError("El número debe ser un valor numérico");
+            return false;
+        }
+
         return true;
     }
+
+
 
     private void habilitarCampos(boolean habilitar) {
         etNombre.setEnabled(habilitar);

@@ -15,20 +15,26 @@ import com.example.riccoapp.api.RegisterRequest;
 import com.example.riccoapp.api.RetrofitClient;
 import com.example.riccoapp.api.User;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegistroActivity extends AppCompatActivity {
+public class RegistroActivity extends BaseActivity {
 
     private EditText firstNameEditText, lastNameEditText, emailEditText, passwordEditText, password2EditText, phoneEditText, streetEditText, numberEditText;
     private Button registerButton;
+
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"); // Solo letras y espacios
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+        setupToolbar(); // Barra de navegación
 
         firstNameEditText = findViewById(R.id.firstNameEditText);
         lastNameEditText = findViewById(R.id.lastNameEditText);
@@ -66,6 +72,29 @@ public class RegistroActivity extends AppCompatActivity {
                 return;
             }
 
+            // Validación de nombre y apellido
+            if (!NAME_PATTERN.matcher(firstName).matches()) {
+                Toast.makeText(this, "Nombre solo debe contener letras", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!NAME_PATTERN.matcher(lastName).matches()) {
+                Toast.makeText(this, "Apellido solo debe contener letras", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar longitud del nombre (mínimo 3 caracteres)
+            if (firstName.length() < 3) {
+                Toast.makeText(RegistroActivity.this, "El nombre debe tener al menos 3 caracteres", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar longitud del apellido (mínimo 3 caracteres)
+            if (lastName.length() < 3) {
+                Toast.makeText(RegistroActivity.this, "El apellido debe tener al menos 3 caracteres", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Validar formato de email
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(RegistroActivity.this, "Correo electrónico no válido", Toast.LENGTH_SHORT).show();
@@ -80,6 +109,12 @@ public class RegistroActivity extends AppCompatActivity {
 
             if (password.matches("\\d+")) {
                 Toast.makeText(RegistroActivity.this, "La contraseña no puede ser completamente numérica.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar que la contraseña contenga al menos un carácter especial
+            if (!password.matches(".*[!@#$%^&*()\\-_=+{};:,<.>].*")) {
+                Toast.makeText(RegistroActivity.this, "La contraseña debe contener al menos un carácter especial", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -109,7 +144,7 @@ public class RegistroActivity extends AppCompatActivity {
                 return;
             }
 
-// Validar que el número de la calle sea un entero positivo
+            // Validar que el número de la calle sea un entero positivo
             int number;
             try {
                 number = Integer.parseInt(numberStr);  // Convertir el String a int

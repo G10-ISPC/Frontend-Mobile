@@ -110,5 +110,29 @@ public class ProductoViewModel extends AndroidViewModel {
             }
         });
     }
+
+    public void updateStockStatus(int id, Product updatedProduct) {
+        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("user_token", "");
+        Log.d("ProductoViewModel", "Token usado: " + accessToken);
+        apiService.updateProduct(id, updatedProduct, "Bearer " + accessToken).enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                if (response.isSuccessful()) {
+                    Log.d("ProductoViewModel", "Estado del stock actualizado correctamente: " + response.body().isInStock());
+                    loadProductos();
+                } else {
+                    Log.e("ProductoViewModel", "Error en la respuesta: " + response.code() + " - " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+                Log.e("ProductoViewModel", "Error al actualizar estado de stock", t);
+            }
+        });
+    }
+
+
 }
 

@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-public class loginActivity extends AppCompatActivity {
+public class loginActivity extends BaseActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -41,6 +41,7 @@ public class loginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setupToolbar(); // Barra de navegación
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
