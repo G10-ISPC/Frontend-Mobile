@@ -9,15 +9,14 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.riccoapp.api.ApiService;
 import com.example.riccoapp.api.LoginRequest;
 import com.example.riccoapp.api.LoginResponse;
 import com.example.riccoapp.api.RetrofitClient;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +24,7 @@ import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 public class loginActivity extends BaseActivity {
 
     private EditText usernameEditText;
@@ -82,6 +82,8 @@ public class loginActivity extends BaseActivity {
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    Log.d("LoginActivity", "Código de estado: " + response.code());
+                    Log.d("LoginActivity", "Cuerpo de la respuesta: " + new Gson().toJson(response.body())); // <--- ¡LÍNEA AGREGADA!
                     if (response.isSuccessful()) {
                         loginAttempts = 0; // Reiniciar intentos tras un login exitoso
                         LoginResponse loginResponse = response.body();
@@ -90,7 +92,8 @@ public class loginActivity extends BaseActivity {
                             String refreshToken = loginResponse.getRefresh();
                             String firstName = loginResponse.getUser().getFirstName();
                             String lastName = loginResponse.getUser().getLastName();
-                            String rol = loginResponse.getRol();
+                            String rol = loginResponse.getUser().getRol();
+
 
                             Log.d("LoginActivity", "Rol obtenido: " + rol);
                             Log.d("LoginActivity", "First Name: " + firstName);
@@ -122,7 +125,7 @@ public class loginActivity extends BaseActivity {
                         } else {
                             try {
                                 String errorBody = response.errorBody().string();
-                                Log.e("loginActivity", "Error Body: " + errorBody);
+                                Log.e("LoginActivity", "Error Body: " + errorBody);
                                 JSONObject jsonObject = new JSONObject(errorBody);
 
                                 // Extrae el mensaje del error

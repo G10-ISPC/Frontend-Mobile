@@ -58,11 +58,11 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
         holder.switchStock.setOnCheckedChangeListener(null);
 
         // Manejar estado de stock
-        holder.switchStock.setChecked(product.isInStock());
-        holder.switchStock.setText(product.isInStock() ? "En stock" : "Sin stock");
+        holder.switchStock.setChecked(product.isVisible());
+        holder.switchStock.setText(product.isVisible() ? "En stock" : "Sin stock");
 
         // Muestra/oculta la marca de agua "SIN STOCK"
-        if (!product.isInStock()) {
+        if (!product.isVisible()) {
             holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(android.R.color.darker_gray));
             holder.tvSinStock.setVisibility(View.VISIBLE);
         } else {
@@ -72,7 +72,7 @@ public class ProductAdapterAdmin extends RecyclerView.Adapter<ProductAdapterAdmi
 
         // Reasigna el listener después de configurar el estado del Switch
         holder.switchStock.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            product.setInStock(isChecked);
+            product.setVisible(isChecked);
             holder.switchStock.setText(isChecked ? "En stock" : "Sin stock");
             listener.onStockChangeClick(position, isChecked);
         });

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +15,6 @@
         android:layout_height="48dp"
         android:autofillHints=""
         android:hint="@string/nombre_de_producto"
-
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@android:color/black"
@@ -32,7 +30,6 @@
         android:layout_height="48dp"
         android:autofillHints=""
         android:hint="@string/descripcion_de_producto"
-
         android:textSize="14sp"
         android:layout_marginTop="4dp"
         android:textColor="@android:color/black"
@@ -60,8 +57,7 @@
         android:id="@+id/switchStock"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@id/etPrecioProducto"
         android:checked="true"
         android:text="En stock" />
 
@@ -72,7 +68,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="8dp"
         android:gravity="end"
-        android:layout_below="@id/etPrecioProducto">
+        android:layout_below="@id/switchStock">
 
         <!-- Botón Editar -->
         <ImageButton
