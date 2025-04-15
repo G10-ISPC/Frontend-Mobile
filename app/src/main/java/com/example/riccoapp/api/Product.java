@@ -6,7 +6,7 @@ public class Product {
     private String descripcion;
     private double precio;
     private int imagenId;
-    private boolean is_in_stock; // Nuevo campo para estado de stock
+    private boolean visible; // Nuevo campo para estado de stock
 
     // Constructor
     public Product(String nombre_producto, String descripcion, double precio) {
@@ -14,7 +14,7 @@ public class Product {
         this.descripcion = descripcion;
         this.precio = precio;
         this.imagenId = imagenId;
-        this.is_in_stock = true; // Por defecto, el producto está en stock
+        this.visible = true; // Por defecto, el producto está en stock
     }
 
     public int getId_producto() {
@@ -57,11 +57,11 @@ public class Product {
         this.imagenId = imagenId;
     }
 
-    public boolean isInStock() {
-        return is_in_stock;
+    public boolean isVisible() {
+        return visible;
     }
 
-    public void setInStock(boolean in_stock) {
-        this.is_in_stock = in_stock;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }

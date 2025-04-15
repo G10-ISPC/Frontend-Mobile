@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import java.util.List;
+import com.google.gson.Gson;
 
 public class ProductoViewModel extends AndroidViewModel {
     private MutableLiveData<List<Product>> productos;
@@ -34,7 +35,10 @@ public class ProductoViewModel extends AndroidViewModel {
     }
 
     public void loadProductos() {
-        apiService.getProducts().enqueue(new Callback<List<Product>>() {
+        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("user_token", "");
+
+        apiService.getProducts("Bearer " + accessToken).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -50,6 +54,7 @@ public class ProductoViewModel extends AndroidViewModel {
             }
         });
     }
+
 
     public void addProducto(Product product) {
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences("UserPrefs", MODE_PRIVATE);
@@ -78,6 +83,7 @@ public class ProductoViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
+                    Log.d("ProductoViewModel", "Producto recibido: " + new Gson().toJson(response.body()));
                     loadProductos();
                 } else {
                     Log.e("ProductoViewModel", "Error en la respuesta: " + response.code() + " - " + response.message());
@@ -98,6 +104,7 @@ public class ProductoViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 if (response.isSuccessful()) {
+                    Log.d("ProductoViewModel", "Producto actualizado correctamente: " + new Gson().toJson(response.body()));
                     loadProductos();
                 } else {
                     Log.e("ProductoViewModel", "Error en la respuesta: " + response.code() + " - " + response.message());
@@ -119,7 +126,8 @@ public class ProductoViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 if (response.isSuccessful()) {
-                    Log.d("ProductoViewModel", "Estado del stock actualizado correctamente: " + response.body().isInStock());
+                    Log.d("ProductoViewModel", "Estado del stock actualizado correctamente: " + response.body().isVisible());
+                    Log.d("ProductoViewModel", "Estado del stock actualizado correctamente: " + response.body().isVisible());
                     loadProductos();
                 } else {
                     Log.e("ProductoViewModel", "Error en la respuesta: " + response.code() + " - " + response.message());
