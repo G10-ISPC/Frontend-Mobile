@@ -31,20 +31,20 @@ public interface ApiService {
     @DELETE("profile/")  // Asegúrate de que esta sea la ruta correcta
     Call<Void> deleteUserProfile(@Header("Authorization") String token);
 
-    @GET("productos/")
-    Call<List<Product>> getProducts();
+    @GET("producto/")
+    Call<List<Product>> getProducts(@Header("Authorization") String token);
 
-    @POST("productos/")
+    @POST("producto/")
     Call<Product> createProduct(@Body Product product, @Header("Authorization") String token);
 
-    @DELETE("productos/{id}/")
+    @DELETE("producto/{id}/")
     Call<Void> deleteProduct(@Path("id") int id, @Header("Authorization") String token);
 
-    @PUT("productos/{id}/")
+    @PUT("producto/{id}/")
     Call<Product> updateProduct(@Path("id") int id, @Body Product product, @Header("Authorization") String token);
 
     // Se agrega la opcion de stock
-    @PUT("productos/{id}/stock")
+    @PUT("producto/{id}/stock")
     Call<Product> updateStock(@Path("id") int id, @Body Product product, @Header("Authorization") String token);
 
 
