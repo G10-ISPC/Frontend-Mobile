@@ -102,22 +102,27 @@
             <!-- Botón de Ingreso -->
             <Button
                 android:id="@+id/button"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:layout_marginTop="36dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:background="@color/orange"
                 android:text="@string/btn_ingresar"
                 android:textSize="18sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:contentDescription="@string/cd_ingresar" />
 
             <!-- Texto de Crear Cuenta -->
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="48dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:clickable="true"
-                android:minHeight="48dp"
+                android:focusable="true"
+                android:contentDescription="@string/cd_crear_cuenta"
                 android:text="@string/lbl_crear_cuenta"
                 android:textColor="@color/black"
                 android:textSize="14sp"
