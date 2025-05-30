@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class RegistroActivity extends BaseActivity {
 
-    private EditText firstNameEditText, lastNameEditText, emailEditText, passwordEditText, password2EditText, phoneEditText, streetEditText, numberEditText;
+    private EditText firstNameEditText, lastNameEditText, emailEditText, passwordEditText, password2EditText, phoneEditText;
     private Button registerButton;
 
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"); // Solo letras y espacios
@@ -42,8 +42,6 @@ public class RegistroActivity extends BaseActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         password2EditText = findViewById(R.id.password2EditText);
         phoneEditText = findViewById(R.id.phoneEditText);
-        streetEditText = findViewById(R.id.streetEditText);
-        numberEditText = findViewById(R.id.numberEditText);
         registerButton = findViewById(R.id.btnRegister);
 
         TextView tvLogin = findViewById(R.id.tvLogin);
@@ -62,12 +60,11 @@ public class RegistroActivity extends BaseActivity {
             String password = passwordEditText.getText().toString();
             String password2 = password2EditText.getText().toString();
             String telefonoStr = phoneEditText.getText().toString().trim();
-            String street = streetEditText.getText().toString().trim();
-            String numberStr = numberEditText.getText().toString().trim();
+
 
             // Validar que ningún campo esté vacío
             if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() ||
-                    password2.isEmpty() || telefonoStr.isEmpty() || street.isEmpty() || numberStr.isEmpty()) {
+                    password2.isEmpty() || telefonoStr.isEmpty()) {
                 Toast.makeText(RegistroActivity.this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -144,22 +141,7 @@ public class RegistroActivity extends BaseActivity {
                 return;
             }
 
-            // Validar que el número de la calle sea un entero positivo
-            int number;
-            try {
-                number = Integer.parseInt(numberStr);  // Convertir el String a int
-                if (number < 0) {
-                    Toast.makeText(RegistroActivity.this, "Número de calle no puede ser negativo", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(RegistroActivity.this, "Número de calle no válido", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Direccion direccion = new Direccion(street, number);
-
-            RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, email, password, password2, telefono, direccion);
+            RegisterRequest registerRequest = new RegisterRequest(firstName, lastName, email, password, password2, telefono );
 
             ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
             Call<User> call = apiService.register(registerRequest);
@@ -177,8 +159,7 @@ public class RegistroActivity extends BaseActivity {
                         passwordEditText.setText("");
                         password2EditText.setText("");
                         phoneEditText.setText("");
-                        streetEditText.setText("");
-                        numberEditText.setText("");
+
 
                         // Redirigir al login
                         Intent intent = new Intent(RegistroActivity.this, loginActivity.class);
