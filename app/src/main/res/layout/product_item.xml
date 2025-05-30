@@ -1,75 +1,93 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="vertical"
-android:padding="10dp"
-android:background="@android:color/white"
-android:elevation="4dp"
-android:layout_marginBottom="10dp">
-
-<!-- Contenedor horizontal para la imagen y los detalles del producto -->
-<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:layout_marginBottom="10dp">
 
-    <!-- Imagen del Producto -->
-    <ImageView
-        android:id="@+id/ivImagenProducto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/bur1"
-        android:contentDescription="Imagen del Producto"
-        android:scaleType="centerCrop" />
-
-    <!-- Contenedor vertical para los detalles del producto -->
+    <!-- Contenedor horizontal para la imagen y los detalles del producto -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="16dp">
+        android:orientation="horizontal">
 
-        <!-- Nombre del Producto -->
-        <EditText
-            android:id="@+id/etNombreProducto"
+        <!-- Imagen del Producto -->
+        <ImageView
+            android:id="@+id/ivImagenProducto"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/bur1"
+            android:contentDescription="Imagen del Producto"
+            android:scaleType="centerCrop" />
+
+        <!-- Contenedor vertical para los detalles del producto -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:enabled="false"
-            android:hint="Nombre del Producto"
-            android:minHeight="48dp"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
 
-        <!-- Descripción del Producto -->
-        <EditText
-            android:id="@+id/etDescripcionProducto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/transparent"
-            android:enabled="false"
-            android:hint="Descripción del Producto"
-            android:minHeight="48dp"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="16sp" />
+            <!-- Nombre del Producto -->
+            <EditText
+                android:id="@+id/etNombreProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:hint="Nombre del Producto"
+                android:minHeight="48dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <!-- Precio del Producto -->
-        <EditText
-            android:id="@+id/etPrecioProducto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:enabled="false"
-            android:hint="Precio"
-            android:inputType="numberDecimal"
-            android:minHeight="48dp"
-            android:textColor="@android:color/holo_red_dark"
-            android:textStyle="bold" />
+            <!-- Descripción del Producto -->
+            <EditText
+                android:id="@+id/etDescripcionProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:hint="Descripción del Producto"
+                android:minHeight="48dp"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp" />
+
+            <!-- Contenedor horizontal para precio y botón -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/etPrecioProducto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:hint="Precio"
+                    android:inputType="numberDecimal"
+                    android:minHeight="48dp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnComprar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comprar"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@android:color/black"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
 
 </LinearLayout>
