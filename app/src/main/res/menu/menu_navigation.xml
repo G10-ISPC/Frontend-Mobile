@@ -36,6 +36,10 @@
         android:id="@+id/nav_userprofile"
         android:title="Perfil Usuario"/>
 
+    <!-- Mis Compras -->
+    <item
+        android:id="@+id/nav_mis_compras"
+        android:title="Mis Compras" />
 
     <!-- Opción Administrador de Productos -->
     <item
@@ -46,8 +50,5 @@
     <item
         android:id="@+id/nav_logout"
         android:title="Cerrar Sesión"/>
-
-
-
 
 </menu>
