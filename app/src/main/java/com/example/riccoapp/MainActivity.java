@@ -184,6 +184,8 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, AboutActivity.class);
         } else if (itemId == R.id.nav_admin_productos) {
             intent = new Intent(this, AdminActivity.class);
+        } else if (itemId == R.id.nav_mis_compras) {
+            intent = new Intent(this, MisComprasActivity.class);
         } else if (itemId == R.id.nav_logout) {
             logout(); // Llama al método de logout
             return true; // Indica que se manejó la opción

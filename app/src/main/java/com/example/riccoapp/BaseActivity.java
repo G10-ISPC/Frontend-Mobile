@@ -116,7 +116,9 @@ public class BaseActivity extends AppCompatActivity {
             intent = new Intent(this, AboutActivity.class);
         } else if (itemId == R.id.nav_admin_productos) {
             intent = new Intent(this, AdminActivity.class);
-        } else if (itemId == R.id.nav_logout) {
+        } else if (itemId == R.id.nav_mis_compras) {
+            intent = new Intent(this, MisComprasActivity.class);
+        }else if (itemId == R.id.nav_logout) {
             logout(); // Llama al método de logout
             return true;
         }
