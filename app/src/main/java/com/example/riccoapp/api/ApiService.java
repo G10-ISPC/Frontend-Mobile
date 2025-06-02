@@ -47,5 +47,6 @@ public interface ApiService {
     @PUT("producto/{id}/stock")
     Call<Product> updateStock(@Path("id") int id, @Body Product product, @Header("Authorization") String token);
 
-
+    @GET("mis-compras/")
+    Call<List<Compra>> getMisCompras();
 }
