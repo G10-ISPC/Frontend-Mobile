@@ -41,10 +41,10 @@
         android:id="@+id/nav_mis_compras"
         android:title="Mis Compras" />
 
-    <!-- Opción Administrador de Productos -->
+    <!-- Dashboard Administrador -->
     <item
-        android:id="@+id/nav_admin_productos"
-        android:title="Administrador de Productos" android:visible="false"/>
+        android:id="@+id/nav_dashboardadmin"
+        android:title="Dashboard Admin" />
 
     <!-- Opción Cerrar Sesión -->
     <item

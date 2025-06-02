@@ -131,12 +131,12 @@ public class MainActivity extends AppCompatActivity {
         if ("cliente".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
             menu.findItem(R.id.nav_login).setVisible(false);
-            menu.findItem(R.id.nav_admin_productos).setVisible(false);
+            menu.findItem(R.id.nav_dashboardadmin).setVisible(false);
         } else if ("admin".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
             menu.findItem(R.id.nav_login).setVisible(false);
             menu.findItem(R.id.nav_userprofile).setVisible(true);
-            menu.findItem(R.id.nav_admin_productos).setVisible(true);
+            menu.findItem(R.id.nav_dashboardadmin).setVisible(true);
             menu.findItem(R.id.nav_main).setVisible(true);
             menu.findItem(R.id.nav_contacto).setVisible(true);
             menu.findItem(R.id.nav_about).setVisible(true);
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.nav_registro).setVisible(true);
             menu.findItem(R.id.nav_login).setVisible(true);
             menu.findItem(R.id.nav_userprofile).setVisible(false);
-            menu.findItem(R.id.nav_admin_productos).setVisible(false);
+            menu.findItem(R.id.nav_dashboardadmin).setVisible(false);
             menu.findItem(R.id.nav_logout).setVisible(false);
         }
 
@@ -171,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, UserProfileActivity.class);
         } else if (itemId == R.id.nav_about) {
             intent = new Intent(this, AboutActivity.class);
-        } else if (itemId == R.id.nav_admin_productos) {
-            intent = new Intent(this, AdminActivity.class);
+        } else if (itemId == R.id.nav_dashboardadmin) {
+            intent = new Intent(this, DashboardAdminActivity.class);
         } else if (itemId == R.id.nav_mis_compras) {
             intent = new Intent(this, MisComprasActivity.class);
         } else if (itemId == R.id.nav_logout) {
