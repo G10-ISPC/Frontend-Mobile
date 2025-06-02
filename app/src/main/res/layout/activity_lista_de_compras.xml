@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- BOTONES SUPERIORES -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <Button
+                android:id="@+id/btnToggleFiltros"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🔍 Filtros"
+                android:backgroundTint="#333333"
+                android:textColor="#FFFFFF" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnExportar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#FFD600"
+                android:text="📥 Exportar"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <!-- FILTROS OCULTABLES -->
+        <LinearLayout
+            android:id="@+id/layoutFiltros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1E1E1E"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/editTextUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Buscar por usuario"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#aaaaaa" />
+
+            <EditText
+                android:id="@+id/editTextProducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Buscar por producto"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#aaaaaa" />
+
+            <EditText
+                android:id="@+id/editTextFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Seleccionar fecha"
+                android:focusable="false"
+                android:clickable="true"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#aaaaaa" />
+
+            <Button
+                android:id="@+id/btnLimpiarFiltros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="❌ Limpiar filtros"
+                android:enabled="false"
+                android:backgroundTint="#FFD600"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <!-- TÍTULO -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Historial de Compras"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <!-- LISTADO -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCompras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- VACÍO -->
+        <TextView
+            android:id="@+id/textNoCompras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No hay compras disponibles."
+            android:visibility="gone"
+            android:gravity="center"
+            android:textColor="#AAAAAA"
+            android:textSize="16sp"
+            android:layout_marginTop="24dp" />
+    </LinearLayout>
+</ScrollView>
+
