@@ -1,5 +1,7 @@
 package com.example.riccoapp;
 
+
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +33,7 @@ public class MisComprasActivity extends AppCompatActivity implements CompraAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_mis_compras);
 
         // 1. Obtener SharedPreferences correcto
@@ -123,3 +126,4 @@ public class MisComprasActivity extends AppCompatActivity implements CompraAdapt
         Toast.makeText(this, "Cancelar compra: " + compraId, Toast.LENGTH_SHORT).show();
     }
 }
+

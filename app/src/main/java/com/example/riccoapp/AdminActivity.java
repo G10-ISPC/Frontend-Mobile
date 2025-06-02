@@ -1,5 +1,7 @@
 package com.example.riccoapp;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,20 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 🔐 Protección de acceso
+        SharedPreferences prefs = getSharedPreferences("MiAppPrefs", MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        boolean isAdmin = prefs.getBoolean("isAdmin", false);
+
+        if (!isLoggedIn || !isAdmin) {
+            Toast.makeText(this, "Acceso denegado. Solo para administradores.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, loginActivity.class)); // Ajusta si tu login se llama distinto
+            finish();
+            return;
+        }
+
+        // Si pasa la verificación, carga el layout
         setContentView(R.layout.activity_admin);
         setupToolbar(); // Barra de navegación
         userNameTextView = findViewById(R.id.userNameTextView); // Asignación de TextView específico de esta Activity
@@ -100,8 +116,6 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
         if (product != null) {
             product.setVisible(isInStock);
             productoViewModel.updateStockStatus(product.getId_producto(), product);
-
-            // Recargar lista después de la actualización
             productoViewModel.getProductos(); // Actualizar productos desde ViewModel
         }
     }
