@@ -1,5 +1,6 @@
 package com.example.riccoapp.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,16 +56,38 @@ public class CompraAdapter extends RecyclerView.Adapter<CompraAdapter.CompraView
         }
 
         public void bind(Compra compra) {
-            tvId.setText(String.valueOf(compra.getId()));
-            tvFecha.setText(compra.getFecha());
-            tvDescripcion.setText(compra.getDescripcion());
-            tvPrecio.setText(String.format("S/ %.2f", compra.getPrecio()));
-            tvEstado.setText(compra.getEstado());
+            // Depuración
+            Log.d("COMPRA_DEBUG", "ID: " + compra.getId());
+            Log.d("COMPRA_DEBUG", "Precio: " + compra.getPrecio());
+            Log.d("COMPRA_DEBUG", "Fecha: " + compra.getFecha());
+            Log.d("COMPRA_DEBUG", "Descripción: " + compra.getDescripcion());
 
-            // Mostrar botón solo para estados cancelables
+            // Mostrar datos
+            tvId.setText(String.valueOf(compra.getId()));
+
+            // Formatear fecha
+            String fecha = compra.getFecha();
+            if (fecha != null && fecha.contains("T")) {
+                fecha = fecha.split("T")[0];
+            }
+            tvFecha.setText(fecha);
+
+            // Descripción
+            tvDescripcion.setText(compra.getDescripcion());
+
+            // Precio
+            tvPrecio.setText(String.format(" %.2f", compra.getPrecio()));
+
+            // Estado
+            String estado = compra.getEstado();
+            if (estado != null && estado.length() > 0) {
+                estado = estado.substring(0, 1).toUpperCase() + estado.substring(1).toLowerCase();
+            }
+            tvEstado.setText(estado);
+
+            // Botón de acciones
             if ("pendiente".equalsIgnoreCase(compra.getEstado())) {
                 btnAccion.setVisibility(View.VISIBLE);
-                btnAccion.setText("Cancelar");
                 btnAccion.setOnClickListener(v -> listener.onCancelClick(compra.getId()));
             } else {
                 btnAccion.setVisibility(View.GONE);
