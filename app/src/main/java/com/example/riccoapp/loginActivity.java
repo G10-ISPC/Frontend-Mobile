@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.view.inputmethod.EditorInfo;
 
 public class loginActivity extends BaseActivity {
 
@@ -45,6 +46,14 @@ public class loginActivity extends BaseActivity {
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
+        passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                    (event != null && event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER && event.getAction() == android.view.KeyEvent.ACTION_DOWN)) {
+                loginButton.performClick();
+                return true;
+            }
+            return false;
+        });
         loginButton = findViewById(R.id.button);
         textViewCrearCuenta = findViewById(R.id.textView6);
 

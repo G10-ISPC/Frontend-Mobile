@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Historial de Compras"
+        android:textColor="#FFCC00"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="#222222"
+        android:padding="12dp" />
+
+    <!-- Encabezados de la tabla -->
+    <LinearLayout
+        android:id="@+id/headerRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:background="#222222"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="N° Compra"
+            android:textStyle="bold"
+            android:textColor="#FFCC00"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Fecha"
+            android:textStyle="bold"
+            android:textColor="#FFCC00"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Descripción"
+            android:textStyle="bold"
+            android:textColor="#FFCC00"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Precio"
+            android:textStyle="bold"
+            android:textColor="#FFCC00"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Estado"
+            android:textStyle="bold"
+            android:textColor="#FFCC00"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Acciones"
+            android:textStyle="bold"
+            android:textColor="#FFCC00"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMisCompras"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:paddingTop="8dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>
+
