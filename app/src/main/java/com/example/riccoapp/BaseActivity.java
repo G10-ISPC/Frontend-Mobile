@@ -68,6 +68,23 @@ public class BaseActivity extends AppCompatActivity {
         // Obtener el rol del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String rol = sharedPreferences.getString("user_rol", "");
+
+
+        // Mostrar productos solo si hay sesión
+        menu.findItem(R.id.nav_products).setVisible(!rol.isEmpty());
+
+        // Control de Mis Compras
+        MenuItem misComprasItem = menu.findItem(R.id.nav_mis_compras);
+        if ("cliente".equals(rol)) {
+            misComprasItem.setVisible(true);
+            misComprasItem.setEnabled(true);
+        } else {
+            misComprasItem.setVisible(false);
+            misComprasItem.setEnabled(false);
+        }
+
+
+
         Log.d("Menu", "Rol del usuario: " + rol); // Para verificar el rol
 
         // Mostrar/ocultar elementos del menú según el rol
