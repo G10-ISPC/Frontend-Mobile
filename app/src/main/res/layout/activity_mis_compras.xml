@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
-    android:padding="16dp">
+    android:background="@android:color/white">
 
     <!-- Título -->
     <TextView
@@ -14,32 +13,30 @@
         android:layout_height="wrap_content"
         android:text="Historial de Compras"
         android:textColor="#FFCC00"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:background="#222222"
-        android:padding="12dp" />
+        android:padding="12dp"/>
 
-    <!-- Encabezados de la tabla -->
+    <!-- Encabezados de la tabla - ALTURA FIJA -->
     <LinearLayout
         android:id="@+id/headerRow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="#222222"
-        android:padding="8dp">
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="N° Compra"
+            android:text="N°"
             android:textStyle="bold"
             android:textColor="#FFCC00"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:maxLines="1" />
+            android:textSize="16sp"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="0dp"
@@ -48,7 +45,8 @@
             android:text="Fecha"
             android:textStyle="bold"
             android:textColor="#FFCC00"
-            android:textSize="12sp" />
+            android:textSize="16sp"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="0dp"
@@ -57,7 +55,8 @@
             android:text="Descripción"
             android:textStyle="bold"
             android:textColor="#FFCC00"
-            android:textSize="12sp" />
+            android:textSize="16sp"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="0dp"
@@ -66,7 +65,8 @@
             android:text="Precio"
             android:textStyle="bold"
             android:textColor="#FFCC00"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="0dp"
@@ -75,27 +75,27 @@
             android:text="Estado"
             android:textStyle="bold"
             android:textColor="#FFCC00"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Acciones"
+            android:text="Acción"
             android:textStyle="bold"
             android:textColor="#FFCC00"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="center"/>
     </LinearLayout>
 
-    <!-- RecyclerView -->
+    <!-- RecyclerView con margen superior -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMisCompras"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="8dp"
-        android:paddingTop="8dp"
-        android:clipToPadding="false" />
+        android:paddingTop="4dp"
+        android:clipToPadding="false"/>
 
 </LinearLayout>
-
