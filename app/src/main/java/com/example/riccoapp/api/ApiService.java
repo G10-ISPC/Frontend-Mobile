@@ -20,15 +20,15 @@ public interface ApiService {
     Call<User> register(@Body RegisterRequest registerRequest);
 
     // Obtener perfil de usuario
-    @GET("profile/")
+    @GET("perfilUsuario/")
     Call<UserProfileResponse> getUserProfile(@Header("Authorization") String token);
 
     // Actualizar perfil de usuario
-    @PUT("profile/")
+    @PUT("perfilUsuario/")
     Call<UserProfileResponse> updateUserProfile(@Header("Authorization") String token, @Body UserProfileRequest userProfileRequest);
 
     // Eliminar cuenta de usuario
-    @DELETE("profile/")  // Asegúrate de que esta sea la ruta correcta
+    @DELETE("perfilUsuario/")
     Call<Void> deleteUserProfile(@Header("Authorization") String token);
 
     @GET("producto/")
