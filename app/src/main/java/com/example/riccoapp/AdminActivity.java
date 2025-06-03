@@ -1,5 +1,6 @@
 package com.example.riccoapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -13,7 +14,7 @@ import com.example.riccoapp.adapter.ProductAdapterAdmin;
 import com.example.riccoapp.api.Product;
 import java.util.ArrayList;
 
-public class AdminActivity extends AppCompatActivity implements ProductAdapterAdmin.OnProductoClickListener {
+public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.OnProductoClickListener {
 
     private ProductoViewModel productoViewModel;
     private ProductAdapterAdmin productoAdapter;
@@ -23,90 +24,100 @@ public class AdminActivity extends AppCompatActivity implements ProductAdapterAd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
 
-        // Inicialización de los campos de texto para nombre, descripción y precio
+        // 🔐 Protección de acceso
+        SharedPreferences prefs = getSharedPreferences("MiAppPrefs", MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        boolean isAdmin = prefs.getBoolean("isAdmin", false);
+
+        if (!isLoggedIn || !isAdmin) {
+            Toast.makeText(this, "Acceso denegado. Solo para administradores.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, loginActivity.class)); // Ajusta si tu login se llama distinto
+            finish();
+            return;
+        }
+
+        // Si pasa la verificación, carga el layout
+        setContentView(R.layout.activity_admin);
+        setupToolbar(); // Barra de navegación
+        userNameTextView = findViewById(R.id.userNameTextView); // Asignación de TextView específico de esta Activity
+        loadUserName(); // Carga y muestra el nombre del usuario
+
         edtNombre = findViewById(R.id.nombre_producto);
         edtDescripcion = findViewById(R.id.descripcion_producto);
         edtPrecio = findViewById(R.id.precio_producto);
         btnAgregar = findViewById(R.id.btnAddProduct);
 
-        // Configura el RecyclerView con un LinearLayoutManager
         RecyclerView recyclerView = findViewById(R.id.recyclerViewProductos);
         productoAdapter = new ProductAdapterAdmin(new ArrayList<>(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(productoAdapter);
 
-        // Configura el ViewModel para la gestión de productos
         productoViewModel = new ViewModelProvider(this).get(ProductoViewModel.class);
-
-        // Observa los productos y actualiza la lista del RecyclerView cuando cambien
         productoViewModel.getProductos().observe(this, products -> {
             productoAdapter.updateList(products);
         });
 
-        // Evento de clic del botón "Agregar Producto"
         btnAgregar.setOnClickListener(view -> {
-            String nombre = edtNombre.getText().toString().trim(); // Obtiene el nombre del producto
-            String descripcion = edtDescripcion.getText().toString().trim(); // Obtiene la descripción del producto
-            String precioStr = edtPrecio.getText().toString().trim(); // Obtiene el precio como cadena de texto
+            String nombre = edtNombre.getText().toString().trim();
+            String descripcion = edtDescripcion.getText().toString().trim();
+            String precioStr = edtPrecio.getText().toString().trim();
 
-            // Validación: todos los campos deben estar llenos
             if (nombre.isEmpty() || descripcion.isEmpty() || precioStr.isEmpty()) {
                 Toast.makeText(AdminActivity.this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
-                return; // Detiene la ejecución si falta algún campo
+                return;
             }
 
             double precio;
-            // Validación: el precio debe ser un número válido
             try {
                 precio = Double.parseDouble(precioStr);
             } catch (NumberFormatException e) {
                 Toast.makeText(AdminActivity.this, "Precio inválido", Toast.LENGTH_SHORT).show();
-                return; // Detiene la ejecución si el precio no es un número válido
+                return;
             }
 
-            // Si todas las validaciones pasan, crea un nuevo producto
             Product product = new Product(nombre, descripcion, precio);
-            productoViewModel.addProducto(product); // Agrega el producto a través del ViewModel
+            productoViewModel.addProducto(product);
 
-            // Limpia los campos de texto después de agregar el producto
             edtNombre.setText("");
             edtDescripcion.setText("");
             edtPrecio.setText("");
-
-            // Muestra un mensaje de éxito
             Toast.makeText(AdminActivity.this, "Producto agregado exitosamente", Toast.LENGTH_SHORT).show();
         });
     }
 
-    // Este método es parte de la implementación de la interfaz OnProductoClickListener
     @Override
     public void onEditarClick(int position) {
-        // No es necesario implementar nada aquí; la lógica de edición está en el adaptador
+        // Implementación para editar el producto
     }
 
-    // Este método maneja la acción de guardar un producto editado
     @Override
     public void onGuardarClick(int position, String nuevoNombre, String nuevaDescripcion, double nuevoPrecio) {
-        Product updatedProduct = productoAdapter.getProductAt(position); // Obtiene el producto desde el adaptador
+        Product updatedProduct = productoAdapter.getProductAt(position);
         if (updatedProduct != null) {
-            // Actualiza el producto con los nuevos valores
             updatedProduct.setNombre_producto(nuevoNombre);
             updatedProduct.setDescripcion(nuevaDescripcion);
             updatedProduct.setPrecio(nuevoPrecio);
-            // Informa al ViewModel para actualizar el producto en la base de datos o almacenamiento
-            productoViewModel.updateProducto(updatedProduct.getId_producto(), updatedProduct); // Usa el ID correcto
+            productoViewModel.updateProducto(updatedProduct.getId_producto(), updatedProduct);
         }
     }
 
-    // Este método maneja la acción de borrar un producto
     @Override
     public void onBorrarClick(int position) {
-        Product productToDelete = productoAdapter.getProductAt(position); // Obtiene el producto desde el adaptador
+        Product productToDelete = productoAdapter.getProductAt(position);
         if (productToDelete != null) {
-            // Informa al ViewModel para eliminar el producto
-            productoViewModel.deleteProducto(productToDelete.getId_producto()); // Usa el ID correcto
+            productoViewModel.deleteProducto(productToDelete.getId_producto());
         }
     }
+
+    @Override
+    public void onStockChangeClick(int position, boolean isInStock) {
+        Product product = productoAdapter.getProductAt(position);
+        if (product != null) {
+            product.setVisible(isInStock);
+            productoViewModel.updateStockStatus(product.getId_producto(), product);
+            productoViewModel.getProductos(); // Actualizar productos desde ViewModel
+        }
+    }
+
 }

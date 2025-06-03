@@ -9,15 +9,14 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.riccoapp.api.ApiService;
 import com.example.riccoapp.api.LoginRequest;
 import com.example.riccoapp.api.LoginResponse;
 import com.example.riccoapp.api.RetrofitClient;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,7 +24,9 @@ import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-public class loginActivity extends AppCompatActivity {
+import android.view.inputmethod.EditorInfo;
+
+public class loginActivity extends BaseActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -41,9 +42,18 @@ public class loginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setupToolbar(); // Barra de navegación
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
+        passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                    (event != null && event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER && event.getAction() == android.view.KeyEvent.ACTION_DOWN)) {
+                loginButton.performClick();
+                return true;
+            }
+            return false;
+        });
         loginButton = findViewById(R.id.button);
         textViewCrearCuenta = findViewById(R.id.textView6);
 
@@ -81,6 +91,8 @@ public class loginActivity extends AppCompatActivity {
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    Log.d("LoginActivity", "Código de estado: " + response.code());
+                    Log.d("LoginActivity", "Cuerpo de la respuesta: " + new Gson().toJson(response.body())); // <--- ¡LÍNEA AGREGADA!
                     if (response.isSuccessful()) {
                         loginAttempts = 0; // Reiniciar intentos tras un login exitoso
                         LoginResponse loginResponse = response.body();
@@ -89,7 +101,8 @@ public class loginActivity extends AppCompatActivity {
                             String refreshToken = loginResponse.getRefresh();
                             String firstName = loginResponse.getUser().getFirstName();
                             String lastName = loginResponse.getUser().getLastName();
-                            String rol = loginResponse.getRol();
+                            String rol = loginResponse.getUser().getRol();
+
 
                             Log.d("LoginActivity", "Rol obtenido: " + rol);
                             Log.d("LoginActivity", "First Name: " + firstName);
@@ -121,7 +134,7 @@ public class loginActivity extends AppCompatActivity {
                         } else {
                             try {
                                 String errorBody = response.errorBody().string();
-                                Log.e("loginActivity", "Error Body: " + errorBody);
+                                Log.e("LoginActivity", "Error Body: " + errorBody);
                                 JSONObject jsonObject = new JSONObject(errorBody);
 
                                 // Extrae el mensaje del error

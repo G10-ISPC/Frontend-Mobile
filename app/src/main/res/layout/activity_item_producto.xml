@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="10dp"
     android:background="@android:color/white"
     android:elevation="4dp"
@@ -12,37 +11,55 @@
     <!-- Nombre del Producto -->
     <EditText
         android:id="@+id/etNombreProducto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre del Producto"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:autofillHints=""
+        android:hint="@string/nombre_de_producto"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:enabled="false"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <!-- Descripción del Producto -->
     <EditText
         android:id="@+id/etDescripcionProducto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Descripción del Producto"
+        android:layout_height="48dp"
+        android:autofillHints=""
+        android:hint="@string/descripcion_de_producto"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/black"
         android:enabled="false"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:layout_below="@id/etNombreProducto"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <!-- Precio del Producto -->
     <EditText
         android:id="@+id/etPrecioProducto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Precio"
+        android:layout_height="48dp"
+        android:autofillHints=""
+        android:hint="@string/precio"
         android:inputType="numberDecimal"
         android:enabled="false"
         android:textColor="@android:color/black"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:layout_below="@id/etDescripcionProducto"
+        tools:ignore="VisualLintTextFieldSize" />
+
+    <!-- Switch para Cambiar Estado de Stock -->
+    <Switch
+        android:id="@+id/switchStock"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@id/etPrecioProducto"
+        android:checked="true"
+        android:text="En stock" />
 
     <!-- Acciones (Editar, Guardar y Borrar) -->
     <LinearLayout
@@ -50,15 +67,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="8dp"
-        android:gravity="end">
+        android:gravity="end"
+        android:layout_below="@id/switchStock">
 
         <!-- Botón Editar -->
         <ImageButton
             android:id="@+id/btnEditar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@android:drawable/ic_menu_edit"
-            android:contentDescription="Editar"
+            android:contentDescription="@string/edit"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             app:tint="@android:color/black" />
 
@@ -68,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_save"
-            android:contentDescription="Guardar"
+            android:contentDescription="@string/guarda"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_marginStart="8dp"
             app:tint="@android:color/black"
@@ -77,12 +95,24 @@
         <!-- Botón Borrar -->
         <ImageButton
             android:id="@+id/btnBorrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@android:drawable/ic_menu_delete"
-            android:contentDescription="Borrar"
+            android:contentDescription="@string/borrar"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_marginStart="8dp"
             app:tint="@android:color/black" />
     </LinearLayout>
-</LinearLayout>
+
+    <!-- Marca de Agua "Sin stock" -->
+    <TextView
+        android:id="@+id/tvSinStock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/sin_stock"
+        android:textSize="32sp"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:alpha="0.3"
+        android:visibility="gone" />
+</RelativeLayout>

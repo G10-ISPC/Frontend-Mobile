@@ -15,6 +15,8 @@
     <string name="number">Número</string>
     <string name="btn_register">Enviar</string>
     <string name="login_action">¿Ya tenés una cuenta? Inicia sesión</string>
+    <string name="show_password_main">Mostrar contraseña</string>
+    <string name="show_password_confirm">Mostrar contraseña del campo confirmar</string>
 
     <!-- Perfil usuario -->
 
@@ -77,6 +79,8 @@
     <string name="btn_ingresar">Ingresar</string>
     <string name="lbl_crear_cuenta">No tienes cuenta?, Registrate</string>
     <string name="image_description">Descripción de la imágen</string>
+    <string name="cd_ingresar">Botón para ingresar a la aplicación</string>
+    <string name="cd_crear_cuenta">Enlace para crear una nueva cuenta</string>
 
     <!-- NAV Y FOOTER -->
 
@@ -95,6 +99,74 @@
     <string name="todo">TODO</string>
     <string name="introduzca_aqu_su_mensaje_para_nosotros_nos_comunicaremos_con_usted_en_breve">Introduzca aquí su mensaje para nosotros. Nos comunicaremos con usted en breve.</string>
     <string name="RiccoAPP">Ricco</string>
+    <string name="bienvenido">Bienvenido</string>
+
+    <!-- ADMINISTRADOR DE PRDUCTOS-->
+
+    <string name="agregar_producto">Agregar Producto</string>
+    <string name="precio_del_producto">Precio del Producto</string>
+    <string name="descripcion_del_producto">Descripción del Producto</string>
+    <string name="nombre_del_producto">Nombre del Producto</string>
+    <string name="crear_productos">Crear Productos</string>
+    <string name="administrador_de_productos">Administrador de Productos</string>
+    <string name="logo_de_hamburgesas">logo de hamburgesas</string>
+    <string name="opciones">Opciones</string>
+
+    <!-- ITEM PRODUCTO -->
+
+    <string name="nombre_de_producto">Nombre del Producto</string>
+    <string name="descripcion_de_producto">Descripción del Producto</string>
+    <string name="precio">Precio</string>
+    <string name="edit">Editar</string>
+    <string name="guarda">Guardar</string>
+    <string name="borrar">Borrar</string>
+    <string name="sin_stock">SIN STOCK</string>
+
+    <!-- Contacto-->
+    <string name="contacto">CONTACTO</string>
+    <string name="c_texto">No dudes en ponerte en contacto con nosotros si tienes dudas o sugerencias.</string>
+    <string name="c_nombre">Nombre</string>
+    <string name="c_apellido">Apellido</string>
+    <string name="c_telefono">Teléfono</string>
+    <string name="c_email">E-mail</string>
+    <string name="mensaje">Mensaje</string>
+
+    <!-- Nosotros -->
+    <string name="nosotros">Nosotros</string>
+    <string name="text_about">Ricco Burgers nació del fanatismo de las hamburguesas, de un grupo de amigos .. </string>
+    <string name="equipo">Nuestro equipo</string>
+    <string name="m1">Mariana Cos</string>
+    <string name="dev">Team Developer</string>
+    <string name="m2">Carla Arévalo</string>
+    <string name="m3">Laura Cruz</string>
+    <string name="m4">Micaela Juarez</string>
+    <string name="m5">Delfina Aricoma</string>
+    <string name="m6">Dalma Ponce</string>
+    <string name="m7">Melisa Gulle</string>
+    <string name="m8">Ernesto Cevasco</string>
+    <string name="imagen_description">Foto de amigos.</string>
+    <string name="foto_description">Foto de miembro del equipo.</string>
+
+    <!-- Descripción completa para el lector de pantalla -->
+    <string name="mariana_full_description">Mariana Cos, desarrolladora. Foto de Mariana Cos.</string>
+    <string name="carla_full_description">Carla Arévalo, desarrolladora. Foto de Carla Arévalo.</string>
+    <string name="laura_full_description">Laura Cruz, desarrolladora. Foto de Laura Cruz.</string>
+    <string name="micaela_full_description">Micaela Juarez, desarrolladora. Foto de Micaela Juarez.</string>
+    <string name="delfina_full_description">Delfina Aricoma, desarrolladora. Foto de Delfina Aricoma.</string>
+    <string name="dalma_full_description">Dalma Ponce, desarrolladora. Foto de Dalma Ponce.</string>
+    <string name="melisa_full_description">Melisa Gulle, desarrolladora. Foto de Melisa Gulle.</string>
+    <string name="ernesto_full_description">Ernesto Cevasco, desarrollador. Foto de Ernesto Cevasco.</string>
+
+    <!-- Nombre de cada página para el lector de pantalla -->
+    <string name="splash_screen_title">Bienvenidos a Ricco Burguer</string>
+    <string name="main_activity_title">Página Principal de Ricco Burguer</string>
+    <string name="about_activity_title">Acerca de Ricco Burguer</string>
+    <string name="contacto_activity_title">Contáctanos</string>
+    <string name="user_profile_activity_title">Perfil de Usuario</string>
+    <string name="admin_activity_title">Administrador de Productos</string>
+    <string name="products_activity_title">Productos</string>
+    <string name="registro_activity_title">Registro de Usuario</string>
+    <string name="login_activity_title">Iniciar sesión</string>
 
 
 </resources>

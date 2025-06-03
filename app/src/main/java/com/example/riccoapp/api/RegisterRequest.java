@@ -9,17 +9,16 @@ public class RegisterRequest {
     private String email;
     private String password;
     private String password2;
-    private Direccion direccion;
     private int telefono;
 
-    public RegisterRequest(String first_name, String last_name, String email, String password, String password2, int telefono, Direccion direccion) {
+    public RegisterRequest(String first_name, String last_name, String email, String password, String password2, int telefono) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
         this.password2 = password2;
         this.telefono = telefono;
-        this.direccion = direccion;
+
     }
 
     // Getters y Setters
@@ -47,6 +46,4 @@ public class RegisterRequest {
     public int getTelefono() { return telefono; }
     public void setTelefono(int telefono) { this.telefono = telefono; }
 
-    public Direccion getDireccion() { return direccion; }
-    public void setDireccion(Direccion direccion) { this.direccion = direccion; }
 }
