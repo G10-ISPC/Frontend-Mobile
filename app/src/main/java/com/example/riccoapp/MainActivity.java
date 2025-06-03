@@ -128,6 +128,22 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String rol = sharedPreferences.getString("user_rol", "");
 
+
+        // Mostrar productos solo si hay sesión
+        menu.findItem(R.id.nav_products).setVisible(!rol.isEmpty());
+
+        // Control de Mis Compras
+        MenuItem misComprasItem = menu.findItem(R.id.nav_mis_compras);
+        if ("cliente".equals(rol)) {
+            misComprasItem.setVisible(true);
+            misComprasItem.setEnabled(true);
+        } else {
+            misComprasItem.setVisible(false);
+            misComprasItem.setEnabled(false);
+        }
+
+
+
         if ("cliente".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
             menu.findItem(R.id.nav_login).setVisible(false);
@@ -135,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         } else if ("admin".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
             menu.findItem(R.id.nav_login).setVisible(false);
-            menu.findItem(R.id.nav_userprofile).setVisible(true);
+            menu.findItem(R.id.nav_userprofile).setVisible(false);
             menu.findItem(R.id.nav_dashboardadmin).setVisible(true);
             menu.findItem(R.id.nav_main).setVisible(true);
             menu.findItem(R.id.nav_contacto).setVisible(true);
