@@ -10,14 +10,13 @@
     android:background="#FFFFFF"
     tools:context=".UserProfileActivity">
 
-    <!-- Incluir la Toolbar -->
     <include
+        android:id="@+id/toolbarLayout"
         layout="@layout/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Título de la pantalla -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -30,12 +29,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Campo Nombre -->
     <EditText
         android:id='@+id/etNombre'
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
+        android:minHeight="60dp"
         android:padding="12dp"
         android:hint="@string/nombre"
         android:textColorHint="#757575"
@@ -48,12 +46,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp" />
 
-    <!-- Campo Apellido -->
     <EditText
         android:id="@+id/etApellido"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
+        android:minHeight="60dp"
         android:padding="12dp"
         android:hint="@string/apellido"
         android:textColorHint="#757575"
@@ -66,93 +63,50 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"/>
 
-    <!-- Campo Calle -->
-    <EditText
-        android:id="@+id/etCalle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        android:hint="@string/calle"
-        android:textColorHint="#757575"
-        android:backgroundTint="#000000"
-        app:layout_constraintTop_toBottomOf="@id/etApellido"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:inputType="text"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Campo Número -->
-    <EditText
-        android:id="@+id/etNumero"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        android:hint="@string/n_mero"
-        android:textColorHint="#757575"
-        android:backgroundTint="#000000"
-        app:layout_constraintTop_toBottomOf="@id/etCalle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:inputType="number"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Campo Telefono -->
     <EditText
         android:id="@+id/etTelefono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
+        android:minHeight="60dp"
         android:padding="12dp"
         android:hint="@string/telefono"
         android:textColorHint="#757575"
         android:backgroundTint="#000000"
-        app:layout_constraintTop_toBottomOf="@id/etNumero"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etApellido" app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:inputType="number"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp" />
 
-    <!-- Campo Email con validación -->
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
+        android:minHeight="60dp"
         android:padding="12dp"
         android:hint="@string/email"
         android:textColorHint="#757575"
         android:backgroundTint="#000000"
-        app:layout_constraintTop_toBottomOf="@id/etTelefono"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etTelefono" app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:inputType="textEmailAddress"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"/>
 
-
-    <!-- Botón Editar -->
     <Button
         android:id="@+id/btnEditar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/editar"
-        android:backgroundTint="#000000"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/>
+        android:backgroundTint="#000000"
+        android:text="@string/editar"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
-    <!-- Botón Eliminar Cuenta -->
     <Button
         android:id="@+id/btnEliminar"
         android:layout_width="wrap_content"
@@ -167,7 +121,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"/>
 
-    <!-- Botón Volver a Suscribirse -->
     <Button
         android:id="@+id/btnVolverASuscribirse"
         android:layout_width="wrap_content"

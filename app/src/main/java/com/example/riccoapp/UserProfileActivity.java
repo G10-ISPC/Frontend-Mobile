@@ -1,6 +1,5 @@
 package com.example.riccoapp;
 
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.riccoapp.api.ApiService;
-import com.example.riccoapp.api.Direccion;
 import com.example.riccoapp.api.RetrofitClient;
 import com.example.riccoapp.api.UserProfileRequest;
 import com.example.riccoapp.api.UserProfileResponse;
@@ -31,13 +29,12 @@ import retrofit2.Response;
 public class UserProfileActivity extends BaseActivity {
 
     // Variables de vista
-    private EditText etNombre, etApellido, etCalle, etNumero, etEmail, etTelefono;
+    private EditText etNombre, etApellido, etEmail, etTelefono; // Eliminados etCalle, etNumero
     private Button btnEditar, btnEliminar, btnVolverASuscribirse;
     private TextView userNameTextView;
     private boolean isEditing = false;
 
     // Inicializar el API Service
-
     private ApiService apiService;
     private UserProfileResponse currentUser;
     private TokenManager tokenManager; // Agregar TokenManager
@@ -69,13 +66,12 @@ public class UserProfileActivity extends BaseActivity {
         userNameTextView = findViewById(R.id.userNameTextView);
         etNombre = findViewById(R.id.etNombre);
         etApellido = findViewById(R.id.etApellido);
-        etCalle = findViewById(R.id.etCalle);
-        etNumero = findViewById(R.id.etNumero);
+        // etCalle = findViewById(R.id.etCalle); // Eliminado
+        // etNumero = findViewById(R.id.etNumero); // Eliminado
         etEmail = findViewById(R.id.etEmail);
         etTelefono = findViewById(R.id.etTelefono);
         btnEditar = findViewById(R.id.btnEditar);
         btnEliminar = findViewById(R.id.btnEliminar);
-
     }
 
     private void configurarBotones() {
@@ -92,7 +88,6 @@ public class UserProfileActivity extends BaseActivity {
         });
 
         btnEliminar.setOnClickListener(v -> mostrarDialogoConfirmacion());
-
     }
 
     private void cargarUsuario() {
@@ -129,20 +124,12 @@ public class UserProfileActivity extends BaseActivity {
     }
 
     private void mostrarDatosUsuario(UserProfileResponse user) {
-
         etEmail.setText(user.getEmail());
         etNombre.setText(user.getFirstName());
         etApellido.setText(user.getLastName());
         etTelefono.setText(user.getTelefono());
 
-        if (user.getDireccion() != null) {
-            etCalle.setText(user.getDireccion().getCalle());
-            etNumero.setText(String.valueOf(user.getDireccion().getNumero()));
-        } else {
-            etCalle.setText("");
-            etNumero.setText("");
-        }
-        habilitarCampos(false); // Deshabilitar campos al cargar datos
+        habilitarCampos(false);
     }
 
     private void manejarErroresDeCarga(Response<UserProfileResponse> response) {
@@ -163,28 +150,22 @@ public class UserProfileActivity extends BaseActivity {
         String token = tokenManager.obtenerToken();
         token = "Bearer " + token; // Agregar el prefijo "Bearer" al token
 
-        // Validar que todos los campos estén completos como ya lo haces
-        if (etNombre.getText().toString().isEmpty() ||
-                etApellido.getText().toString().isEmpty() ||
-                etEmail.getText().toString().isEmpty() ||
-                etTelefono.getText().toString().isEmpty() ||
-                etCalle.getText().toString().isEmpty() ||
-                etNumero.getText().toString().isEmpty()) {
-
+        // Validar que todos los campos estén completos
+        if (TextUtils.isEmpty(etNombre.getText().toString()) ||
+                TextUtils.isEmpty(etApellido.getText().toString()) ||
+                TextUtils.isEmpty(etEmail.getText().toString()) ||
+                TextUtils.isEmpty(etTelefono.getText().toString())) {
             Toast.makeText(UserProfileActivity.this, "Por favor completa todos los campos.", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // Crear la dirección actualizada
-        Direccion updatedDireccion = new Direccion(etCalle.getText().toString(), Integer.parseInt(etNumero.getText().toString()));
 
         // Crear el usuario actualizado
         UserProfileRequest updatedUser = new UserProfileRequest(
                 etEmail.getText().toString(),
                 etNombre.getText().toString(),
                 etApellido.getText().toString(),
-                etTelefono.getText().toString(),
-                updatedDireccion
+                etTelefono.getText().toString()
+                // Ya no se pasa Direccion
         );
 
         // Hacer la llamada a la API para actualizar el perfil del usuario
@@ -248,10 +229,11 @@ public class UserProfileActivity extends BaseActivity {
         editor.apply();
 
         // Redirigir a la pantalla principal o de registro
-        Intent intent = new Intent(UserProfileActivity.this, RegistroActivity.class);  // Cambia a MainActivity si quieres que vaya a la pantalla principal
+        Intent intent = new Intent(UserProfileActivity.this, RegistroActivity.class);
         startActivity(intent);
         finish();  // Finaliza esta actividad para que no pueda volver con el botón "Atrás"
     }
+
     private void mostrarDialogoConfirmacion() {
         new AlertDialog.Builder(this)
                 .setTitle("Eliminar Cuenta")
@@ -289,34 +271,16 @@ public class UserProfileActivity extends BaseActivity {
             etTelefono.setError("El teléfono es requerido");
             return false;
         }
-
-        if (TextUtils.isEmpty(etCalle.getText().toString())) {
-            etCalle.setError("La calle es requerida");
-            return false;
-        }
-        if (!etCalle.getText().toString().matches("[a-zA-Z\\s]+")) { // Solo letras y espacios
-            etCalle.setError("La calle solo debe contener letras y espacios");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(etNumero.getText().toString()) || !etNumero.getText().toString().matches("\\d+")) { // Solo números
-            etNumero.setError("El número debe ser un valor numérico");
-            return false;
-        }
-
+        // Eliminadas las validaciones para calle y numero
         return true;
     }
-
-
 
     private void habilitarCampos(boolean habilitar) {
         etNombre.setEnabled(habilitar);
         etApellido.setEnabled(habilitar);
-        etCalle.setEnabled(habilitar);
-        etNumero.setEnabled(habilitar);
-        etEmail.setEnabled(false);
+        // etCalle.setEnabled(habilitar); // Eliminado
+        // etNumero.setEnabled(habilitar); // Eliminado
+        etEmail.setEnabled(habilitar); 
         etTelefono.setEnabled(habilitar);
     }
 }
-
-
