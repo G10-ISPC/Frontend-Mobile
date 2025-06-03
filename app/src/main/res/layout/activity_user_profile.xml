@@ -10,8 +10,8 @@
     android:background="#FFFFFF"
     tools:context=".UserProfileActivity">
 
+    <!-- Incluir la Toolbar -->
     <include
-        android:id="@+id/toolbarLayout"
         layout="@layout/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
