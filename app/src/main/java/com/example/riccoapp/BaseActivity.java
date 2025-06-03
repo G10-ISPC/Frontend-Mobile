@@ -132,7 +132,7 @@ public class BaseActivity extends AppCompatActivity {
         } else if (itemId == R.id.nav_about) {
             intent = new Intent(this, AboutActivity.class);
         } else if (itemId == R.id.nav_dashboardadmin) {
-            intent = new Intent(this, AdminActivity.class);
+            intent = new Intent(this, DashboardAdminActivity.class);
         } else if (itemId == R.id.nav_mis_compras) {
             intent = new Intent(this, MisComprasActivity.class);
         }else if (itemId == R.id.nav_logout) {
