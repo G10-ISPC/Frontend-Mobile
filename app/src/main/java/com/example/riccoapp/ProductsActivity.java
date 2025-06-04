@@ -15,6 +15,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.content.SharedPreferences;
+
 
 public class ProductsActivity extends BaseActivity implements ProductAdapter.OnProductoClickListener {
     private RecyclerView recyclerView;
@@ -47,11 +49,23 @@ public class ProductsActivity extends BaseActivity implements ProductAdapter.OnP
     }
 
     private void loadProductsFromAPI() {
+        // Obtener el token de acceso desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("user_token", "");
+
+        // Verificar si el token está vacío (en caso de que no se haya guardado)
+        if (accessToken.isEmpty()) {
+            Toast.makeText(this, "Token de acceso no disponible", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Crear una instancia de ApiService
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
 
+        // Llamada a la API pasando el token de acceso
+        Call<List<Product>> call = apiService.getProducts("Bearer " + accessToken);  // Añadir el token como encabezado
+
         // Realizar la llamada a la API
-        Call<List<Product>> call = apiService.getProducts();
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -62,7 +76,7 @@ public class ProductsActivity extends BaseActivity implements ProductAdapter.OnP
                     // Filtrar los productos para mostrar solo los que están en stock
                     List<Product> productosEnStock = new ArrayList<>();
                     for (Product product : productos) {
-                        if (product.isInStock()) {
+                        if (product.isVisible()) {
                             productosEnStock.add(product);
                         }
                     }
@@ -78,6 +92,7 @@ public class ProductsActivity extends BaseActivity implements ProductAdapter.OnP
                     productAdapter.notifyDataSetChanged();
                 } else {
                     Log.e("ProductsActivity", "Response error: " + response.message());
+                    Toast.makeText(ProductsActivity.this, "Error al cargar los productos", Toast.LENGTH_SHORT).show();
                 }
             }
 

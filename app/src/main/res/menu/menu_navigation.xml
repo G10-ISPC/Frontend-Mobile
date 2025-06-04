@@ -36,18 +36,19 @@
         android:id="@+id/nav_userprofile"
         android:title="Perfil Usuario"/>
 
-
-    <!-- Opción Administrador de Productos -->
+    <!-- Mis Compras -->
     <item
-        android:id="@+id/nav_admin_productos"
-        android:title="Administrador de Productos" android:visible="false"/>
+        android:id="@+id/nav_mis_compras"
+        android:title="Mis Compras" />
+
+    <!-- Dashboard Administrador -->
+    <item
+        android:id="@+id/nav_dashboardadmin"
+        android:title="Dashboard Admin" />
 
     <!-- Opción Cerrar Sesión -->
     <item
         android:id="@+id/nav_logout"
         android:title="Cerrar Sesión"/>
-
-
-
 
 </menu>

@@ -14,7 +14,7 @@ public class UserProfileRequest {
     private String telefono;
     private Direccion direccion; // Asegúrate de que esta clase esté definida
 
-    public UserProfileRequest(String email, String firstName, String lastName, String telefono, Direccion direccion) {
+    public UserProfileRequest(String email, String firstName, String lastName, String telefono) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

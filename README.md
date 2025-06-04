@@ -93,10 +93,10 @@ Desarrolladores
 Este proyecto fue desarrollado por el equipo de Ricco App:
 
 Arévalo, Carla Elizabeth
-Aricoma, Delfina
 Cevasco, Ernesto Agustín
 Cos, Mariana
 Cruz, Laura Patricia
 Gulle, Melisa
 Juarez Manescotto, Micaela Inés
 Ponce, Dalma Florencia del Valle
+

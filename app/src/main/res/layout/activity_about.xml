@@ -110,7 +110,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/foto_description"
+                android:contentDescription="@string/mariana_full_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/mariana" />
 
@@ -146,7 +146,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/foto_description"
+                android:contentDescription="@string/carla_full_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/carla" />
 
@@ -181,7 +181,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/foto_description"
+                android:contentDescription="@string/laura_full_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/laura"
                 tools:ignore="ImageContrastCheck" />
@@ -217,7 +217,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/foto_description"
+                android:contentDescription="@string/micaela_full_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/micaela" />
 
@@ -239,7 +239,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Miembro del equipo 5 -->
+        <!-- Miembro del equipo 5
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                 android:text="@string/dev"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
-        </LinearLayout>
+        </LinearLayout>-->
 
         <!-- Miembro del equipo 6 -->
         <LinearLayout
@@ -290,7 +290,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/foto_description"
+                android:contentDescription="@string/dalma_full_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/dalma" />
 
@@ -324,7 +324,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/foto_description"
+                android:contentDescription="@string/melisa_full_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/melisa" />
 
@@ -358,7 +358,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/foto_description"
+                android:contentDescription="@string/ernesto_full_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ernesto" />
 

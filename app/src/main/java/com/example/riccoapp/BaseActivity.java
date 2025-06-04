@@ -68,18 +68,35 @@ public class BaseActivity extends AppCompatActivity {
         // Obtener el rol del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String rol = sharedPreferences.getString("user_rol", "");
+
+
+        // Mostrar productos solo si hay sesión
+        menu.findItem(R.id.nav_products).setVisible(!rol.isEmpty());
+
+        // Control de Mis Compras
+        MenuItem misComprasItem = menu.findItem(R.id.nav_mis_compras);
+        if ("cliente".equals(rol)) {
+            misComprasItem.setVisible(true);
+            misComprasItem.setEnabled(true);
+        } else {
+            misComprasItem.setVisible(false);
+            misComprasItem.setEnabled(false);
+        }
+
+
+
         Log.d("Menu", "Rol del usuario: " + rol); // Para verificar el rol
 
         // Mostrar/ocultar elementos del menú según el rol
         if ("cliente".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
             menu.findItem(R.id.nav_login).setVisible(false);
-            menu.findItem(R.id.nav_admin_productos).setVisible(false);
+            menu.findItem(R.id.nav_dashboardadmin).setVisible(false);
         } else if ("admin".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
             menu.findItem(R.id.nav_login).setVisible(false);
             menu.findItem(R.id.nav_userprofile).setVisible(true);
-            menu.findItem(R.id.nav_admin_productos).setVisible(true);
+            menu.findItem(R.id.nav_dashboardadmin).setVisible(true);
         }
 
         // Opciones de menú si no hay rol definido
@@ -87,7 +104,7 @@ public class BaseActivity extends AppCompatActivity {
             menu.findItem(R.id.nav_registro).setVisible(true);
             menu.findItem(R.id.nav_login).setVisible(true);
             menu.findItem(R.id.nav_userprofile).setVisible(false);
-            menu.findItem(R.id.nav_admin_productos).setVisible(false);
+            menu.findItem(R.id.nav_dashboardadmin).setVisible(false);
             menu.findItem(R.id.nav_logout).setVisible(false);
         }
 
@@ -114,9 +131,11 @@ public class BaseActivity extends AppCompatActivity {
             intent = new Intent(this, UserProfileActivity.class);
         } else if (itemId == R.id.nav_about) {
             intent = new Intent(this, AboutActivity.class);
-        } else if (itemId == R.id.nav_admin_productos) {
-            intent = new Intent(this, AdminActivity.class);
-        } else if (itemId == R.id.nav_logout) {
+        } else if (itemId == R.id.nav_dashboardadmin) {
+            intent = new Intent(this, DashboardAdminActivity.class);
+        } else if (itemId == R.id.nav_mis_compras) {
+            intent = new Intent(this, MisComprasActivity.class);
+        }else if (itemId == R.id.nav_logout) {
             logout(); // Llama al método de logout
             return true;
         }

@@ -98,7 +98,7 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
     public void onStockChangeClick(int position, boolean isInStock) {
         Product product = productoAdapter.getProductAt(position);
         if (product != null) {
-            product.setInStock(isInStock);
+            product.setVisible(isInStock);
             productoViewModel.updateStockStatus(product.getId_producto(), product);
 
             // Recargar lista después de la actualización
@@ -107,3 +107,4 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
     }
 
 }
+
