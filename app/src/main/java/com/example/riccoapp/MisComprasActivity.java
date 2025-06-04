@@ -7,7 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+
+
+
+import com.example.riccoapp.BaseActivity;
+
+
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MisComprasActivity extends AppCompatActivity implements CompraAdapter.OnActionClickListener {
+public class MisComprasActivity extends BaseActivity implements CompraAdapter.OnActionClickListener {
 
     private RecyclerView recyclerView;
     private CompraAdapter adapter;
@@ -34,7 +40,21 @@ public class MisComprasActivity extends AppCompatActivity implements CompraAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+
+
+        // NUEVO: asignamos el layout que incluye la Toolbar
         setContentView(R.layout.activity_mis_compras);
+        // Llamamos a setupToolbar() para que BaseActivity asigne el Toolbar inflado en el include
+        setupToolbar();
+        // Llamamos a loadUserName() para que BaseActivity cargue el nombre del usuario en el TextView
+        loadUserName();
+        // FIN NUEVO
+
+
+
+
 
         // 1. Obtener SharedPreferences correcto
         SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
@@ -126,4 +146,3 @@ public class MisComprasActivity extends AppCompatActivity implements CompraAdapt
         Toast.makeText(this, "Cancelar compra: " + compraId, Toast.LENGTH_SHORT).show();
     }
 }
-
