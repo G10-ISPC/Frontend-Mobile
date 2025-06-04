@@ -1,58 +1,102 @@
-# 🍔 RiccoApp - Aplicación Móvil de Ricco Burgers
+# Ricco App
 
-## 📱 Descripción del Proyecto
-RiccoApp es una plataforma de e-commerce desarrollada para dispositivos Android, diseñada para que los usuarios puedan explorar nuestro menú de hamburguesas gourmet y gestionar sus cuentas. La aplicación está desarrollada en Android Studio utilizando Java y sigue las mejores prácticas de desarrollo Android.
+Bienvenido a **Ricco App**, la aplicación móvil de e-commerce para el negocio de hamburguesas.
 
-## 🛠️ Características Técnicas
-- **IDE**: Android Studio
-- **Lenguajes**: Java
-- **Backend**: Python con Django REST Framework
-- **Versión mínima de Android**: API 21 (Android 5.0)
-- **Arquitectura**: MVVM (Model-View-ViewModel)
-- **Bibliotecas principales**:
-  - AndroidX
-  - Material Design Components
-  - Retrofit para conexiones API
-  - Room Database
+## Descripción
 
-## 🔑 Funcionalidades Principales
-- **Gestión de Usuarios**:
-  - Registro e inicio de sesión
-  - Edición de información personal
-  - Eliminación de cuenta
-- **Exploración del Menú**:
-  - Visualización de productos disponibles
-  - Switch de estado de producto
-- **Interfaz Optimizada**:
-  - Barra de navegación intuitiva
-  - Diseño interactivo y fluido
-  - Validaciones en formularios
-  - Mejoras de accesibilidad
+**Ricco App** es una plataforma móvil diseñada para ofrecer una experiencia de compra sencilla y agradable en un negocio de hamburguesas. Los usuarios pueden explorar el menú, gestionar sus cuentas y visualizar las ofertas disponibles. Aunque la opción de realizar pedidos aún no está implementada, la aplicación está diseñada con una interfaz intuitiva que facilita la navegación y la personalización de la cuenta.
 
-## 🎥 Demo de la Aplicación
-Puedes ver una demostración de RiccoApp en funcionamiento aquí: [RiccoApp Demo](https://www.youtube.com/watch?v=DL9KUXR6U98)
+### **Características principales**
 
-## ✅ Estado del Desarrollo
-Versión actual: v1.1.1
-- Interfaz de usuario principal completada
-- Integración con API REST
-- Base de datos local implementada
-- ActivitySplash implementado
-- Validaciones de formularios mejoradas
-- Sistema de navegación optimizado
+- **Registro e inicio de sesión**:  
+Los usuarios pueden registrarse, iniciar sesión y acceder a sus cuentas de forma segura.
 
-## 👥 Equipo de Desarrollo ISPC
-- **Scrum Master**: Cevasco, Ernesto Agustín
-- **Desarrolladores**:
-  - Arévalo, Carla Elizabeth
-  - Aricoma, Delfina
-  - Cos, Mariana
-  - Cruz, Laura Patricia
-  - Gulle, Melisa
-  - Juarez Manescotto, Micaela Inés
-  - Ponce, Dalma Florencia del Valle
+- **Gestión de cuenta personal**:  
+Los usuarios pueden gestionar su cuenta, incluyendo las siguientes opciones:
+  - Actualización de información personal.
+  - Eliminación de la cuenta en cualquier momento.
 
-## 🔗 Enlaces Importantes
-- [Repositorio Frontend-Mobile](https://github.com/G10-ISPC/Frontend-Mobile)
-- [Repositorio Backend](https://github.com/G10-ISPC/Backend)
-- [Demo Web](https://g10-ispc.github.io/IntegradorFullStack-G10/ricco/frontend/)
+- **Exploración de productos**:  
+Los usuarios pueden navegar por las distintas categorías del menú, ver detalles de las hamburguesas y otras opciones del restaurante.
+
+- **Interfaz intuitiva**:  
+La aplicación presenta una navegación fácil con un diseño adaptado para una mejor experiencia de usuario.
+
+## Cómo usar Ricco App
+
+Para comenzar a usar Ricco App, sigue estos simples pasos:
+
+1. **Registrar una cuenta**:  
+   - Abre la aplicación y completa el formulario de registro para crear una cuenta personal.
+   
+2. **Iniciar sesión**:  
+   - Accede a tu cuenta utilizando tus credenciales para explorar las funciones de la aplicación.
+
+3. **Explorar el menú**:  
+   - Navega por las páginas de productos para descubrir nuestras hamburguesas y otras opciones del menú.
+   
+4. **Administrar tu cuenta**:  
+   - Accede a la sección de configuración para actualizar tu información personal o eliminar tu cuenta si lo deseas.
+
+## Video de Maqueta
+
+¿Quieres ver cómo se ve y funciona Ricco App? Echa un vistazo al siguiente video que muestra la maqueta de la aplicación:  
+[Ver video de la maqueta](https://www.youtube.com/watch?v=DL9KUXR6U98)
+
+**Nota importante**: La **ActivitySplash** no está configurada para mostrarse al iniciar la aplicación. Esta funcionalidad se implementará en futuras actualizaciones.
+
+## Tecnologías utilizadas
+
+- **Frontend**: React Native (para desarrollo móvil multiplataforma).
+- **Autenticación**: JWT para gestión de sesiones.
+- **Diseño UI/UX**: Basado en principios de Material Design.
+
+## Instrucciones de instalación
+
+1. **Clona el repositorio**:
+
+   ```bash
+   git clone https://github.com/tu_usuario/ricco-app.git
+
+---
+
+Instala las dependencias:
+
+cd ricco-app
+npm install
+
+---
+
+Ejecuta la aplicación:
+
+Para ejecutar la app en un entorno local, usa:
+
+npx react-native run-android   # Para Android
+npx react-native run-ios       # Para iOS (si estás en un entorno macOS)
+
+---
+
+Contribuciones
+
+Si deseas contribuir a Ricco App, sigue estos pasos:
+
+Haz un fork de este repositorio.
+Crea una rama para tu nueva característica (git checkout -b feature/nueva-funcionalidad).
+Realiza tus cambios y haz un commit (git commit -am 'Añadir nueva funcionalidad').
+Empuja tus cambios a tu repositorio (git push origin feature/nueva-funcionalidad).
+Crea un pull request para fusionar tus cambios.
+
+---
+
+Desarrolladores
+
+Este proyecto fue desarrollado por el equipo de Ricco App:
+
+Arévalo, Carla Elizabeth
+Cevasco, Ernesto Agustín
+Cos, Mariana
+Cruz, Laura Patricia
+Gulle, Melisa
+Juarez Manescotto, Micaela Inés
+Ponce, Dalma Florencia del Valle
+
