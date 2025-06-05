@@ -113,10 +113,10 @@
 
         <!-- VACÍO -->
         <TextView
-            android:id="@+id/textNoCompras"
+            android:id="@+id/textViewSinResultados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No hay compras disponibles."
+            android:text="No hay resultados para los filtros aplicados."
             android:visibility="gone"
             android:gravity="center"
             android:textColor="#AAAAAA"
