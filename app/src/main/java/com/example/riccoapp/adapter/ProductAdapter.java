@@ -3,6 +3,7 @@ package com.example.riccoapp.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -60,7 +61,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
         holder.ivImagenProducto.setImageResource(imagenResourceId);
 
         // Configurar el clic en el producto
-        holder.itemView.setOnClickListener(v -> listener.onProductoClick(producto));
+        holder.btnComprar.setOnClickListener(v -> listener.onProductoClick(producto));
     }
 
     @Override
@@ -72,6 +73,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
         EditText nombreProducto, descripcionProducto;
         EditText etPrecioProducto;
         ImageView ivImagenProducto;
+        Button btnComprar;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,6 +82,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
             descripcionProducto = itemView.findViewById(R.id.etDescripcionProducto);
             etPrecioProducto = itemView.findViewById(R.id.etPrecioProducto);
             ivImagenProducto = itemView.findViewById(R.id.ivImagenProducto);
+            btnComprar = itemView.findViewById(R.id.btnComprar);
         }
     }
 }

@@ -8,6 +8,18 @@ public class Product {
     private int imagenId;
     private boolean visible; // Nuevo campo para estado de stock
 
+    private int cantidad = 1; // <-- AGREGADO AQUÍ
+
+    // Getters y setters de 'cantidad'
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+
     // Constructor
     public Product(String nombre_producto, String descripcion, double precio) {
         this.nombre_producto = nombre_producto; // Asignar el nombre del producto
@@ -17,12 +29,8 @@ public class Product {
         this.visible = true; // Por defecto, el producto está en stock
     }
 
-    public int getId_producto() {
+    public int getId() {
         return id_producto;
-    }
-
-    public void setId_producto(int id_producto) {
-        this.id_producto = id_producto;
     }
 
     public double getPrecio() {
