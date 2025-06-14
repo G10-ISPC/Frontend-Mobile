@@ -82,7 +82,7 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
             updatedProduct.setNombre_producto(nuevoNombre);
             updatedProduct.setDescripcion(nuevaDescripcion);
             updatedProduct.setPrecio(nuevoPrecio);
-            productoViewModel.updateProducto(updatedProduct.getId_producto(), updatedProduct);
+            productoViewModel.updateProducto(updatedProduct.getId(), updatedProduct);
         }
     }
 
@@ -90,7 +90,7 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
     public void onBorrarClick(int position) {
         Product productToDelete = productoAdapter.getProductAt(position);
         if (productToDelete != null) {
-            productoViewModel.deleteProducto(productToDelete.getId_producto());
+            productoViewModel.deleteProducto(productToDelete.getId());
         }
     }
 
@@ -99,7 +99,7 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
         Product product = productoAdapter.getProductAt(position);
         if (product != null) {
             product.setVisible(isInStock);
-            productoViewModel.updateStockStatus(product.getId_producto(), product);
+            productoViewModel.updateStockStatus(product.getId(), product);
 
             // Recargar lista después de la actualización
             productoViewModel.getProductos(); // Actualizar productos desde ViewModel

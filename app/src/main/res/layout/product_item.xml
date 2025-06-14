@@ -85,8 +85,7 @@
                     android:text="Comprar"
                     android:layout_marginStart="8dp"
                     android:backgroundTint="@android:color/black"
-                    android:textColor="@android:color/white"
-                    android:visibility="gone" />  <!-- Opción: "invisible" -->
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </LinearLayout>
 
