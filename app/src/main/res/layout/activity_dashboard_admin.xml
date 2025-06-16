@@ -10,13 +10,13 @@
     android:background="#000000"
     tools:context=".DashboardAdminActivity">
 
-    <!-- 1) Incluimos el toolbar_layout (donde BaseActivity infla el Toolbar y el menú) -->
+    <!-- Incluimos el toolbar_layout  -->
     <include
         layout="@layout/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <!-- 2) TextView para mostrar el nombre de usuario (igual que en Contacto) -->
+    <!-- TextView para mostrar el nombre de usuario -->
     <TextView
         android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-    <!-- 3) Contenido específico del Dashboard -->
+    <!-- Contenido específico del Dashboard -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
