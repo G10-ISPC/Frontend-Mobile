@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1F1D1D">
+    android:background="#121212"
+    >
 
     <!-- Toolbar, mantenida intacta para la consistencia de la interfaz -->
     <include
@@ -12,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
+
     <!-- TextView para el nombre del usuario -->
     <TextView
         android:id="@+id/userNameTextView"
@@ -27,6 +29,7 @@
 
     <!-- Contenedor principal con desplazamiento cuando el contenido excede la pantalla -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
@@ -38,6 +41,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- NUEVO: Botón superior para agregar productos -->
+            <Button
+                android:id="@+id/btnScrollToForm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Crear producto"
+                android:textColor="#121212"
+                android:backgroundTint="#ffcc00"
+                android:layout_marginTop="5dp" />
+
             <!-- Título de la sección de administración de productos -->
             <TextView
                 android:id="@+id/title"
@@ -46,7 +60,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:text="@string/administrador_de_productos"
-                android:textColor="@android:color/white"
+                android:textColor="#ffcc00"
                 android:textSize="24sp" />
 
             <!-- RecyclerView para mostrar la lista de productos -->
@@ -56,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
-                android:background="#FFFFFF" />
+                android:background="#1a1a1a"/>
 
             <!-- Título de la sección de creación de productos -->
             <TextView
@@ -66,7 +80,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:text="@string/crear_productos"
-                android:textColor="@android:color/white"
+                android:textColor="#ffcc00"
                 android:textSize="22sp" />
 
             <!-- Formulario de creación de productos -->
@@ -75,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#2C2B2B"
+                android:background="#1a1a1a"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -122,8 +136,8 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
                     android:text="@string/agregar_producto"
-                    android:backgroundTint="@color/black"
-                    android:textColor="@android:color/white" />
+                    android:backgroundTint="#ffcc00"
+                    android:textColor="#121212" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

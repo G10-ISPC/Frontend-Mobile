@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="Dashboard del Administrador"
-            android:textColor="#FFFFFF"
+            android:textColor="#ffcc00"
             android:textSize="20sp"
             android:textStyle="bold" />
 

@@ -1,172 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="0dp"
-    android:background="#D5D4D5"
-    android:gravity="top|center"
-    android:orientation="vertical"
-    android:visibility="visible"
+    android:background="#121212"
+    android:padding="16dp"
     tools:context=".ContactoActivity">
 
-    <!-- Incluir la Toolbar -->
+    <!-- Toolbar -->
     <include
         layout="@layout/toolbar_layout"
-        android:layout_width="match_parent"
+        android:id="@+id/toolbar_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- TextView para el nombre del usuario -->
+    <!-- Nombre de Usuario -->
     <TextView
         android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
-
+    <!-- Título Contacto -->
     <TextView
         android:id="@+id/contacto_form"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
-        android:shadowColor="#070707"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp"
+        android:textColor="#ffcc00"
         android:text="@string/contacto"
-        android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.621" />
-
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!-- Subtítulo -->
     <TextView
         android:id="@+id/text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="10dp"
         android:text="@string/c_texto"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintTop_toBottomOf="@id/contacto_form"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.094" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Nombre -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/nombreLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        android:hint="@string/c_nombre"
+        app:hintTextColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/white"
-            android:hint="@string/c_nombre"
+            android:background="@color/black"
             android:inputType="text"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Apellido -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/apellidoLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        android:hint="@string/c_apellido"
+        app:hintTextColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/nombreLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/apellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/white"
-            android:hint="@string/c_apellido"
+            android:layout_marginTop="10dp"
+            android:background="@color/black"
             android:inputType="text"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Teléfono -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/telefonoLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        android:hint="@string/telefono"
+        app:hintTextColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/apellidoLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/telefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/white"
-            android:hint="@string/telefono"
-
-            android:textColor="@color/black" />
+            android:layout_marginTop="10dp"
+            android:background="@color/black"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Email -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/emailLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        android:hint="@string/c_email"
+        app:hintTextColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/telefonoLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/white"
-            android:hint= "@string/c_email"
-            android:textColor="@color/black" />
+            android:layout_marginTop="10dp"
+            android:background="@color/black"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Mensaje -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:id="@+id/mensajeLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/mensaje">
+        android:hint="@string/mensaje"
+        app:hintTextColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/emailLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mensaje"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
+            android:layout_marginTop="10dp"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:maxLines="6"
             android:minLines="3"
             android:padding="12dp"
             android:scrollbars="vertical"
-            android:textColor="@color/black"
-            android:textColorLink="#212020"
+            android:background="@color/black"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
+    <!-- Botón -->
     <Button
         android:id="@+id/contactbutton"
         android:layout_width="150dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="44dp"
-        android:backgroundTint="#403F3F"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/enviar"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textColor="#121212"
+        android:backgroundTint="#ffcc00"
+        app:layout_constraintTop_toBottomOf="@id/mensajeLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
