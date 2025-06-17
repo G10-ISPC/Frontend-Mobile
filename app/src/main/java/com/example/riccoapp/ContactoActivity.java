@@ -1,5 +1,6 @@
 package com.example.riccoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -39,25 +40,37 @@ public class ContactoActivity extends BaseActivity {
             public void onClick(View v) {
                 if (!validateInputs()) {
                     Toast.makeText(ContactoActivity.this, "Todos los campos son obligatorios.", Toast.LENGTH_SHORT).show();
-
-                }
-                if (validateInputs()) {
-
-                    Toast.makeText(ContactoActivity.this, "Hemos recibimos su mensaje, le responderemos en breve.", Toast.LENGTH_SHORT).show();
-                    clearFields();
+                    return;
                 }
 
+                String nombre = nombreEditText.getText().toString().trim();
+                String apellido = apellidoEditText.getText().toString().trim();
+                String telefono = telefonoEditText.getText().toString().trim();
+                String email = emailEditText.getText().toString().trim();
+                String mensaje = mensajeEditText.getText().toString().trim();
 
-            }
-            private void clearFields() {
-                nombreEditText.setText("");
-                apellidoEditText.setText("");
-                telefonoEditText.setText("");
-                emailEditText.setText("");
-                mensajeEditText.setText("");
-            }
+                // Armar cuerpo del mensaje
+                String body = "Nombre: " + nombre + "\n"
+                        + "Apellido: " + apellido + "\n"
+                        + "Teléfono: " + telefono + "\n"
+                        + "Email: " + email + "\n\n"
+                        + "Mensaje:\n" + mensaje;
 
+                // Crear Intent de envío de correo
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("message/rfc822"); // Solo apps de correo
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricco@gmail.com"}); // Reemplazá por tu mail
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Formulario de Contacto Ricco App");
+                intent.putExtra(Intent.EXTRA_TEXT, body);
+
+                try {
+                    startActivity(Intent.createChooser(intent, "Enviar mensaje con:"));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(ContactoActivity.this, "No hay aplicaciones de correo instaladas.", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
+
     }
 
     private boolean validateInputs() {

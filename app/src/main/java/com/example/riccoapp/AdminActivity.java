@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.riccoapp.adapter.ProductAdapterAdmin;
 import com.example.riccoapp.api.Product;
 import java.util.ArrayList;
+import android.view.View;
+import androidx.core.widget.NestedScrollView;
+
 
 public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.OnProductoClickListener {
 
@@ -31,6 +34,15 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
         edtDescripcion = findViewById(R.id.descripcion_producto);
         edtPrecio = findViewById(R.id.precio_producto);
         btnAgregar = findViewById(R.id.btnAddProduct);
+
+        NestedScrollView scrollView = findViewById(R.id.nestedScrollView);
+        View formulario = findViewById(R.id.formulario);
+        Button btnScrollToForm = findViewById(R.id.btnScrollToForm);
+
+        btnScrollToForm.setOnClickListener(view -> {
+            scrollView.post(() -> scrollView.smoothScrollTo(0, formulario.getTop()));
+        });
+
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewProductos);
         productoAdapter = new ProductAdapterAdmin(new ArrayList<>(), this);
@@ -107,4 +119,3 @@ public class AdminActivity extends BaseActivity implements ProductAdapterAdmin.O
     }
 
 }
-
