@@ -52,4 +52,8 @@ public interface ApiService {
 
     @POST("cancelar-compra/{id_compra}/")
     Call<Void> cancelarCompra(@Path("id_compra") int idCompra);
+
+    @POST("crear-pago/")
+    Call<CompraResponse> finalizarCompra(@Body CompraRequest compraRequest);
 }
+

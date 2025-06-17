@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +50,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
         holder.descripcionProducto.setText(producto.getDescripcion());
         holder.etPrecioProducto.setText(String.valueOf(producto.getPrecio()));
 
+        // Mostrar el stock disponible
+        holder.tvStockDisponible.setText("Stock disponible: " + producto.getStock());
+
         // Todos los campos deshabilitados para solo visualización
         holder.etPrecioProducto.setEnabled(false);
         holder.nombreProducto.setEnabled(false);
@@ -74,6 +77,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
         EditText etPrecioProducto;
         ImageView ivImagenProducto;
         Button btnComprar;
+        TextView tvStockDisponible;  // Aquí el TextView para stock
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +87,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Producto
             etPrecioProducto = itemView.findViewById(R.id.etPrecioProducto);
             ivImagenProducto = itemView.findViewById(R.id.ivImagenProducto);
             btnComprar = itemView.findViewById(R.id.btnComprar);
+            tvStockDisponible = itemView.findViewById(R.id.tvStockDisponible); // Enlazado aquí
         }
     }
 }

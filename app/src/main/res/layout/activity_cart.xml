@@ -19,6 +19,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+    <!-- Cantidad de productos seleccionados -->
+    <TextView
+        android:id="@+id/tvCantidadProductos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 productos"
+        android:textSize="16sp"
+        android:textColor="#444444"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloCarrito"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="2dp"/>
 
     <!-- Lista de productos -->
     <androidx.recyclerview.widget.RecyclerView
@@ -74,7 +86,7 @@
             android:layout_marginTop="8dp"
             android:padding="12dp"
             android:background="@drawable/rounded_button"/>
-        <Button
+        <!-- <Button
             android:id="@+id/btnVaciarCarrito"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +96,7 @@
             android:textColor="@android:color/white"
             android:layout_marginTop="8dp"
             android:padding="12dp"
-            android:background="@drawable/rounded_button"/>
+            android:background="@drawable/rounded_button"/>-->
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
