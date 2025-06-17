@@ -7,13 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-
-
-
-import com.example.riccoapp.BaseActivity;
-
-
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +15,8 @@ import com.example.riccoapp.adapter.CompraAdapter;
 import com.example.riccoapp.api.ApiService;
 import com.example.riccoapp.api.RetrofitClient;
 import com.example.riccoapp.api.Compra;
+
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -40,10 +36,6 @@ public class MisComprasActivity extends BaseActivity implements CompraAdapter.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
-
         // NUEVO: asignamos el layout que incluye la Toolbar
         setContentView(R.layout.activity_mis_compras);
         // Llamamos a setupToolbar() para que BaseActivity asigne el Toolbar inflado en el include
@@ -51,9 +43,6 @@ public class MisComprasActivity extends BaseActivity implements CompraAdapter.On
         // Llamamos a loadUserName() para que BaseActivity cargue el nombre del usuario en el TextView
         loadUserName();
         // FIN NUEVO
-
-
-
 
 
         // 1. Obtener SharedPreferences correcto
@@ -79,7 +68,7 @@ public class MisComprasActivity extends BaseActivity implements CompraAdapter.On
 
         Log.d("TOKEN_DEBUG", "Token completo: " + authToken);
 
-        // 6. Configurar Retrofit con el token
+        // 5. Configurar Retrofit con el token
         try {
             Retrofit retrofit = RetrofitClient.getRetrofitInstanceWithToken(authToken);
             Log.d("TOKEN_DEBUG", "Token completo: " + authToken);
@@ -91,11 +80,11 @@ public class MisComprasActivity extends BaseActivity implements CompraAdapter.On
             return;
         }
 
-        // 7. Configurar RecyclerView
+        // 6. Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerViewMisCompras);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 8. Cargar datos
+        // 7. Cargar datos
         loadPurchases();
     }
 
@@ -106,6 +95,7 @@ public class MisComprasActivity extends BaseActivity implements CompraAdapter.On
             @Override
             public void onResponse(Call<List<Compra>> call, Response<List<Compra>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+
                     // 9. Éxito: Mostrar datos
                     adapter = new CompraAdapter(response.body(), MisComprasActivity.this);
                     recyclerView.setAdapter(adapter);
@@ -142,7 +132,60 @@ public class MisComprasActivity extends BaseActivity implements CompraAdapter.On
 
     @Override
     public void onCancelClick(int compraId) {
-        // 12. Implementar lógica de cancelación (pendiente)
-        Toast.makeText(this, "Cancelar compra: " + compraId, Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmar cancelación")
+                .setMessage("¿Estás seguro de que deseas cancelar esta compra?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    cancelarCompra(compraId);
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void cancelarCompra(int compraId) {
+        Call<Void> call = apiService.cancelarCompra(compraId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MisComprasActivity.this,
+                            "Compra cancelada exitosamente",
+                            Toast.LENGTH_SHORT).show();
+
+                    adapter.actualizarCompraCancelada(compraId);
+                } else {
+                    manejarErrorCancelacion(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("CANCEL_ERROR", "Error de conexión: " + t.getMessage());
+                Toast.makeText(MisComprasActivity.this,
+                        "Error de conexión: " + t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void manejarErrorCancelacion(Response<Void> response) {
+        try {
+            if (response.errorBody() != null) {
+                String errorBody = response.errorBody().string();
+                JSONObject errorJson = new JSONObject(errorBody);
+                String errorMessage = errorJson.getString("error");
+
+                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this,
+                        "Error al cancelar: " + response.code(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.e("CANCEL_ERROR", "Error parsing error response", e);
+            Toast.makeText(this,
+                    "Error procesando respuesta del servidor",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }

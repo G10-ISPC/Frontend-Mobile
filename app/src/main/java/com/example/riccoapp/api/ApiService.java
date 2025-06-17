@@ -49,4 +49,7 @@ public interface ApiService {
 
     @GET("mis-compras/")
     Call<List<Compra>> getMisCompras();
+
+    @POST("cancelar-compra/{id_compra}/")
+    Call<Void> cancelarCompra(@Path("id_compra") int idCompra);
 }

@@ -2,6 +2,8 @@ package com.example.riccoapp.api;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class Compra {
     @SerializedName("id_compra")  // Cambiado a id_compra
     private int id;
@@ -18,6 +20,9 @@ public class Compra {
     @SerializedName("estado")
     private String estado;
 
+    @SerializedName("cancelable_hasta")
+    private Date cancelableHasta;
+
     // Constructor
     public Compra(int id, String fecha, String descripcion, double precioTotal, String estado) {
         this.id = id;
@@ -33,4 +38,12 @@ public class Compra {
     public String getDescripcion() { return descripcion; }
     public double getPrecio() { return precioTotal; }  // Usa precioTotal
     public String getEstado() { return estado; }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

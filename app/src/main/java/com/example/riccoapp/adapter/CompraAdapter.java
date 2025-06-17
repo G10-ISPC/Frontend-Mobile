@@ -1,5 +1,7 @@
 package com.example.riccoapp.adapter;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ public class CompraAdapter extends RecyclerView.Adapter<CompraAdapter.CompraView
 
     private List<Compra> compras;
     private OnActionClickListener listener;
+    private int miColor = Color.rgb(140,140,140);
 
     public CompraAdapter(List<Compra> compras, OnActionClickListener listener) {
         this.compras = compras;
@@ -39,6 +42,17 @@ public class CompraAdapter extends RecyclerView.Adapter<CompraAdapter.CompraView
     @Override
     public int getItemCount() {
         return compras.size();
+    }
+
+    public void actualizarCompraCancelada(int compraId) {
+        for (int i = 0; i < compras.size(); i++) {
+            Compra compra = compras.get(i);
+            if (compra.getId() == compraId) {
+                compra.setEstado("cancelado");
+                notifyItemChanged(i);
+                break;
+            }
+        }
     }
 
     public class CompraViewHolder extends RecyclerView.ViewHolder {
@@ -85,10 +99,27 @@ public class CompraAdapter extends RecyclerView.Adapter<CompraAdapter.CompraView
             }
             tvEstado.setText(estado);
 
+            // Restablecer propiedades del botón
+            btnAccion.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF4444"))); // Color rojo original
+            btnAccion.setTextSize(10);
+            btnAccion.setVisibility(View.VISIBLE);
+            btnAccion.setEnabled(true);
+
             // Botón de acciones
             if ("pendiente".equalsIgnoreCase(compra.getEstado())) {
-                btnAccion.setVisibility(View.VISIBLE);
+                btnAccion.setText("Cancelar");
                 btnAccion.setOnClickListener(v -> listener.onCancelClick(compra.getId()));
+            } else if ("cancelado".equalsIgnoreCase(compra.getEstado())) {
+                btnAccion.setBackgroundTintList(ColorStateList.valueOf(miColor));
+                btnAccion.setText("Cancelado");
+                btnAccion.setEnabled(false);
+                btnAccion.setOnClickListener(null);
+            } else if ("en preparación".equalsIgnoreCase(compra.getEstado())) {
+                btnAccion.setBackgroundTintList(ColorStateList.valueOf(miColor));
+                btnAccion.setTextSize(7);
+                btnAccion.setText("Sin Tiempo");
+                btnAccion.setEnabled(false);
+                btnAccion.setOnClickListener(null);
             } else {
                 btnAccion.setVisibility(View.GONE);
             }
@@ -96,6 +127,7 @@ public class CompraAdapter extends RecyclerView.Adapter<CompraAdapter.CompraView
     }
 
     public interface OnActionClickListener {
-        void onCancelClick(int compraId);
+        void onCancelClick(int id_compra);
     }
+
 }
