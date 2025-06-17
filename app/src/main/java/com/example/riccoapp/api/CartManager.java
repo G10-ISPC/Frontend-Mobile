@@ -58,4 +58,11 @@ public class CartManager {
         }
         return total;
     }
+    public void setCarrito(List<Product> productos) {
+        carrito.clear();
+        if (productos != null) {
+            carrito.addAll(productos);
+        }
+    }
+
 }

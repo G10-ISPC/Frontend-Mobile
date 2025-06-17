@@ -102,7 +102,10 @@ public class loginActivity extends BaseActivity {
                             String firstName = loginResponse.getUser().getFirstName();
                             String lastName = loginResponse.getUser().getLastName();
                             String rol = loginResponse.getUser().getRol();
+                            String userId = String.valueOf(loginResponse.getUser().getId());
 
+
+                            Log.d("LoginActivity", "User ID obtenido: " + userId);
 
                             Log.d("LoginActivity", "Rol obtenido: " + rol);
                             Log.d("LoginActivity", "First Name: " + firstName);
@@ -113,6 +116,7 @@ public class loginActivity extends BaseActivity {
                             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
+                            editor.putString("user_id", userId);
                             editor.putString("user_name", firstName);
                             editor.putString("user_lastname", lastName);
                             editor.putString("user_token", accessToken);
@@ -120,6 +124,8 @@ public class loginActivity extends BaseActivity {
                             editor.putString("user_rol", rol);
 
                             editor.apply();
+                            Log.d("LoginActivity", "User ID guardado en SharedPreferences: " + userId);
+                            //Toast.makeText(getApplicationContext(), "User ID guardado: " + userId, Toast.LENGTH_LONG).show();
 
                             Toast.makeText(loginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
