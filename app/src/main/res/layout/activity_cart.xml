@@ -97,6 +97,16 @@
             android:layout_marginTop="8dp"
             android:padding="12dp"
             android:background="@drawable/rounded_button"/>-->
+        <TextView
+            android:id="@+id/tvTemporizador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tu carrito se vacía en: 10:00"
+            android:textColor="#D32F2F"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

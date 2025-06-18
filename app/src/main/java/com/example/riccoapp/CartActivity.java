@@ -1,7 +1,9 @@
 package com.example.riccoapp;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import android.widget.TextView;
 import android.widget.Button;
@@ -28,15 +30,24 @@ import retrofit2.Response;
 import android.util.Log;
 import com.google.gson.Gson;
 import android.content.Intent;
+import android.os.CountDownTimer;
+import java.util.Locale;
+import android.os.Handler;
+
+
 
 
 public class CartActivity extends BaseActivity implements CartAdapter.OnCantidadChangeListener {
 
     RecyclerView recyclerViewCart;
-    TextView textTotal, tvCantidadProductos;
-    Button btnFinalizarCompra, btnVaciarCarrito;
+    TextView textTotal, tvCantidadProductos, tvTemporizador;
+    Button btnFinalizarCompra;
     List<Product> productosEnCarrito = new ArrayList<>();
     CartAdapter cartAdapter;
+
+    private CountDownTimer countDownTimer;
+    private static final long TIEMPO_LIMITE_MS = 2 * 60 * 1000; // 2 minutos
+    private static final String PREF_TIEMPO_INICIO = "tiempo_inicio_carrito";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +58,22 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
         textTotal = findViewById(R.id.tvTotalPrecio);
         tvCantidadProductos = findViewById(R.id.tvCantidadProductos);
         btnFinalizarCompra = findViewById(R.id.btnFinalizarCompra);
-        //btnVaciarCarrito = findViewById(R.id.btnVaciarCarrito);
+        tvTemporizador = findViewById(R.id.tvTemporizador);
 
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
 
         // Cargar productos del carrito
         productosEnCarrito = CartManager.getInstance().getCarrito();
 
-        // Inicializar Adapter con la lista correcta
         cartAdapter = new CartAdapter(CartActivity.this, productosEnCarrito, this);
         recyclerViewCart.setAdapter(cartAdapter);
 
         calcularYMostrarTotal();
         actualizarCantidadProductos();
 
+        iniciarTemporizadorSiEsNecesario();
+
         btnFinalizarCompra.setOnClickListener(v -> obtenerUsuarioYFinalizarCompra());
-        //btnVaciarCarrito.setOnClickListener(v -> vaciarCarrito());
     }
 
     @Override
@@ -70,6 +81,65 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
         calcularYMostrarTotal();
         actualizarCantidadProductos();
         guardarCarrito();
+    }
+
+    private void iniciarTemporizadorSiEsNecesario() {
+        if (productosEnCarrito.isEmpty()) {
+            tvTemporizador.setVisibility(View.GONE);
+            return;
+        }
+
+        tvTemporizador.setVisibility(View.VISIBLE);
+
+        SharedPreferences prefs = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        long tiempoInicio = prefs.getLong(PREF_TIEMPO_INICIO, -1);
+        long ahora = System.currentTimeMillis();
+
+        if (tiempoInicio == -1) {
+            tiempoInicio = ahora;
+            prefs.edit().putLong(PREF_TIEMPO_INICIO, tiempoInicio).apply();
+        }
+
+        long tiempoPasado = ahora - tiempoInicio;
+        long tiempoRestante = TIEMPO_LIMITE_MS - tiempoPasado;
+
+        if (tiempoRestante <= 0) {
+            Toast.makeText(this, "Tiempo agotado. El carrito fue vaciado.", Toast.LENGTH_LONG).show();
+            CartManager.getInstance().vaciarCarrito();
+            vaciarCarritoEnSharedPreferences();
+            getSharedPreferences("CartPrefs", MODE_PRIVATE).edit().remove(PREF_TIEMPO_INICIO).apply();
+            updateCartUI();
+            return;
+        }
+
+        countDownTimer = new CountDownTimer(tiempoRestante, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long minutos = millisUntilFinished / 60000;
+                long segundos = (millisUntilFinished % 60000) / 1000;
+                String tiempoFormateado = String.format(Locale.getDefault(), "%02d:%02d", minutos, segundos);
+                tvTemporizador.setText("Tu carrito se vacía en: " + tiempoFormateado);
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(CartActivity.this, "Tiempo agotado. El carrito fue vaciado.", Toast.LENGTH_LONG).show();
+
+                CartManager.getInstance().vaciarCarrito();
+                vaciarCarritoEnSharedPreferences();
+
+                // Eliminar marca de tiempo del temporizador
+                getSharedPreferences("CartPrefs", MODE_PRIVATE).edit().remove(PREF_TIEMPO_INICIO).apply();
+
+                // Reiniciar contador de carrito
+                SharedPreferences.Editor editor = getSharedPreferences("UserPrefs", MODE_PRIVATE).edit();
+                editor.putInt("countCart", 0);
+                editor.apply();
+
+                updateCartUI();
+            }
+
+        }.start();
     }
 
     private void calcularYMostrarTotal() {
@@ -108,21 +178,16 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
     private void obtenerUsuarioYFinalizarCompra() {
         SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String userId = prefs.getString("user_id", "");
-        Log.d("CartActivity", "User ID recuperado: " + userId);
-        //Toast.makeText(this, "User ID: " + userId, Toast.LENGTH_LONG).show();
-
         if (userId.isEmpty()) {
             Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
             return;
         }
-
         finalizarCompra();
     }
 
     private void finalizarCompra() {
         SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         int userId = Integer.parseInt(prefs.getString("user_id", "0"));
-        Log.d("CartActivity", "User ID recuperado: " + userId);
 
         if (userId == 0) {
             Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
@@ -141,8 +206,6 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
                 detallesCompra
         );
 
-        Log.d("CartActivity", "JSON enviado: " + new Gson().toJson(compraRequest));
-
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
         apiService.finalizarCompra(compraRequest).enqueue(new Callback<CompraResponse>() {
             @Override
@@ -153,24 +216,22 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
                     } else {
                         Toast.makeText(CartActivity.this, "¡Compra realizada con éxito!", Toast.LENGTH_LONG).show();
 
-                        // Vaciar carrito
                         CartManager.getInstance().vaciarCarrito();
                         vaciarCarritoEnSharedPreferences();
 
-                        // Reiniciar contador del carrito
+                        getSharedPreferences("CartPrefs", MODE_PRIVATE).edit().remove(PREF_TIEMPO_INICIO).apply();
+
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putInt("countCart", 0);
                         editor.apply();
 
-                        // Actualizar UI
                         updateCartUI();
 
-                        // Retrasar la apertura de la siguiente actividad para que se vea el Toast
-                        new android.os.Handler().postDelayed(() -> {
+                        new Handler().postDelayed(() -> {
                             Intent intent = new Intent(CartActivity.this, MisComprasActivity.class);
                             startActivity(intent);
                             finish();
-                        }, 1500);  // 1.5 segundos de delay
+                        }, 1500);
                     }
                 } else {
                     Toast.makeText(CartActivity.this, "Error al procesar la compra", Toast.LENGTH_LONG).show();
@@ -187,7 +248,7 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
     private void vaciarCarritoEnSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("carrito"); // O editor.putString("carrito", "[]");
+        editor.remove("carrito");
         editor.apply();
     }
 
@@ -200,15 +261,22 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
     }
 
     private void abrirEnlacePago(String url) {
-        startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url)));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
     private void updateCartUI() {
-        productosEnCarrito.clear(); // Vacía lista local
+        productosEnCarrito.clear();
         cartAdapter.notifyDataSetChanged();
-        // Refresca RecyclerView
-        calcularYMostrarTotal(); // Muestra el nuevo total
+        calcularYMostrarTotal();
+        actualizarCantidadProductos();
+        tvTemporizador.setVisibility(View.GONE);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        super.onDestroy();
+    }
 }
