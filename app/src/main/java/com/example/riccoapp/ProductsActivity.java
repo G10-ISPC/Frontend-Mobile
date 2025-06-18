@@ -159,5 +159,20 @@ public class ProductsActivity extends BaseActivity implements ProductAdapter.OnP
     protected void onResume() {
         super.onResume();
         updateCartBadge();
+        actualizarContadorCarrito();
+    }
+    private void actualizarContadorCarrito() {
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        int count = prefs.getInt("countCart", 0);
+
+        TextView cartCount = findViewById(R.id.cartCount);
+        if (cartCount != null) {
+            if (count > 0) {
+                cartCount.setVisibility(View.VISIBLE);
+                cartCount.setText(String.valueOf(count));
+            } else {
+                cartCount.setVisibility(View.GONE);
+            }
+        }
     }
 }

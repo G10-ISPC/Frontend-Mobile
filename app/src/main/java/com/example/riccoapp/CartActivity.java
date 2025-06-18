@@ -155,6 +155,12 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
 
                         // Vaciar carrito
                         CartManager.getInstance().vaciarCarrito();
+                        vaciarCarritoEnSharedPreferences();
+
+                        // Reiniciar contador del carrito
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt("countCart", 0);
+                        editor.apply();
 
                         // Actualizar UI
                         updateCartUI();
@@ -178,6 +184,12 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
         });
     }
 
+    private void vaciarCarritoEnSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("carrito"); // O editor.putString("carrito", "[]");
+        editor.apply();
+    }
 
     private double calcularTotal() {
         double total = 0;

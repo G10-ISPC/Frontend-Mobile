@@ -2,6 +2,8 @@ package com.example.riccoapp.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class CartManager {
 
