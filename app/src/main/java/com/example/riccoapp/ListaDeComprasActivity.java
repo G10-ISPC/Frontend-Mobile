@@ -75,7 +75,6 @@ public class ListaDeComprasActivity extends AppCompatActivity {
         editTextFecha.setOnClickListener(v -> mostrarSelectorDeFecha());
 
         btnLimpiarFiltros = findViewById(R.id.btnLimpiarFiltros);
-        btnExportar = findViewById(R.id.btnExportar);
         btnToggleFiltros = findViewById(R.id.btnToggleFiltros);
         layoutFiltros = findViewById(R.id.layoutFiltros);
         recyclerView = findViewById(R.id.recyclerViewCompras);
@@ -96,9 +95,6 @@ public class ListaDeComprasActivity extends AppCompatActivity {
 
         // 🧹 Limpiar
         btnLimpiarFiltros.setOnClickListener(v -> limpiarFiltros());
-
-        // 📤 Exportar
-        btnExportar.setOnClickListener(v -> exportarExcel());
 
         // 🎯 Escuchadores para los filtros
         agregarListenersFiltros();
@@ -244,9 +240,5 @@ public class ListaDeComprasActivity extends AppCompatActivity {
         }
 
         return sb.toString();
-    }
-
-    private void exportarExcel() {
-        Toast.makeText(this, "Exportar Excel pendiente de implementación", Toast.LENGTH_SHORT).show();
     }
 }
