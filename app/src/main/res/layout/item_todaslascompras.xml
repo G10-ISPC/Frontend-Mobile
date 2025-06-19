@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Fecha"
             android:textSize="14sp"
-            android:textColor="#666666"
+            android:textColor="@android:color/white"
             android:paddingTop="4dp"
             tools:ignore="HardcodedText" />
 
@@ -41,5 +41,32 @@
             android:textSize="14sp"
             android:paddingTop="6dp"
             tools:ignore="HardcodedText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="12dp">
+
+            <Spinner
+                android:id="@+id/spinnerEstado"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:backgroundTint="#FFD600"
+                android:popupBackground="@android:color/white"
+                android:entries="@array/estados_array" />
+
+            <Button
+                android:id="@+id/btnGuardarEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💾 Guardar"
+                android:textColor="#000000"
+                android:backgroundTint="#FFD600"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -71,4 +71,12 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <!-- Estilo para tarjetas redondeadas -->
+    <style name="CardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardBackgroundColor">@color/colorCardBackground</item>
+        <item name="android:foreground">@drawable/ripple_yellow</item>
+    </style>
+
 </resources>

@@ -3,4 +3,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="orange">#F39C12</color>
+
+    <color name="colorPrimary">#ffcc00</color>
+    <color name="colorAccentYellow">#ffcc00</color> <!-- NUEVO -->
+
+    <color name="colorBackgroundDark">#121212</color>
+    <color name="colorSectionBackground">#1e1e1e</color>
+    <color name="colorCardBackground">#1a1a1a</color>
+
+    <color name="textPrimary">#ffffff</color>
+    <color name="textSecondary">#e0e0e0</color>
+    <color name="textDetails">#cccccc</color>
+
+    <color name="rippleYellow">#66ffcc00</color> <!-- translúcido -->
 </resources>

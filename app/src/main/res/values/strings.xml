@@ -111,6 +111,14 @@
     <string name="administrador_de_productos">Administrador de Productos</string>
     <string name="logo_de_hamburgesas">logo de hamburgesas</string>
     <string name="opciones">Opciones</string>
+    <string-array name="estados_array">
+        <item>pendiente</item>
+        <item>preparacion</item>
+        <item>en_camino</item>
+        <item>entregado</item>
+        <item>cancelado</item>
+    </string-array>
+
 
     <!-- ITEM PRODUCTO -->
 
