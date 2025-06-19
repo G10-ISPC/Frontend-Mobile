@@ -52,6 +52,10 @@ public class CartActivity extends BaseActivity implements CartAdapter.OnCantidad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // ✅ Proteger el acceso solo para clientes
+        if (!checkAccess("cliente")) return;
+
         setContentView(R.layout.activity_cart);
 
         recyclerViewCart = findViewById(R.id.recyclerCarrito);

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,18 +42,24 @@ public class ProductsActivity extends BaseActivity implements ProductAdapter.OnP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
 
-        setupToolbar();
-
-        userNameTextView = findViewById(R.id.userNameTextView);
-        loadUserName();  // Método de BaseActivity para mostrar el nombre
+        setupToolbar(); // Barra de navegación
+        userNameTextView = findViewById(R.id.userNameTextView); // Asignación de TextView específico de esta Activity
+        loadUserName(); // Carga y muestra el nombre del usuario
 
         cartCount = findViewById(R.id.cartCount);
         cargarProductosDelCarrito();
         updateCartBadge();
 
         findViewById(R.id.cartIcon).setOnClickListener(v -> {
-            Intent intent = new Intent(ProductsActivity.this, CartActivity.class);
-            startActivity(intent);
+            SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            String rol = prefs.getString("user_rol", "");
+
+            if (!rol.equals("cliente")) {
+                Toast.makeText(this, "No tienes permisos para acceder al carrito", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(ProductsActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
         });
 
         productList = new ArrayList<>();
