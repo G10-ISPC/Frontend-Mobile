@@ -8,11 +8,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -22,13 +22,24 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.toolbar_layout);
-        setupToolbar(); // Configura la Toolbar en cada Activity que hereda de BaseActivity
-
+        setupToolbar();
         userNameTextView = findViewById(R.id.userNameTextView);
-        loadUserName(); // Carga y muestra el nombre del usuario
+        loadUserName();
     }
 
-    // Método para cargar y mostrar el nombre del usuario desde SharedPreferences
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadUserName();
+    }
+
+    protected void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     protected void loadUserName() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
@@ -36,7 +47,6 @@ public class BaseActivity extends AppCompatActivity {
         String lastName = sharedPreferences.getString("user_lastname", "");
         String rol = sharedPreferences.getString("user_rol", "");
 
-        // Mostrar el nombre en el TextView si está presente
         if (userNameTextView != null) {
             if ("admin".equals(rol)) {
                 userNameTextView.setText(firstName + " " + lastName + " - Admin");
@@ -47,60 +57,34 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        loadUserName(); // Recargar el nombre al volver a la actividad
-    }
-
-    // Configuración de la Toolbar
-    protected void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
-    }
-
-    // Inflar el menú de navegación
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_navigation, menu);
 
-        // Obtener el rol del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String rol = sharedPreferences.getString("user_rol", "");
 
-
-        // Mostrar productos solo si hay sesión
+        // Mostrar productos si hay sesión
         menu.findItem(R.id.nav_products).setVisible(!rol.isEmpty());
 
-        // Control de Mis Compras
+        // Mis Compras solo para cliente
         MenuItem misComprasItem = menu.findItem(R.id.nav_mis_compras);
-        if ("cliente".equals(rol)) {
-            misComprasItem.setVisible(true);
-            misComprasItem.setEnabled(true);
-        } else {
-            misComprasItem.setVisible(false);
-            misComprasItem.setEnabled(false);
-        }
+        misComprasItem.setVisible("cliente".equals(rol));
+        misComprasItem.setEnabled("cliente".equals(rol));
 
-
-
-        Log.d("Menu", "Rol del usuario: " + rol); // Para verificar el rol
-
-        // Mostrar/ocultar elementos del menú según el rol
+        // Roles
         if ("cliente".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
             menu.findItem(R.id.nav_login).setVisible(false);
             menu.findItem(R.id.nav_dashboardadmin).setVisible(false);
+            menu.findItem(R.id.nav_userprofile).setVisible(true);
+            menu.findItem(R.id.nav_logout).setVisible(true);
         } else if ("admin".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
             menu.findItem(R.id.nav_login).setVisible(false);
-            menu.findItem(R.id.nav_userprofile).setVisible(true);
             menu.findItem(R.id.nav_dashboardadmin).setVisible(true);
-        }
-
-        // Opciones de menú si no hay rol definido
-        if (rol.isEmpty()) {
+            menu.findItem(R.id.nav_userprofile).setVisible(false); // O true si quieres mostrarlo
+            menu.findItem(R.id.nav_logout).setVisible(true);
+        } else { // No autenticado
             menu.findItem(R.id.nav_registro).setVisible(true);
             menu.findItem(R.id.nav_login).setVisible(true);
             menu.findItem(R.id.nav_userprofile).setVisible(false);
@@ -111,7 +95,6 @@ public class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    // Manejo de opciones seleccionadas en el menú (mueve este método aquí desde MainActivity)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = null;
@@ -135,8 +118,8 @@ public class BaseActivity extends AppCompatActivity {
             intent = new Intent(this, DashboardAdminActivity.class);
         } else if (itemId == R.id.nav_mis_compras) {
             intent = new Intent(this, MisComprasActivity.class);
-        }else if (itemId == R.id.nav_logout) {
-            logout(); // Llama al método de logout
+        } else if (itemId == R.id.nav_logout) {
+            logout();
             return true;
         }
 
@@ -147,17 +130,38 @@ public class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Método de logout
     protected void logout() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Limpia todos los datos guardados
+        editor.clear();
         editor.apply();
 
-        // Redirige a la pantalla de inicio de sesión
         Intent intent = new Intent(BaseActivity.this, loginActivity.class);
         startActivity(intent);
+        finish();
+    }
 
-        finish(); // Finaliza la actividad actual para evitar volver atrás
+    // ✅ Método reutilizable para proteger actividades según rol
+    protected boolean checkAccess(String... allowedRoles) {
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String token = prefs.getString("user_token", "");
+        String rol = prefs.getString("user_rol", "");
+
+        if (token.isEmpty()) {
+            startActivity(new Intent(this, loginActivity.class));
+            finish();
+            return false;
+        }
+
+        for (String role : allowedRoles) {
+            if (rol.equals(role)) {
+                return true;
+            }
+        }
+
+        // Rol no permitido
+        Log.w("ACCESS_DENIED", "Usuario con rol '" + rol + "' intentó acceder");
+        finish();
+        return false;
     }
 }
