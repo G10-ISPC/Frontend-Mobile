@@ -1,54 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Opción Inicio -->
     <item
         android:id="@+id/nav_main"
-        android:title="Home"/>
+        android:title="Home"
+        app:showAsAction="never"/>
 
     <!-- Opción Acerca de -->
     <item
         android:id="@+id/nav_about"
-        android:title="Nosotros"/>
+        android:title="Nosotros"
+        app:showAsAction="never"/>
 
     <!-- Opción Productos -->
     <item
         android:id="@+id/nav_products"
-        android:title="Productos"/>
+        android:title="Productos"
+        app:showAsAction="never"/>
 
     <!-- Opción Registro -->
     <item
         android:id="@+id/nav_registro"
-        android:title="Registro" />
+        android:title="Registro"
+        app:showAsAction="never"/>
 
     <!-- Opción Inicio de sesión -->
     <item
         android:id="@+id/nav_login"
-        android:title="Login" />
+        android:title="Login"
+        app:showAsAction="never"/>
 
     <!-- Opción Contacto -->
     <item
         android:id="@+id/nav_contacto"
-        android:title="Contacto"/>
+        android:title="Contacto"
+        app:showAsAction="never"/>
 
     <!-- Perfil Usuario -->
     <item
         android:id="@+id/nav_userprofile"
-        android:title="Perfil Usuario"/>
+        android:title="Perfil Usuario"
+        app:showAsAction="never"/>
 
     <!-- Mis Compras -->
     <item
         android:id="@+id/nav_mis_compras"
-        android:title="Mis Compras" />
+        android:title="Mis Compras"
+        app:showAsAction="never"/>
 
     <!-- Dashboard Administrador -->
     <item
         android:id="@+id/nav_dashboardadmin"
-        android:title="Dashboard Admin" />
+        android:title="Dashboard Admin"
+        app:showAsAction="never"/>
 
     <!-- Opción Cerrar Sesión -->
     <item
         android:id="@+id/nav_logout"
-        android:title="Cerrar Sesión"/>
+        android:title="Cerrar Sesión"
+        app:showAsAction="never"/>
 
 </menu>

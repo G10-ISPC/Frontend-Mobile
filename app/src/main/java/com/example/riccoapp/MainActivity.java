@@ -25,22 +25,22 @@ import android.content.SharedPreferences;
 public class MainActivity extends AppCompatActivity {
 
     private List<CarouselItem> list = new ArrayList<>();
-    private List<CarouselItem> list2 = new ArrayList<>();
-    private TextView userNameTextView;
+    private TextView userNameToolbarText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Validar sesión antes de cargar UI
         if (!isUserLoggedIn()) {
             redirectToLogin();
-            return; // Detener ejecución aquí para que no siga cargando UI
+            return;
         }
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        userNameTextView = findViewById(R.id.userNameTextView);
+
+        // Inicializar TextView del toolbar
+        userNameToolbarText = findViewById(R.id.userNameToolbarText);
 
         loadUserDataAndSetupUI();
         setupToolbarAndCarousels();
@@ -50,14 +50,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Validar sesión en onResume también
         if (!isUserLoggedIn()) {
             redirectToLogin();
             return;
         }
 
         loadUserDataAndSetupUI();
-        invalidateOptionsMenu(); // Actualizar menú según rol
+        invalidateOptionsMenu();
     }
 
     private boolean isUserLoggedIn() {
@@ -79,14 +78,18 @@ public class MainActivity extends AppCompatActivity {
         String lastName = sharedPreferences.getString("user_lastname", "");
         String rol = sharedPreferences.getString("user_rol", "");
 
-        if ("admin".equals(rol)) {
-            userNameTextView.setText(firstName + " " + lastName + " - Admin");
-        } else {
-            userNameTextView.setText(firstName + " " + lastName);
-        }
+        if (userNameToolbarText != null) {
+            if ("admin".equals(rol)) {
+                userNameToolbarText.setText(firstName + " " + lastName + " - Admin");
+            } else {
+                userNameToolbarText.setText(firstName + " " + lastName);
+            }
 
-        if (rol.isEmpty()) {
-            userNameTextView.setText("");
+            if (rol.isEmpty()) {
+                userNameToolbarText.setText("");
+            }
+        } else {
+            Log.e("MainActivity", "userNameToolbarText es null");
         }
     }
 
@@ -103,21 +106,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ImageCarousel carousel = findViewById(R.id.carousel);
-        ImageCarousel carousel2 = findViewById(R.id.carousel2);
-
-        if (carousel != null && carousel2 != null) {
+        if (carousel != null) {
             carousel.registerLifecycle(getLifecycle());
-            carousel2.registerLifecycle(getLifecycle());
 
             list.add(new CarouselItem(R.drawable.carousel1));
             list.add(new CarouselItem(R.drawable.carousel2));
             list.add(new CarouselItem(R.drawable.carousel3));
             carousel.setData(list);
-
-            list2.add(new CarouselItem(R.drawable.bur2, "Burgers Jobs"));
-            list2.add(new CarouselItem(R.drawable.bur1, "Bill Gates"));
-            list2.add(new CarouselItem(R.drawable.bur5, "♡ Doble Love ♡"));
-            carousel2.setData(list2);
         }
     }
 
@@ -128,11 +123,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String rol = sharedPreferences.getString("user_rol", "");
 
-
-        // Mostrar productos solo si hay sesión
         menu.findItem(R.id.nav_products).setVisible(!rol.isEmpty());
 
-        // Control de Mis Compras
         MenuItem misComprasItem = menu.findItem(R.id.nav_mis_compras);
         if ("cliente".equals(rol)) {
             misComprasItem.setVisible(true);
@@ -141,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
             misComprasItem.setVisible(false);
             misComprasItem.setEnabled(false);
         }
-
-
 
         if ("cliente".equals(rol)) {
             menu.findItem(R.id.nav_registro).setVisible(false);
@@ -209,11 +199,12 @@ public class MainActivity extends AppCompatActivity {
         editor.clear();
         editor.apply();
 
-        userNameTextView.setText("");
+        if (userNameToolbarText != null) {
+            userNameToolbarText.setText("");
+        }
 
         Intent intent = new Intent(MainActivity.this, loginActivity.class);
         startActivity(intent);
-
         finish();
     }
 }
